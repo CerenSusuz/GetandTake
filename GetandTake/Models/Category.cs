@@ -1,8 +1,9 @@
-﻿using GetandTake.Models.BaseModels;
+﻿
+using GetandTake.Models.BaseModels;
 
 namespace GetandTake.Models
 {
-    public class Category : BaseEntity
+    public class Category : IBaseEntity
     {
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }

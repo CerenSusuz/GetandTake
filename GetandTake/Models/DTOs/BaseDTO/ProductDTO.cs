@@ -1,6 +1,8 @@
-﻿namespace GetandTake.Models.DTOs.BaseDTO
+﻿using GetandTake.Models.Base;
+
+namespace GetandTake.Models.DTOs.BaseDTO
 {
-    public class ProductDTO
+    public class ProductDTO : IBaseDTO
     {
         //use for Create,Update,Delete
         public string ProductName { get; set; }

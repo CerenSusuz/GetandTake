@@ -2,7 +2,7 @@
 
 namespace GetandTake.Models
 {
-    public class Supplier:BaseEntity
+    public class Supplier:IBaseEntity
     {
         public int SupplierID { get; set; }
         public string CompanyName { get; set; }

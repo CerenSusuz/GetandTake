@@ -2,7 +2,7 @@
 
 namespace GetandTake.Models
 {
-    public class Product:BaseEntity
+    public class Product:IBaseEntity
     {
         public int ProductID { get; set; }
         public string ProductName { get; set; }
