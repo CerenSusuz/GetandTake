@@ -19,44 +19,37 @@ namespace GetandTake.DataAccess.Repositories
 
         public IQueryable<TEntity> AsNoTracking => _entities.AsNoTracking();
 
-        public void Add(TEntity entity)
+        public async Task InsertAsync(TEntity entity)
         {
             var addedEntity = _context.Entry(entity);
             addedEntity.State = EntityState.Added;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(TEntity entity)
+        public async Task DeleteAsync(TEntity entity)
         {
             var deletedEntity = _context.Entry(entity);
             deletedEntity.State = EntityState.Deleted;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public TEntity Get(Expression<Func<TEntity, bool>> filter)
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter)
         {
-            var entity = _entities.FirstOrDefault(filter);
+            var entity = await _entities.FindAsync(filter);
             if (entity != null)
                 _context.Entry(entity).State = EntityState.Detached;
             return entity;
         }
 
-        public List<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<List<TEntity>> GetAllAsync()
         {
-            return filter == null
-                                 ? _entities.ToList()
-                                 : _entities.Where(filter).ToList();
+           return await _entities.ToListAsync();
         }
 
-        public void Update(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
-            var oldEntity = Get(entity => entity.Id == entity.Id);
-            if (oldEntity == null)
-                throw new(entity.Id + " id, is not found for " + typeof(TEntity).Name);
-            entity.CreatedAt = oldEntity.CreatedAt;
-            entity.UpdatedAt = DateTime.Now;
             _context.Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

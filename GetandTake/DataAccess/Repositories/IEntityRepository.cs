@@ -7,15 +7,11 @@ namespace GetandTake.DataAccess.Repositories
     public interface IEntityRepository<TEntity>
             where TEntity : class, IBaseEntity, new()
     {
-        IQueryable<TEntity> Table { get; }
-        /// <summary>
-        /// To Table as No Tracking
-        /// </summary>
         IQueryable<TEntity> AsNoTracking { get; }
-        List<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null);
-        TEntity Get(Expression<Func<TEntity, bool>> filter);
-        void Add(TEntity entity);
-        void Update(TEntity entity);
-        void Delete(TEntity entity);
+        Task<List<TEntity>> GetAllAsync();
+        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter);
+        Task InsertAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
+        Task DeleteAsync(TEntity entity);
     }
 }
