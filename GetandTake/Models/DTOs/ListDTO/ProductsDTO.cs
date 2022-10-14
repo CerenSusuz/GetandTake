@@ -1,7 +1,8 @@
-﻿namespace GetandTake.Models.DTOs
+﻿namespace GetandTake.Models.DTOs.ListDTO
 {
-    public class ProductDTO
+    public class ProductsDTO
     {
+        //Use for Get
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public string? QuantityPerUnit { get; set; }
@@ -11,7 +12,7 @@
         public int? ReorderLevel { get; set; }
         public bool? Discontinued { get; set; }
 
-        public string Category { get; set; }
-        public string Supplier { get; set; }
+        public string? Category { get; set; }
+        public string? Supplier { get; set; }
     }
 }
