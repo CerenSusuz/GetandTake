@@ -1,6 +1,8 @@
-﻿namespace GetandTake.Models
+﻿using GetandTake.Models.BaseModels;
+
+namespace GetandTake.Models
 {
-    public class Supplier
+    public class Supplier:BaseEntity
     {
         public int SupplierID { get; set; }
         public string CompanyName { get; set; }
