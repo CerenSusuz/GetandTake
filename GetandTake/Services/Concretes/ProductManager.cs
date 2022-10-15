@@ -17,28 +17,25 @@ namespace GetandTake.Services.Concretes
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task DeleteAsync(int id)
-        {
-            var findProduct = await _repository.GetAsync(entity => entity.ProductID == id);
-            await _repository.DeleteAsync(findProduct);
-        }
 
-        public async Task<List<ProductsDTO>> GetAllAsync()
+        public async Task<IEnumerable<ProductsDTO>> GetAllAsync()
         {
             var products = _repository.AsNoTracking
-                .Include(p => p.Category);
+                .Include(p => p.Category)
+                .Include(p => p.Supplier);
             return _mapper.Map<List<ProductsDTO>>(products);
         }
 
-        public async Task<List<ProductsDTO>> GetAllByCategoryAsync(int categoryId)
+        public async Task<IEnumerable<ProductsDTO>> GetAllByCategoryAsync(int categoryId)
         {
             var products = _repository.AsNoTracking
                 .Where(c => c.CategoryID == categoryId)
-                .Include(p => p.Category);
+                .Include(p => p.Category)
+                .Include(s=>s.Supplier);
             return _mapper.Map<List<ProductsDTO>>(products);
         }
 
-        public async Task<List<ProductsDTO>> GetAllBySupplierAsync(int supplierId)
+        public async Task<IEnumerable<ProductsDTO>> GetAllBySupplierAsync(int supplierId)
         {
             var products = _repository.AsNoTracking
                 .Where(c => c.SupplierID == supplierId)
@@ -70,6 +67,11 @@ namespace GetandTake.Services.Concretes
                 product.ProductID = id;
                 await _repository.UpdateAsync(product);
             }
+        }
+        public async Task DeleteAsync(int id)
+        {
+            var findProduct = await _repository.GetAsync(entity => entity.ProductID == id);
+            await _repository.DeleteAsync(findProduct);
         }
     }
 }

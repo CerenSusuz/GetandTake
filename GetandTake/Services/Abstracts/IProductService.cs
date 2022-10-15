@@ -6,9 +6,9 @@ namespace GetandTake.Services.Abstracts
 {
     public interface IProductService
     {
-        Task<List<ProductsDTO>> GetAllAsync();
-        Task<List<ProductsDTO>> GetAllByCategoryAsync(int categoryId);
-        Task<List<ProductsDTO>> GetAllBySupplierAsync(int supplierId);
+        Task<IEnumerable<ProductsDTO>> GetAllAsync();
+        Task<IEnumerable<ProductsDTO>> GetAllByCategoryAsync(int categoryId);
+        Task<IEnumerable<ProductsDTO>> GetAllBySupplierAsync(int supplierId);
         Task<ProductsDTO> GetAsync(int id);
         Task UpdateAsync(int id, ProductDTO dto);
         Task InsertAsync(ProductDTO dto);

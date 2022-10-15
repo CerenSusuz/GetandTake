@@ -1,15 +1,16 @@
-﻿using GetandTake.Models.BaseModels;
+﻿using GetandTake.Models.Base;
+using GetandTake.Models.BaseModels;
 
 namespace GetandTake.Models
 {
-    public class Product:IBaseEntity
+    public class Product:BaseEntity
     {
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public string? QuantityPerUnit { get; set; }
-        public int? UnitPrice { get; set; }
+        public decimal? UnitPrice { get; set; }
         public short? UnitsInStock { get; set; }
-        public decimal? UnitsOnOrder { get; set; }
+        public short? UnitsOnOrder { get; set; }
         public short? ReorderLevel { get; set; }
         public bool? Discontinued { get; set; }
 
