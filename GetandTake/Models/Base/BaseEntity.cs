@@ -1,8 +1,5 @@
-﻿using GetandTake.Models.BaseModels;
+﻿namespace GetandTake.Models.Base;
 
-namespace GetandTake.Models.Base
+public abstract class BaseEntity
 {
-    public class BaseEntity:IBaseEntity
-    {
-    }
 }

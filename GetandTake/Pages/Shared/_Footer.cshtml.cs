@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GetandTake.Pages.Shared
+namespace GetandTake.Pages.Shared;
+
+public class _FooterModel : PageModel
 {
-    public class _FooterModel : PageModel
+    public void OnGet()
     {
-        public void OnGet()
-        {
-        }
     }
 }

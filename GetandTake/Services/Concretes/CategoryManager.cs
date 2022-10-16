@@ -1,46 +1,55 @@
 ﻿using AutoMapper;
 using GetandTake.DataAccess.Repositories;
 using GetandTake.Models;
-using GetandTake.Models.DTOs.ListDTO;
 using GetandTake.Services.Abstracts;
-using Microsoft.EntityFrameworkCore;
 
-namespace GetandTake.Services.Concretes
+namespace GetandTake.Services.Concretes;
+
+public class CategoryManager : ICategoryService
 {
-    public class CategoryManager : ICategoryService
+
+    private readonly IBaseRepository<Category> _repository;
+
+    private readonly IMapper _mapper;
+
+    public CategoryManager(IBaseRepository<Category> repository, IMapper mapper)
     {
-        private readonly IEntityRepository<Category> _repository;
-        private readonly IMapper _mapper;
-        public CategoryManager(IEntityRepository<Category> repository, IMapper mapper)
-        {
-            _repository = repository;
-            _mapper = mapper;
-        }
-        public async Task DeleteAsync(int id)
-        {
-            var findCategory = await _repository.GetAsync(entity => entity.CategoryID == id);
-            await _repository.DeleteAsync(findCategory);
-        }
+        _repository = repository;
+        _mapper = mapper;
+    }
 
-        public async Task<IEnumerable<Category>> GetAllAsync()
-        {
-            var categories = await _repository.GetAllAsync();
-            return _mapper.Map<List<Category>>(categories);
-        }
+    public async Task DeleteAsync(int categoryId)
+    {
+        var category = await _repository.GetAsync(entity => entity.CategoryID == categoryId);
+        await _repository.DeleteAsync(category);
+    }
 
-        public Task<Category> GetAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<IEnumerable<Category>> GetAllAsync()
+    {
+        var categories = await _repository.GetAllAsync();
 
-        public Task InsertAsync(Category dto)
-        {
-            throw new NotImplementedException();
-        }
+        return _mapper.Map<List<Category>>(categories);
+    }
 
-        public Task UpdateAsync(int id, Category category)
+    public Task<Category> GetAsync(int categoryId)
+    {
+        var findCategory = _repository.GetAsync(category => category.CategoryID == categoryId);
+
+        return findCategory;
+    }
+
+    public async Task InsertAsync(Category category)
+    {
+        await _repository.InsertAsync(category);
+    }
+
+    public async Task UpdateAsync(int categoryId, Category category)
+    {
+        var findCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
+        if (findCategory != null)
         {
-            throw new NotImplementedException();
+            category.CategoryID = categoryId;
+            await _repository.UpdateAsync(category);
         }
     }
 }

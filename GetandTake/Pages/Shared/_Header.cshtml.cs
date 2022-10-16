@@ -1,12 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GetandTake.Pages.Shared
+namespace GetandTake.Pages.Shared;
+
+public class _HeaderModel : PageModel
 {
-    public class _HeaderModel : PageModel
-    {
-        public void OnGet()
-        {
-        }
-    }
 }

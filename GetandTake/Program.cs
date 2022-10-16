@@ -5,18 +5,18 @@ using GetandTake.Services.Abstracts;
 using GetandTake.Services.AutoMapper;
 using GetandTake.Services.Concretes;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<NorthwindDbContext>(
-    options =>  options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddTransient<IProductService, ProductManager>();
-builder.Services.AddTransient<ICategoryService, CategoryManager>();
-builder.Services.AddTransient(typeof(IEntityRepository<>), typeof(EFEntityRepository<>));
-builder.Services.AddSingleton(new MapperConfiguration(x => x.AddProfile(new AutoMapperProfile())).CreateMapper());
+builder.Services.AddScoped<IProductService, ProductManager>();
+builder.Services.AddScoped<ICategoryService, CategoryManager>();
+builder.Services.AddSingleton(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddSingleton(new MapperConfiguration(mapperConfig => 
+                                                      mapperConfig.AddProfile(new AutoMapperProfile())).CreateMapper());
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -28,6 +28,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
