@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using GetandTake.DataAccess.Repositories;
+using GetandTake.Core.DataAccess;
+using GetandTake.DataAccess.Repositories.Abstract;
+using GetandTake.DataAccess.Repositories.Concrete;
 using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
@@ -11,28 +13,28 @@ namespace GetandTake.Services.Concretes;
 public class ProductManager : IProductService
 {
 
-    private readonly IBaseRepository<Product> _repository;
+    private readonly ProductRepository _repository;
     
     private readonly IMapper _mapper;
 
-    public ProductManager(IBaseRepository<Product> repository, IMapper mapper)
+    public ProductManager(ProductRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ProductsDTO>> GetAllAsync()
+    public IEnumerable<ProductsDTO> GetAll()
     {
-        var products = _repository.AsNoTracking
+        var products = _repository.AsNoTracking()
             .Include(product => product.Category)
             .Include(product => product.Supplier);
 
         return _mapper.Map<List<ProductsDTO>>(products);
     }
 
-    public async Task<IEnumerable<ProductsDTO>> GetAllByCategoryIdAsync(int categoryId)
+    public IEnumerable<ProductsDTO> GetAllByCategoryId(int categoryId)
     {
-        var products = _repository.AsNoTracking
+        var products = _repository.AsNoTracking()
             .Where(category => category.CategoryID == categoryId)
             .Include(product => product.Category)
             .Include(product => product.Supplier);
@@ -40,28 +42,29 @@ public class ProductManager : IProductService
         return _mapper.Map<List<ProductsDTO>>(products);
     }
 
-    public async Task<IEnumerable<ProductsDTO>> GetAllBySupplierIdAsync(int supplierId)
+    public IEnumerable<ProductsDTO> GetAllBySupplierId(int supplierId)
     {
-        var products = _repository.AsNoTracking
+        var products = _repository.AsNoTracking()
             .Where(supplier => supplier.SupplierID == supplierId)
             .Include(product => product.Supplier);
 
         return _mapper.Map<List<ProductsDTO>>(products);
     }
 
-    public async Task<ProductsDTO> GetByIdAsync(int productId)
+    public ProductsDTO GetById(int productId)
     {
-        var findProduct = _repository.AsNoTracking
+        var findProduct = _repository.AsNoTracking()
             .Include(product => product.Category)
-            .FirstOrDefault(product => product.ProductID == productId);
+            .Include(product => product.Supplier)
+            .First(product => product.ProductID == productId);
 
         return _mapper.Map<ProductsDTO>(findProduct);
     }
 
-    public async Task InsertAsync(ProductDTO productDto)
+    public async Task CreateAsync(ProductDTO productDto)
     {
         var product = _mapper.Map<Product>(productDto);
-        await _repository.InsertAsync(product);
+        await _repository.CreateAsync(product);
     }
 
     public async Task UpdateAsync(int productId, ProductDTO productDto)
@@ -71,13 +74,12 @@ public class ProductManager : IProductService
         {
             var product = _mapper.Map<Product>(productDto);
             product.ProductID = productId;
-            await _repository.UpdateAsync(product);
+            _repository.Update(product);
         }
     }
     
-    public async Task DeleteAsync(int productId)
+    public void Delete(int productId)
     {
-        var findProduct = await _repository.GetAsync(product => product.ProductID == productId);
-        await _repository.DeleteAsync(findProduct);
+        _repository.Delete(product => product.ProductID == productId);
     }
 }

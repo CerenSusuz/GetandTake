@@ -5,13 +5,13 @@ namespace GetandTake.Services.Abstracts;
 public interface ICategoryService
 {
 
-    Task<IEnumerable<Category>> GetAllAsync();
+    IEnumerable<Category> GetAll();
 
-    Task<Category> GetAsync(int categoryId);
+    Category GetById(int categoryId);
 
     Task UpdateAsync(int categoryId, Category category);
 
-    Task InsertAsync(Category category);
+    Task CreateAsync(Category category);
 
-    Task DeleteAsync(int categoryId);
+    void Delete(int categoryId);
 }

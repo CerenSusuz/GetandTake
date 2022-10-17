@@ -1,5 +1,4 @@
-﻿using GetandTake.Models.Base;
-using GetandTake.Models.DTOs.BaseDTO;
+﻿using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
 
 namespace GetandTake.Services.Abstracts;
@@ -7,17 +6,17 @@ namespace GetandTake.Services.Abstracts;
 public interface IProductService
 {
 
-    Task<IEnumerable<ProductsDTO>> GetAllAsync();
+    IEnumerable<ProductsDTO> GetAll();
 
-    Task<IEnumerable<ProductsDTO>> GetAllByCategoryIdAsync(int categoryId);
+    IEnumerable<ProductsDTO> GetAllByCategoryId(int categoryId);
 
-    Task<IEnumerable<ProductsDTO>> GetAllBySupplierIdAsync(int supplierId);
+    IEnumerable<ProductsDTO> GetAllBySupplierId(int supplierId);
 
-    Task<ProductsDTO> GetByIdAsync(int productId);
+    ProductsDTO GetById(int productId);
 
     Task UpdateAsync(int productId, ProductDTO productDto);
 
-    Task InsertAsync(ProductDTO productDto);
+    Task CreateAsync(ProductDTO productDto);
 
-    Task DeleteAsync(int productId);
+    void Delete(int productId);
 }

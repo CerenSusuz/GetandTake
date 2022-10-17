@@ -1,4 +1,4 @@
-﻿namespace GetandTake.Models.Base;
+﻿namespace GetandTake.Core.Models;
 
 public abstract class BaseEntity
 {

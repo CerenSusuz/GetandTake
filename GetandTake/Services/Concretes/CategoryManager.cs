@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GetandTake.DataAccess.Repositories;
+using GetandTake.Core.DataAccess;
 using GetandTake.Models;
 using GetandTake.Services.Abstracts;
 
@@ -18,29 +18,29 @@ public class CategoryManager : ICategoryService
         _mapper = mapper;
     }
 
-    public async Task DeleteAsync(int categoryId)
+    public void Delete(int categoryId)
     {
-        var category = await _repository.GetAsync(entity => entity.CategoryID == categoryId);
-        await _repository.DeleteAsync(category);
+        _repository.Delete(entity => entity.CategoryID == categoryId);
     }
 
-    public async Task<IEnumerable<Category>> GetAllAsync()
+    public IEnumerable<Category> GetAll()
     {
-        var categories = await _repository.GetAllAsync();
-
-        return _mapper.Map<List<Category>>(categories);
+        var categories =  _repository.GetAll();
+        
+        return categories;
     }
 
-    public Task<Category> GetAsync(int categoryId)
+    public Category GetById(int categoryId)
     {
-        var findCategory = _repository.GetAsync(category => category.CategoryID == categoryId);
+        var findCategory = _repository.AsNoTracking()
+            .First(category => category.CategoryID == categoryId);
 
         return findCategory;
     }
 
-    public async Task InsertAsync(Category category)
+    public async Task CreateAsync(Category category)
     {
-        await _repository.InsertAsync(category);
+        await _repository.CreateAsync(category);
     }
 
     public async Task UpdateAsync(int categoryId, Category category)
@@ -49,7 +49,7 @@ public class CategoryManager : ICategoryService
         if (findCategory != null)
         {
             category.CategoryID = categoryId;
-            await _repository.UpdateAsync(category);
+            _repository.Update(category);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using GetandTake.Models.Base;
-
-namespace GetandTake.Models.DTOs.ListDTO;
+﻿namespace GetandTake.Models.DTOs.ListDTO;
 
 public class ProductsDTO 
 {

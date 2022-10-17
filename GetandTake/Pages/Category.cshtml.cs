@@ -15,8 +15,8 @@ public class CategoryModel : PageModel
         _categoryService = categoryService;
     }
 
-    public async Task OnGet()
+    public void OnGet()
     {
-        Categories = await _categoryService.GetAllAsync();
+        Categories =  _categoryService.GetAll();
     }
 }

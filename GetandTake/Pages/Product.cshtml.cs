@@ -15,8 +15,8 @@ public class ProductModel : PageModel
         _productService = productService;
     }
 
-    public async Task OnGet()
+    public void OnGet()
     {
-        Products = await _productService.GetAllAsync();
+        Products = _productService.GetAll();
     }
 }

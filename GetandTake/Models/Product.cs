@@ -1,4 +1,4 @@
-﻿using GetandTake.Models.Base;
+﻿using GetandTake.Core.Models;
 
 namespace GetandTake.Models;
 

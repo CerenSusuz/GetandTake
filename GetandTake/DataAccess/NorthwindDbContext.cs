@@ -1,8 +1,7 @@
 ﻿using GetandTake.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
-namespace GetandTake.DataAccessLayer.EF;
+namespace GetandTake.DataAccess;
 
 public class NorthwindDbContext : DbContext
 {
@@ -10,7 +9,6 @@ public class NorthwindDbContext : DbContext
     {
 
     }
-
     public DbSet<Product> Products { get; set; }
 
     public DbSet<Category> Categories { get; set; }
