@@ -1,6 +1,6 @@
 ﻿using GetandTake.Models;
 
-namespace GetandTake.Services.Abstracts;
+namespace GetandTake.Services.Abstract;
 
 public interface ICategoryService
 {

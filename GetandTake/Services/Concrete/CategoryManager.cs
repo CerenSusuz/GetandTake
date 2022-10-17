@@ -1,8 +1,8 @@
 ﻿using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
-using GetandTake.Services.Abstracts;
+using GetandTake.Services.Abstract;
 
-namespace GetandTake.Services.Concretes;
+namespace GetandTake.Services.Concrete;
 
 public class CategoryManager : ICategoryService
 {

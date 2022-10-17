@@ -1,5 +1,5 @@
 using GetandTake.Models;
-using GetandTake.Services.Abstracts;
+using GetandTake.Services.Abstract;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GetandTake.Pages;

@@ -1,18 +1,20 @@
 ﻿using AutoMapper;
+using GetandTake.Configuration;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
-using GetandTake.Services.Abstracts;
+using GetandTake.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
-namespace GetandTake.Services.Concretes;
+namespace GetandTake.Services.Concrete;
 
 public class ProductManager : IProductService
 {
 
     private readonly IProductRepository _repository;
-    
+
     private readonly IMapper _mapper;
 
     public ProductManager(IProductRepository repository, IMapper mapper)
@@ -75,9 +77,19 @@ public class ProductManager : IProductService
             _repository.Update(product);
         }
     }
-    
+
     public void Delete(int productId)
     {
         _repository.Delete(product => product.ProductID == productId);
+    }
+
+    public IEnumerable<ProductsDTO> GetByMaximumAmount(int maximumAmount)
+    {
+        if (maximumAmount is 0)
+        {
+            return GetAll();
+        }
+
+        return GetAll().Take(maximumAmount);
     }
 }
