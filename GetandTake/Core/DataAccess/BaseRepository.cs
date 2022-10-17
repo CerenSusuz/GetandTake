@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace GetandTake.Core.DataAccess;
 
-public class BaseRepository<TEntity, TContext> : IBaseRepository<TEntity>
+public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntity>
     where TEntity : BaseEntity
     where TContext : DbContext
 {

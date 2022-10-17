@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using GetandTake.Core.DataAccess;
+using GetandTake.DataAccess.Repositories.Abstract;
+using GetandTake.DataAccess.Repositories.Concrete;
 using GetandTake.Models;
 using GetandTake.Services.Abstracts;
 
@@ -8,14 +10,11 @@ namespace GetandTake.Services.Concretes;
 public class CategoryManager : ICategoryService
 {
 
-    private readonly IBaseRepository<Category> _repository;
+    private readonly ICategoryRepository _repository;
 
-    private readonly IMapper _mapper;
-
-    public CategoryManager(IBaseRepository<Category> repository, IMapper mapper)
+    public CategoryManager(ICategoryRepository repository)
     {
         _repository = repository;
-        _mapper = mapper;
     }
 
     public void Delete(int categoryId)

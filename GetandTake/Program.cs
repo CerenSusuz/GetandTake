@@ -15,10 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 DatabaseExtension.RegisterDatabase(builder);
 builder.Services.AddScoped<IProductService, ProductManager>();
-builder.Services.AddSingleton<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
-builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
-builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<,>));
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddSingleton(new MapperConfiguration(mapperConfig => 
                                                       mapperConfig.AddProfile(new AutoMapperProfile())).CreateMapper());
 

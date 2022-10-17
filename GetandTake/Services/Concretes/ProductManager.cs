@@ -13,11 +13,11 @@ namespace GetandTake.Services.Concretes;
 public class ProductManager : IProductService
 {
 
-    private readonly ProductRepository _repository;
+    private readonly IProductRepository _repository;
     
     private readonly IMapper _mapper;
 
-    public ProductManager(ProductRepository repository, IMapper mapper)
+    public ProductManager(IProductRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
