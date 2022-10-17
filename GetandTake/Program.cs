@@ -1,13 +1,10 @@
 using AutoMapper;
 using GetandTake.Configuration.Services;
-using GetandTake.Core.DataAccess;
-using GetandTake.DataAccess;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.DataAccess.Repositories.Concrete;
 using GetandTake.Services.Abstracts;
 using GetandTake.Services.AutoMapper;
 using GetandTake.Services.Concretes;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

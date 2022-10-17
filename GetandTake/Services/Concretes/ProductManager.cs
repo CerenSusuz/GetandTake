@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using GetandTake.Core.DataAccess;
 using GetandTake.DataAccess.Repositories.Abstract;
-using GetandTake.DataAccess.Repositories.Concrete;
 using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;

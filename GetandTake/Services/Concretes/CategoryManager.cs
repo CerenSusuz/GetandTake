@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using GetandTake.Core.DataAccess;
-using GetandTake.DataAccess.Repositories.Abstract;
-using GetandTake.DataAccess.Repositories.Concrete;
+﻿using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
 using GetandTake.Services.Abstracts;
 
