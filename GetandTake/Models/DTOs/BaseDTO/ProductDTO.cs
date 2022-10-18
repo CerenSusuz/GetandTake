@@ -1,12 +1,18 @@
-﻿namespace GetandTake.Models.DTOs.BaseDTO;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+
+namespace GetandTake.Models.DTOs.BaseDTO;
 
 public class ProductDTO 
 {
+    [Required]
+    [StringLength(40)]
     public string ProductName { get; set; }
 
+    [StringLength(20)]
     public string? QuantityPerUnit { get; set; }
 
-    public int? UnitPrice { get; set; }
+    public decimal? UnitPrice { get; set; }
 
     public int? UnitsInStock { get; set; }
 
@@ -14,6 +20,7 @@ public class ProductDTO
 
     public int? ReorderLevel { get; set; }
 
+    [Required]
     public bool Discontinued { get; set; }
 
     public int? CategoryId { get; set; }
