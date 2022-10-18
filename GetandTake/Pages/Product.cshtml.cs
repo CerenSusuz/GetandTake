@@ -10,21 +10,25 @@ public class ProductModel : PageModel
 
     private readonly IProductService _productService;
 
-    private readonly IConfiguration Configuration;
+    private readonly ProductsSettings _productsSettings;
 
     public IEnumerable<ProductsDTO> Products { get; private set; }
 
     public int AmountOfProduct { get; private set; }
 
-    public ProductModel(IProductService productService, IConfiguration configuration)
+    public ProductModel
+        (
+        IProductService productService,
+        ProductsSettings productsSettings
+        )
     {
         _productService = productService;
-        Configuration = configuration;
+        _productsSettings = productsSettings;
     }
 
     public void OnGet()
     {
-        AmountOfProduct = Convert.ToInt32(Configuration.GetSection("MaximumAmountOfProduct").Value);
+        AmountOfProduct = _productsSettings.MaximumAmount;
         Products = _productService.GetByMaximumAmount(AmountOfProduct);
     }
 }
