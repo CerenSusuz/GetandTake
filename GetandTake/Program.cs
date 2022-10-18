@@ -19,6 +19,7 @@ var appSettings = new AppSettings
 };
 
 ServiceExtensions.RegisterServices(builder, appSettings);
+DatabaseExtensions.RegisterDatabase(builder, appSettings);
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
