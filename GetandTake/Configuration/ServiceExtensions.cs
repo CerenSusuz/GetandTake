@@ -7,11 +7,17 @@ namespace GetandTake.Configuration;
 
 public static class ServiceExtensions
 {
-    public static void RegisterServices(this WebApplicationBuilder builder)
+    public static void RegisterServices(this WebApplicationBuilder builder, AppSettings appSettings)
     {
-        builder.Services.AddScoped<IProductService, ProductManager>();
-        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        //AppSettings
+        builder.Services.AddSingleton(appSettings);
+
+        //Business Services
+        builder.Services.AddScoped<IProductService, ProductManager>();    
         builder.Services.AddScoped<ICategoryService, CategoryManager>();
+
+        //Database Repositories
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
     }
 }
