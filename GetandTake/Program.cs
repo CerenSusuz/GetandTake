@@ -5,7 +5,12 @@ using GetandTake.Services.AutoMapper;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation().AddMvcOptions(options =>
+{
+    options.MaxModelValidationErrors = 50;
+    options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+        _ => "The field is required.");
+});
 builder.Services.AddSingleton(new MapperConfiguration(mapperConfig =>
                                                       mapperConfig.AddProfile(new AutoMapperProfile())).CreateMapper());
 
