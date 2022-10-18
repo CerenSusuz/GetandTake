@@ -7,13 +7,12 @@ public static class DatabaseExtensions
 {
     public static void RegisterDatabase(
         this WebApplicationBuilder builder,
-        DatabaseSettings databaseSettings
+        AppSettings appSettings
         )
     {
         builder.Services.AddDbContext<NorthwindDbContext>(options =>
         {
-            options.UseSqlServer(databaseSettings.DefaultConnection);
-        }
-        );
+            options.UseSqlServer(appSettings.Database.DefaultConnection);
+        });
     }
 }

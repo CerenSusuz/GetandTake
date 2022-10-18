@@ -10,7 +10,7 @@ public class ProductModel : PageModel
 
     private readonly IProductService _productService;
 
-    private readonly ProductsSettings _productsSettings;
+    private readonly AppSettings _appSettings;
 
     public IEnumerable<ProductsDTO> Products { get; private set; }
 
@@ -19,16 +19,16 @@ public class ProductModel : PageModel
     public ProductModel
         (
         IProductService productService,
-        ProductsSettings productsSettings
+        AppSettings appSettings
         )
     {
         _productService = productService;
-        _productsSettings = productsSettings;
+        _appSettings = appSettings;
     }
 
     public void OnGet()
     {
-        AmountOfProduct = _productsSettings.MaximumAmount;
+        AmountOfProduct = _appSettings.Products.MaximumAmount;
         Products = _productService.GetByMaximumAmount(AmountOfProduct);
     }
 }
