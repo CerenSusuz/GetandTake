@@ -41,6 +41,11 @@
                     <td>@product.Discontinued</td>
                     <td>@product.Category</td>
                     <td>@product.Supplier</td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@product.ProductID" class="btn btn-outline-info">
+                            Edit
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>

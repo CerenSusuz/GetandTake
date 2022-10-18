@@ -1,12 +1,13 @@
 using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
+using GetandTake.Models.DTOs.ListDTO;
 using GetandTake.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GetandTake.Pages.Products;
 
-public class CreateModel : PageModel
+public class EditModel : PageModel
 {
 
     private readonly IProductService _productService;
@@ -15,14 +16,17 @@ public class CreateModel : PageModel
 
     private readonly ISupplierService _supplierService;
 
+    public ProductsDTO ProductDTO { get; set; }
+
+    [BindProperty]
+    public ProductDTO Product { get; set; }
+
+
     public IEnumerable<Category> Categories { get; private set; }
 
     public IEnumerable<Supplier> Suppliers { get; private set; }
 
-    [BindProperty]
-    public ProductDTO ProductDTO { get; set; }
-
-    public CreateModel
+    public EditModel
         (
         IProductService productService,
         ICategoryService categoryService,
@@ -34,17 +38,18 @@ public class CreateModel : PageModel
         _supplierService = supplierService;
     }
 
-    public void OnGet()
+    public void OnGet(int id)
     {
+        ProductDTO = _productService.GetById(id);
         Categories = _categoryService.GetAll();
         Suppliers = _supplierService.GetAll();
     }
 
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPost(int id)
     {
         if (ModelState.IsValid)
         {
-            await _productService.CreateAsync(ProductDTO);
+            await _productService.UpdateAsync(id, Product);
 
             return RedirectToPage("Product");
         }
