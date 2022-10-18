@@ -14,7 +14,7 @@ public class ProductDTO
 
     public int? ReorderLevel { get; set; }
 
-    public bool? Discontinued { get; set; }
+    public bool Discontinued { get; set; }
 
     public int? CategoryId { get; set; }
 

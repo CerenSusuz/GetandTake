@@ -18,7 +18,7 @@ public class Product : BaseEntity
 
     public short? ReorderLevel { get; set; }
 
-    public bool? Discontinued { get; set; }
+    public bool Discontinued { get; set; }
 
     public int? SupplierID { get; set; }
 
