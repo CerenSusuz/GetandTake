@@ -27,11 +27,13 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
     public async Task CreateAsync(TEntity entity)
     {
         await _entities.AddAsync(entity);
+        _dbContext.SaveChanges();
     }
 
     public void Delete(Expression<Func<TEntity, bool>> expression)
     {
         _entities.RemoveRange(_entities.Where(expression));
+        _dbContext.SaveChanges();
     }
 
     public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter)
@@ -56,5 +58,6 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
     public void Update(TEntity entity)
     {
         _entities.Update(entity);
+        _dbContext.SaveChanges();
     }
 }
