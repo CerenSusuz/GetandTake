@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using GetandTake.Configuration;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
 using GetandTake.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace GetandTake.Services.Concrete;
 
@@ -85,7 +83,7 @@ public class ProductManager : IProductService
 
     public IEnumerable<ProductsDTO> GetByMaximumAmount(int maximumAmount)
     {
-        if (maximumAmount is 0)
+        if (maximumAmount == default)
         {
             return GetAll();
         }
