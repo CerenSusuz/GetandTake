@@ -1,38 +1,40 @@
 ﻿@page
 @model GetandTake.Pages.Products.EditModel
-
-
 <div class="container">
     <div class="row">
-
-        @*Show Product Detail Part*@
         <div class="col-4">
             <div class="border p-3 mt-4">
                 <input type="text" disabled asp-for="ProductDTO.ProductID" />
                 <hr />
+                <label asp-for="Product.ProductName">Product Name</label>
                 <input type="text" disabled asp-for="ProductDTO.ProductName" />
                 <hr />
+                <label asp-for="Product.QuantityPerUnit">QuantityPerUnit:</label>
                 <input type="text" disabled asp-for="ProductDTO.QuantityPerUnit" />
                 <hr />
+                <label asp-for="Product.QuantityPerUnit">UnitPrice:</label>
                 <input type="text" disabled asp-for="ProductDTO.UnitPrice" />
                 <hr />
+                <label asp-for="Product.QuantityPerUnit">UnitsInStock:</label>
                 <input type="text" disabled asp-for="ProductDTO.UnitsInStock" />
                 <hr />
+                <label asp-for="Product.QuantityPerUnit">UnitsOnOrder:</label>
                 <input type="text" disabled asp-for="ProductDTO.UnitsOnOrder" />
                 <hr />
+                <label asp-for="Product.QuantityPerUnit">ReorderLevel:</label>
                 <input type="text" disabled asp-for="ProductDTO.ReorderLevel" />
                 <hr />
+                <label asp-for="Product.QuantityPerUnit">Discontinued:</label>
                 <input type="text" disabled asp-for="ProductDTO.Discontinued" />
                 <hr />
+                <label asp-for="Product.QuantityPerUnit">Category:</label>
                 <input type="text" disabled asp-for="ProductDTO.Category" />
                 <hr />
+                <label asp-for="Product.QuantityPerUnit">Supplier:</label>
                 <input type="text" disabled asp-for="ProductDTO.Supplier" />
             </div>
         </div>
-
-        @*Edit Product Part*@
         <div class="col-8">
-
             <form method="post">
                 <div class="border p-3 mt-4">
 
@@ -42,50 +44,42 @@
                         </h4>
                         <hr />
                     </div>
-
                     <div asp-validation-summary="All"></div>
                     <div class="mb-2">
                         <label asp-for="Product.ProductName" class="col-sm-2 col-form-label">Product Name</label>
                         <input type="text" asp-for="Product.ProductName" required />
                         <span asp-validation-for="Product.ProductName" class="text-danger"></span>
                     </div>
-
                     <div class="mb-2">
                         <label asp-for="Product.QuantityPerUnit" class="col-sm-2 col-form-label">QuantityPerUnit:</label>
                         <input type="text" asp-for="Product.QuantityPerUnit" />
                         <span asp-validation-for="Product.QuantityPerUnit" class="text-danger"></span>
                     </div>
-
                     <div class="mb-2">
                         <label asp-for="Product.UnitPrice" class="col-sm-2 col-form-label">Unit Price</label>
                         <input type="text" asp-for="Product.UnitPrice" />
                         <span asp-validation-for="Product.UnitPrice" class="text-danger"></span>
                     </div>
-
                     <div class="mb-2">
                         <label asp-for="Product.UnitsInStock" class="col-sm-2 col-form-label">Units in Stock</label>
                         <input type="text" asp-for="Product.UnitsInStock" />
                         <span asp-validation-for="Product.UnitsInStock" class="text-danger"></span>
                     </div>
-
                     <div class="mb-2">
                         <label asp-for="Product.UnitsOnOrder" class="col-sm-2 col-form-label">Units OnOrder </label>
                         <input type="text" asp-for="Product.UnitsOnOrder" />
                         <span asp-validation-for="Product.UnitsOnOrder" class="text-danger"></span>
                     </div>
-
                     <div class="mb-2">
                         <label asp-for="Product.ReorderLevel" class="col-sm-2 col-form-label">Reorder Level</label>
                         <input type="text" asp-for="Product.ReorderLevel" />
                         <span asp-validation-for="Product.ReorderLevel" class="text-danger"></span>
                     </div>
-
                     <div class="mb-2">
                         <label asp-for="Product.Discontinued" class="col-sm-2 col-form-label">Discontinued</label>
                         <input type="checkbox" asp-for="Product.Discontinued" />
                         <span asp-validation-for="Product.Discontinued" class="text-danger"></span>
                     </div>
-
                     <div class="mb-2">
                         <label asp-for="Product.CategoryId" class="col-sm-2 col-form-label">Category</label>
                         <select asp-for="Product.CategoryId" class="form-select">
@@ -96,7 +90,6 @@
                             }
                         </select>
                     </div>
-
                     <div class="mb-2">
                         <label asp-for="Product.SupplierId" class="col-sm-2 col-form-label">Supplier</label>
                         <select asp-for="Product.SupplierId" class="form-select">

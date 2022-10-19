@@ -5,7 +5,10 @@ using GetandTake.Services.AutoMapper;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation().AddMvcOptions(options =>
+builder.Services
+    .AddRazorPages()
+    .AddRazorRuntimeCompilation()
+    .AddMvcOptions(options =>
 {
     options.MaxModelValidationErrors = 50;
     options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(

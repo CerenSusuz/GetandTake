@@ -7,9 +7,7 @@ namespace GetandTake.Pages.Products;
 
 public class ProductModel : PageModel
 {
-
     private readonly IProductService _productService;
-
     private readonly AppSettings _appSettings;
 
     public IEnumerable<ProductsDTO> Products { get; private set; }
@@ -26,9 +24,10 @@ public class ProductModel : PageModel
         _appSettings = appSettings;
     }
 
-    public void OnGet()
+    public async Task OnGet()
     {
         AmountOfProduct = _appSettings.Products.MaximumAmount;
-        Products = _productService.GetByMaximumAmount(AmountOfProduct);
+        //TODO:need to fixed the method GetByMaximumAmountAsync
+        Products = await _productService.GetByMaximumAmountAsync(AmountOfProduct);
     }
 }

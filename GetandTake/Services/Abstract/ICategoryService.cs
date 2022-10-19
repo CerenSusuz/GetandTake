@@ -4,10 +4,9 @@ namespace GetandTake.Services.Abstract;
 
 public interface ICategoryService
 {
+    Task<List<Category>> GetAllAsync();
 
-    IEnumerable<Category> GetAll();
-
-    Category GetById(int categoryId);
+    Task<Category> GetByIdAsync(int categoryId);
 
     Task UpdateAsync(int categoryId, Category category);
 

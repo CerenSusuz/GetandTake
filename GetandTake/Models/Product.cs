@@ -8,7 +8,7 @@ public class Product : BaseEntity
 
     public string ProductName { get; set; }
 
-    public string? QuantityPerUnit { get; set; }
+    public string QuantityPerUnit { get; set; }
 
     public decimal? UnitPrice { get; set; }
 

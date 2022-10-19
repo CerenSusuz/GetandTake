@@ -10,7 +10,7 @@ public class ProductDTO
     public string ProductName { get; set; }
 
     [StringLength(20)]
-    public string? QuantityPerUnit { get; set; }
+    public string QuantityPerUnit { get; set; }
 
     public decimal? UnitPrice { get; set; }
 

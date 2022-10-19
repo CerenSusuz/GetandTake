@@ -5,16 +5,15 @@ namespace GetandTake.Services.Abstract;
 
 public interface IProductService
 {
+    Task<List<ProductsDTO>> GetAllAsync();
 
-    IEnumerable<ProductsDTO> GetAll();
+    Task<List<ProductsDTO>> GetAllByCategoryIdAsync(int categoryId);
 
-    IEnumerable<ProductsDTO> GetAllByCategoryId(int categoryId);
+    Task<List<ProductsDTO>> GetAllBySupplierIdAsync(int supplierId);
 
-    IEnumerable<ProductsDTO> GetAllBySupplierId(int supplierId);
-    
-    IEnumerable<ProductsDTO> GetByMaximumAmount(int maximumAmount);
+    Task<List<ProductsDTO>> GetByMaximumAmountAsync(int maximumAmount);
 
-    ProductsDTO GetById(int productId);
+    Task<ProductsDTO> GetByIdAsync(int productId);
 
     Task UpdateAsync(int productId, ProductDTO productDto);
 

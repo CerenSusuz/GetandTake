@@ -8,11 +8,8 @@ namespace GetandTake.Pages.Products;
 
 public class CreateModel : PageModel
 {
-
     private readonly IProductService _productService;
-
     private readonly ICategoryService _categoryService;
-
     private readonly ISupplierService _supplierService;
 
     public IEnumerable<Category> Categories { get; private set; }
@@ -34,10 +31,10 @@ public class CreateModel : PageModel
         _supplierService = supplierService;
     }
 
-    public void OnGet()
+    public async Task OnGet()
     {
-        Categories = _categoryService.GetAll();
-        Suppliers = _supplierService.GetAll();
+        Categories = await _categoryService.GetAllAsync();
+        Suppliers = await _supplierService.GetAllAsync();
     }
 
     public async Task<IActionResult> OnPost()
@@ -48,9 +45,8 @@ public class CreateModel : PageModel
 
             return RedirectToPage("Product");
         }
+
         return Page();
-
-
     }
 }
 

@@ -4,9 +4,9 @@ namespace GetandTake.Services.Abstract;
 
 public interface ISupplierService
 {
-    IEnumerable<Supplier> GetAll();
+    Task<List<Supplier>> GetAllAsync();
 
-    Supplier GetById(int supplierId);
+    Task<Supplier> GetByIdAsync(int supplierId);
 
     Task UpdateAsync(int supplierId, Supplier supplier);
 
