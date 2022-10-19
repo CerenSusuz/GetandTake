@@ -1,4 +1,5 @@
 ﻿using GetandTake.Core.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace GetandTake.Core.DataAccess;
@@ -6,11 +7,17 @@ namespace GetandTake.Core.DataAccess;
 public interface IBaseRepository<TEntity>
         where TEntity : BaseEntity
 {
-    IQueryable<TEntity> AsNoTracking();
+    Task<List<TEntity>> GetAllItemsAsync();
 
-    List<TEntity> GetAll();
+    Task<List<TEntity>> GetItemsByFilterWithIncludesAsync(
+            Expression<Func<TEntity, bool>> expression,
+            params Expression<Func<TEntity, object>>[] includes);
 
-    Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter);
+    Task<List<TEntity>> GetItemsWithIncludesAsync(
+            params Expression<Func<TEntity, object>>[] includes);
+
+    Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter,
+        params Expression<Func<TEntity, object>>[] includes);
 
     Task CreateAsync(TEntity entity);
 

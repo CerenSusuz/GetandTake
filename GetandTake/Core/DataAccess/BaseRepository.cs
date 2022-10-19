@@ -1,6 +1,7 @@
 ﻿using GetandTake.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace GetandTake.Core.DataAccess;
 
@@ -8,7 +9,6 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
     where TEntity : BaseEntity
     where TContext : DbContext
 {
-
     protected readonly TContext _dbContext;
 
     private readonly DbSet<TEntity> _entities;
@@ -19,9 +19,40 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
         _entities = _dbContext.Set<TEntity>();
     }
 
-    public IQueryable<TEntity> AsNoTracking()
+    public async Task<List<TEntity>> GetAllItemsAsync() =>
+                await _entities.AsNoTracking().ToListAsync();
+
+    public async Task<List<TEntity>> GetItemsByFilterWithIncludesAsync(
+               Expression<Func<TEntity, bool>> expression,
+               params Expression<Func<TEntity, object>>[] includes)
     {
-        return _entities.AsNoTracking();
+        var query = _entities.Where(expression);
+
+        if (includes.Any())
+        {
+            query = includes
+                .Aggregate(query,
+                    (
+                        current, includeProperty) => current.Include(includeProperty)
+                );
+        }
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<List<TEntity>> GetItemsWithIncludesAsync(params Expression<Func<TEntity, object>>[] includes)
+    {
+        var query = _entities.AsNoTracking();
+        if (includes.Any())
+        {
+            query = includes
+                .Aggregate(query,
+                    (
+                        current, includeProperty) => current.Include(includeProperty)
+                );
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task CreateAsync(TEntity entity)
@@ -36,23 +67,25 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
         _dbContext.SaveChanges();
     }
 
-    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter)
+    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includes)
     {
         try
         {
             var query = _entities.Where(filter).AsNoTracking();
-            var item = await query.SingleOrDefaultAsync();
-            return item;
+            if (includes.Any())
+            {
+                query = includes
+                    .Aggregate(query,
+                        (
+                            current, includeProperty) => current.Include(includeProperty)
+                    );
+            }
+            return await query.SingleOrDefaultAsync();
         }
         catch (Exception ex)
         {
             throw new Exception($"Unable to find item in database. Error: {ex.Message}");
         }
-    }
-   
-    public List<TEntity> GetAll()
-    {
-        return _dbContext.Set<TEntity>().ToList();
     }
 
     public void Update(TEntity entity)
