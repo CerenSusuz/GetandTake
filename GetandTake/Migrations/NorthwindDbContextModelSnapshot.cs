@@ -37,6 +37,9 @@ namespace GetandTake.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Picture")
+                        .HasColumnType("varbinary(max)");
+
                     b.HasKey("CategoryID");
 
                     b.ToTable("Categories");
@@ -53,7 +56,7 @@ namespace GetandTake.Migrations
                     b.Property<int?>("CategoryID")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Discontinued")
+                    b.Property<bool>("Discontinued")
                         .HasColumnType("bit");
 
                     b.Property<string>("ProductName")
@@ -61,6 +64,7 @@ namespace GetandTake.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("QuantityPerUnit")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<short?>("ReorderLevel")
@@ -69,14 +73,14 @@ namespace GetandTake.Migrations
                     b.Property<int?>("SupplierID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UnitPrice")
-                        .HasColumnType("int");
+                    b.Property<decimal?>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<short?>("UnitsInStock")
                         .HasColumnType("smallint");
 
-                    b.Property<decimal?>("UnitsOnOrder")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<short?>("UnitsOnOrder")
+                        .HasColumnType("smallint");
 
                     b.HasKey("ProductID");
 
@@ -137,16 +141,26 @@ namespace GetandTake.Migrations
             modelBuilder.Entity("GetandTake.Models.Product", b =>
                 {
                     b.HasOne("GetandTake.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CategoryID");
 
                     b.HasOne("GetandTake.Models.Supplier", "Supplier")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("SupplierID");
 
                     b.Navigation("Category");
 
                     b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("GetandTake.Models.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("GetandTake.Models.Supplier", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

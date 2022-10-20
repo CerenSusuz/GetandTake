@@ -4,9 +4,9 @@ using GetandTake.Models;
 
 namespace GetandTake.DataAccess.Repositories.Concrete;
 
-public class ProductRepository : BaseRepository<Product, NorthwindDbContext>, IProductRepository
+public class SupplierRepository : BaseRepository<Supplier,NorthwindDbContext> , ISupplierRepository
 {
-	public ProductRepository(NorthwindDbContext context) : base(context)
+	public SupplierRepository(NorthwindDbContext context) : base(context)
 	{
 	}
 }

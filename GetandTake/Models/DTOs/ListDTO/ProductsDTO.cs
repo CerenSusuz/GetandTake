@@ -16,7 +16,7 @@ public class ProductsDTO
 
     public short? ReorderLevel { get; set; }
 
-    public bool? Discontinued { get; set; }
+    public bool Discontinued { get; set; }
 
     public string? Category { get; set; }
 

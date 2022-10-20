@@ -10,13 +10,10 @@ public class CategoryModel : PageModel
 
     public IEnumerable<Category> Categories { get; private set; }
 
-    public CategoryModel(ICategoryService categoryService)
-    {
-        _categoryService = categoryService;
-    }
+    public CategoryModel(ICategoryService categoryService) => _categoryService = categoryService;
 
-    public void OnGet()
+    public async Task OnGet()
     {
-        Categories =  _categoryService.GetAll();
+        Categories = await _categoryService.GetAllAsync();
     }
 }

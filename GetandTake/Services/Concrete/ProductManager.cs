@@ -4,61 +4,18 @@ using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
 using GetandTake.Services.Abstract;
-using Microsoft.EntityFrameworkCore;
 
 namespace GetandTake.Services.Concrete;
 
 public class ProductManager : IProductService
 {
-
     private readonly IProductRepository _repository;
-
     private readonly IMapper _mapper;
-
     public ProductManager(IProductRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
-
-    public IEnumerable<ProductsDTO> GetAll()
-    {
-        var products = _repository.AsNoTracking()
-            .Include(product => product.Category)
-            .Include(product => product.Supplier);
-
-        return _mapper.Map<List<ProductsDTO>>(products);
-    }
-
-    public IEnumerable<ProductsDTO> GetAllByCategoryId(int categoryId)
-    {
-        var products = _repository.AsNoTracking()
-            .Where(category => category.CategoryID == categoryId)
-            .Include(product => product.Category)
-            .Include(product => product.Supplier);
-
-        return _mapper.Map<List<ProductsDTO>>(products);
-    }
-
-    public IEnumerable<ProductsDTO> GetAllBySupplierId(int supplierId)
-    {
-        var products = _repository.AsNoTracking()
-            .Where(supplier => supplier.SupplierID == supplierId)
-            .Include(product => product.Supplier);
-
-        return _mapper.Map<List<ProductsDTO>>(products);
-    }
-
-    public ProductsDTO GetById(int productId)
-    {
-        var findProduct = _repository.AsNoTracking()
-            .Include(product => product.Category)
-            .Include(product => product.Supplier)
-            .First(product => product.ProductID == productId);
-
-        return _mapper.Map<ProductsDTO>(findProduct);
-    }
-
     public async Task CreateAsync(ProductDTO productDto)
     {
         var product = _mapper.Map<Product>(productDto);
@@ -67,7 +24,8 @@ public class ProductManager : IProductService
 
     public async Task UpdateAsync(int productId, ProductDTO productDto)
     {
-        var findProduct = await _repository.GetAsync(product => product.ProductID == productId);
+        var findProduct = await _repository.GetAsync(
+            product => product.ProductID == productId);
         if (findProduct != null)
         {
             var product = _mapper.Map<Product>(productDto);
@@ -76,18 +34,52 @@ public class ProductManager : IProductService
         }
     }
 
-    public void Delete(int productId)
-    {
+    public void Delete(int productId) => 
         _repository.Delete(product => product.ProductID == productId);
+
+    public async Task<List<ProductsDTO>> GetAllAsync()
+    {
+        var products = await _repository.GetItemsWithIncludesAsync(include => include.Category, include => include.Supplier);
+
+        return _mapper.Map<List<ProductsDTO>>(products);
     }
 
-    public IEnumerable<ProductsDTO> GetByMaximumAmount(int maximumAmount)
+    public async Task<List<ProductsDTO>> GetAllByCategoryIdAsync(int categoryId)
+    {
+        var products = await _repository.GetItemsByFilterWithIncludesAsync(
+            category => category.CategoryID == categoryId,
+            include => include.Category, 
+            include => include.Supplier);
+
+        return _mapper.Map<List<ProductsDTO>>(products);
+    }
+
+    public async Task<List<ProductsDTO>> GetAllBySupplierIdAsync(int supplierId)
+    {
+        var products = await _repository.GetItemsByFilterWithIncludesAsync(supplier => supplier.SupplierID == supplierId,
+            include => include.Supplier);
+
+        return _mapper.Map<List<ProductsDTO>>(products);
+    }
+
+    public async Task<ProductsDTO> GetByIdAsync(int productId)
+    {
+        var findProduct = await _repository.GetAsync(product => product.ProductID == productId,
+            include => include.Category, 
+            include => include.Supplier);
+
+        return _mapper.Map<ProductsDTO>(findProduct);
+    }
+
+    public async Task<List<ProductsDTO>> GetByMaxAmountOfAsync(int maximumAmount)
     {
         if (maximumAmount == default)
         {
-            return GetAll();
+            return await GetAllAsync();
         }
-
-        return GetAll().Take(maximumAmount);
+        var entities = await _repository.GetItemsByLimit(maximumAmount);
+        
+        return _mapper.Map<List<ProductsDTO>>(entities);
     }
 }
+

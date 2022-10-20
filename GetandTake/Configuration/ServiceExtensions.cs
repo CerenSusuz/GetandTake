@@ -15,9 +15,11 @@ public static class ServiceExtensions
         //Business Services
         builder.Services.AddScoped<IProductService, ProductManager>();    
         builder.Services.AddScoped<ICategoryService, CategoryManager>();
-
+        builder.Services.AddScoped<ISupplierService, SupplierManager>();
+        
         //Database Repositories
         builder.Services.AddScoped<IProductRepository, ProductRepository>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+        builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
     }
 }

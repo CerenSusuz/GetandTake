@@ -7,7 +7,6 @@ namespace GetandTake.Services.AutoMapper;
 
 public class AutoMapperProfile : Profile
 {
-
     public AutoMapperProfile()
     {
         CreateMap<Product, ProductDTO>().ReverseMap();

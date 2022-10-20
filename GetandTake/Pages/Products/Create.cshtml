@@ -1,0 +1,69 @@
+﻿@page
+@model GetandTake.Pages.Products.CreateModel
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-success pl-3">
+                Create New Product
+            </h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="mb-2">
+            <label asp-for="ProductDTO.ProductName" class="col-sm-2 col-form-label">Product Name</label>
+            <input type="text" asp-for="ProductDTO.ProductName" required />
+            <span asp-validation-for="ProductDTO.ProductName" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductDTO.QuantityPerUnit" class="col-sm-2 col-form-label">QuantityPerUnit:</label>
+            <input type="text" asp-for="ProductDTO.QuantityPerUnit" />
+            <span asp-validation-for="ProductDTO.QuantityPerUnit" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductDTO.UnitPrice" class="col-sm-2 col-form-label">Unit Price</label>
+            <input type="text" asp-for="ProductDTO.UnitPrice" />
+            <span asp-validation-for="ProductDTO.UnitPrice" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductDTO.UnitsInStock" class="col-sm-2 col-form-label">Units in Stock</label>
+            <input type="text" asp-for="ProductDTO.UnitsInStock" />
+            <span asp-validation-for="ProductDTO.UnitsInStock" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductDTO.UnitsOnOrder" class="col-sm-2 col-form-label">Units OnOrder </label>
+            <input type="text" asp-for="ProductDTO.UnitsOnOrder" />
+            <span asp-validation-for="ProductDTO.UnitsOnOrder" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductDTO.ReorderLevel" class="col-sm-2 col-form-label">Reorder Level</label>
+            <input type="text" asp-for="ProductDTO.ReorderLevel" />
+            <span asp-validation-for="ProductDTO.ReorderLevel" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductDTO.Discontinued" class="col-sm-2 col-form-label">Discontinued</label>
+            <input type="checkbox" asp-for="ProductDTO.Discontinued" />
+            <span asp-validation-for="ProductDTO.Discontinued" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductDTO.CategoryId" class="col-sm-2 col-form-label">Category</label>
+            <select asp-for="ProductDTO.CategoryId" class="form-select">
+                <option selected></option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.CategoryID">@category.CategoryName</option>
+                }
+            </select>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductDTO.SupplierId" class="col-sm-2 col-form-label">Supplier</label>
+            <select asp-for="ProductDTO.SupplierId" class="form-select">
+                <option selected></option>
+                @foreach (var supplier in Model.Suppliers)
+                {
+                    <option value="@supplier.SupplierID">@supplier.CompanyName</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Create</button>
+    </div>
+</form>
