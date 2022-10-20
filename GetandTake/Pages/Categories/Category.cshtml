@@ -1,0 +1,28 @@
+﻿@page
+@model GetandTake.Pages.Categories.CategoryModel
+<div class="row pb-2">
+    <h4 class="text-success pl-3">
+        Categories
+    </h4>
+    <hr />
+</div>
+<div class="container">
+    <div class="row">
+
+        @foreach (var category in Model.Categories)
+        {
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@category.CategoryName</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@category.Description</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
