@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 namespace GetandTake.Models.DTOs.BaseDTO;
 
@@ -20,7 +19,6 @@ public class ProductDTO
 
     public int? ReorderLevel { get; set; }
 
-    [Required]
     public bool Discontinued { get; set; }
 
     public int? CategoryId { get; set; }
