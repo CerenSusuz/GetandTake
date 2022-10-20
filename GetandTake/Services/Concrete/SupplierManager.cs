@@ -7,7 +7,7 @@ namespace GetandTake.Services.Concrete;
 public class SupplierManager : ISupplierService
 {
     private readonly ISupplierRepository _repository;
-    
+
     public SupplierManager(ISupplierRepository repository) => _repository = repository;
 
     public async Task CreateAsync(Supplier supplier) => await _repository.CreateAsync(supplier);

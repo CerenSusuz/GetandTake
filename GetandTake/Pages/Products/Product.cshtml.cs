@@ -27,7 +27,6 @@ public class ProductModel : PageModel
     public async Task OnGet()
     {
         AmountOfProduct = _appSettings.Products.MaximumAmount;
-        //TODO:need to fixed the method GetByMaximumAmountAsync
-        Products = await _productService.GetByMaximumAmountAsync(AmountOfProduct);
+        Products = await _productService.GetByMaxAmountOfAsync(AmountOfProduct);
     }
 }
