@@ -7,8 +7,7 @@ public static class DatabaseExtensions
 {
     public static void RegisterDatabase(
         this WebApplicationBuilder builder,
-        AppSettings appSettings
-        )
+        AppSettings appSettings)
     {
         builder.Services.AddDbContext<NorthwindDbContext>(options =>
         {

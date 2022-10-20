@@ -80,7 +80,7 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
                     );
             }
 
-            return await query.SingleOrDefaultAsync();
+            return await query.FirstAsync();
         }
         catch (Exception ex)
         {
@@ -94,14 +94,9 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
         _dbContext.SaveChanges();
     }
 
-    public async Task<List<TEntity>> GetItemsByLimit(int limit)
-    {
-        List<TEntity> items;
-        items = await _entities
+    public async Task<List<TEntity>> GetItemsByLimit(int limit) =>
+        await _entities
             .Take(limit)
             .AsNoTracking()
             .ToListAsync();
-
-        return items;
-    }
 }

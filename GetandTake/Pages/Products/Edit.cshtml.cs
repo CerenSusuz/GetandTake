@@ -22,12 +22,10 @@ public class EditModel : PageModel
 
     public IEnumerable<Supplier> Suppliers { get; private set; }
 
-    public EditModel
-        (
+    public EditModel(
         IProductService productService,
         ICategoryService categoryService,
-        ISupplierService supplierService
-        )
+        ISupplierService supplierService)
     {
         _productService = productService;
         _categoryService = categoryService;
@@ -43,17 +41,13 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnPost(int id)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            if (Product.ProductName is not null)
-            {
-                await _productService.UpdateAsync(id, Product);
-
-                return RedirectToPage("Product");
-            }
+            return Page();
         }
+        await _productService.UpdateAsync(id, Product);
 
-        return Page();
+        return RedirectToPage("Product");
     }
 }
 

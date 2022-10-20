@@ -8,11 +8,14 @@ public class SupplierManager : ISupplierService
 {
     private readonly ISupplierRepository _repository;
 
-    public SupplierManager(ISupplierRepository repository) => _repository = repository;
+    public SupplierManager(ISupplierRepository repository) => 
+        _repository = repository;
 
-    public async Task CreateAsync(Supplier supplier) => await _repository.CreateAsync(supplier);
+    public async Task CreateAsync(Supplier supplier) => 
+        await _repository.CreateAsync(supplier);
  
-    public void Delete(int supplierId) => _repository.Delete(entity => entity.SupplierID == supplierId);
+    public void Delete(int supplierId) => 
+        _repository.Delete(entity => entity.SupplierID == supplierId);
  
     public async Task UpdateAsync(int supplierId, Supplier supplier)
     {
@@ -24,7 +27,9 @@ public class SupplierManager : ISupplierService
         }
     }
 
-    public async Task<List<Supplier>> GetAllAsync() => await _repository.GetAllItemsAsync();
+    public async Task<List<Supplier>> GetAllAsync() => 
+        await _repository.GetAllItemsAsync();
 
-    public async Task<Supplier> GetByIdAsync(int supplierId) => await _repository.GetAsync(supplier => supplier.SupplierID == supplierId);
+    public async Task<Supplier> GetByIdAsync(int supplierId) => 
+        await _repository.GetAsync(supplier => supplier.SupplierID == supplierId);
 }

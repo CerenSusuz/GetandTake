@@ -19,12 +19,10 @@ public class CreateModel : PageModel
     [BindProperty]
     public ProductDTO ProductDTO { get; set; }
 
-    public CreateModel
-        (
+    public CreateModel(
         IProductService productService,
         ICategoryService categoryService,
-        ISupplierService supplierService
-        )
+        ISupplierService supplierService)
     {
         _productService = productService;
         _categoryService = categoryService;
@@ -39,14 +37,13 @@ public class CreateModel : PageModel
 
     public async Task<IActionResult> OnPost()
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            await _productService.CreateAsync(ProductDTO);
-
-            return RedirectToPage("Product");
+            return Page();
         }
+        await _productService.CreateAsync(ProductDTO);
 
-        return Page();
+        return RedirectToPage("Product");
     }
 }
 

@@ -8,6 +8,5 @@ public class CategoryRepository : BaseRepository<Category,NorthwindDbContext>, I
 {
 	public CategoryRepository(NorthwindDbContext context) : base(context)
 	{
-
 	}
 }

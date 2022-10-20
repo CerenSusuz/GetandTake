@@ -8,6 +8,5 @@ public class ProductRepository : BaseRepository<Product, NorthwindDbContext>, IP
 {
 	public ProductRepository(NorthwindDbContext context) : base(context)
 	{
-
 	}
 }

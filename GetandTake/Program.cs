@@ -9,11 +9,11 @@ builder.Services
     .AddRazorPages()
     .AddRazorRuntimeCompilation()
     .AddMvcOptions(options =>
-{
-    options.MaxModelValidationErrors = 50;
-    options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+    {
+        options.MaxModelValidationErrors = 50;
+        options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
         _ => "The field is required.");
-});
+    });
 builder.Services.AddSingleton(new MapperConfiguration(mapperConfig =>
                                                       mapperConfig.AddProfile(new AutoMapperProfile())).CreateMapper());
 

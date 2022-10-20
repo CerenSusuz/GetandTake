@@ -8,6 +8,5 @@ public class SupplierRepository : BaseRepository<Supplier,NorthwindDbContext> , 
 {
 	public SupplierRepository(NorthwindDbContext context) : base(context)
 	{
-
 	}
 }

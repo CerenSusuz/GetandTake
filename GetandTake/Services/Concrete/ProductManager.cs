@@ -34,7 +34,8 @@ public class ProductManager : IProductService
         }
     }
 
-    public void Delete(int productId) => _repository.Delete(product => product.ProductID == productId);
+    public void Delete(int productId) => 
+        _repository.Delete(product => product.ProductID == productId);
 
     public async Task<List<ProductsDTO>> GetAllAsync()
     {
