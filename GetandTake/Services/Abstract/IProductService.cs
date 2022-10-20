@@ -10,8 +10,8 @@ public interface IProductService
     Task<List<ProductsDTO>> GetAllByCategoryIdAsync(int categoryId);
 
     Task<List<ProductsDTO>> GetAllBySupplierIdAsync(int supplierId);
-
-    Task<List<ProductsDTO>> GetByMaximumAmountAsync(int maximumAmount);
+    
+    Task<List<ProductsDTO>> GetByMaxAmountOfAsync(int maximumAmount);
 
     Task<ProductsDTO> GetByIdAsync(int productId);
 

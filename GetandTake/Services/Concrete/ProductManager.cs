@@ -4,22 +4,18 @@ using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
 using GetandTake.Services.Abstract;
-using Microsoft.EntityFrameworkCore;
 
 namespace GetandTake.Services.Concrete;
 
 public class ProductManager : IProductService
 {
     private readonly IProductRepository _repository;
-
     private readonly IMapper _mapper;
-
     public ProductManager(IProductRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
-
     public async Task CreateAsync(ProductDTO productDto)
     {
         var product = _mapper.Map<Product>(productDto);
@@ -28,7 +24,8 @@ public class ProductManager : IProductService
 
     public async Task UpdateAsync(int productId, ProductDTO productDto)
     {
-        var findProduct = await _repository.GetItemsByFilterWithIncludesAsync(product => product.ProductID == productId);
+        var findProduct = await _repository.GetAsync(
+            product => product.ProductID == productId);
         if (findProduct != null)
         {
             var product = _mapper.Map<Product>(productDto);
@@ -73,15 +70,15 @@ public class ProductManager : IProductService
         return _mapper.Map<ProductsDTO>(findProduct);
     }
 
-    //TODO:Take() isn't used with Async method
-    public async Task<List<ProductsDTO>> GetByMaximumAmountAsync(int maximumAmount)
+    public async Task<List<ProductsDTO>> GetByMaxAmountOfAsync(int maximumAmount)
     {
         if (maximumAmount == default)
         {
             return await GetAllAsync();
         }
-
-        return await GetAllAsync().Take(maximumAmount);
+        var entities = await _repository.GetItemsByLimit(maximumAmount);
+        
+        return _mapper.Map<List<ProductsDTO>>(entities);
     }
 }
 
