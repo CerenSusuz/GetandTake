@@ -11,32 +11,32 @@
         <div asp-validation-summary="All"></div>
         <div class="mb-2">
             <label asp-for="ProductDTO.ProductName" class="col-sm-2 col-form-label">Product Name</label>
-            <input type="text" asp-for="ProductDTO.ProductName" required />
+            <input type="text" asp-for="ProductDTO.ProductName" class="form-control" required/>
             <span asp-validation-for="ProductDTO.ProductName" class="text-danger"></span>
         </div>
         <div class="mb-2">
             <label asp-for="ProductDTO.QuantityPerUnit" class="col-sm-2 col-form-label">QuantityPerUnit:</label>
-            <input type="text" asp-for="ProductDTO.QuantityPerUnit" />
+            <input type="text" asp-for="ProductDTO.QuantityPerUnit" class="form-control" />
             <span asp-validation-for="ProductDTO.QuantityPerUnit" class="text-danger"></span>
         </div>
         <div class="mb-2">
             <label asp-for="ProductDTO.UnitPrice" class="col-sm-2 col-form-label">Unit Price</label>
-            <input type="text" asp-for="ProductDTO.UnitPrice" />
+            <input type="text" asp-for="ProductDTO.UnitPrice" class="form-control" />
             <span asp-validation-for="ProductDTO.UnitPrice" class="text-danger"></span>
         </div>
         <div class="mb-2">
             <label asp-for="ProductDTO.UnitsInStock" class="col-sm-2 col-form-label">Units in Stock</label>
-            <input type="text" asp-for="ProductDTO.UnitsInStock" />
+            <input type="text" asp-for="ProductDTO.UnitsInStock" class="form-control"/>
             <span asp-validation-for="ProductDTO.UnitsInStock" class="text-danger"></span>
         </div>
         <div class="mb-2">
             <label asp-for="ProductDTO.UnitsOnOrder" class="col-sm-2 col-form-label">Units OnOrder </label>
-            <input type="text" asp-for="ProductDTO.UnitsOnOrder" />
+            <input type="text" asp-for="ProductDTO.UnitsOnOrder" class="form-control" />
             <span asp-validation-for="ProductDTO.UnitsOnOrder" class="text-danger"></span>
         </div>
         <div class="mb-2">
             <label asp-for="ProductDTO.ReorderLevel" class="col-sm-2 col-form-label">Reorder Level</label>
-            <input type="text" asp-for="ProductDTO.ReorderLevel" />
+            <input type="text" asp-for="ProductDTO.ReorderLevel" class="form-control" />
             <span asp-validation-for="ProductDTO.ReorderLevel" class="text-danger"></span>
         </div>
         <div class="mb-2">
