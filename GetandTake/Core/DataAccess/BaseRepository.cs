@@ -25,7 +25,7 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
                Expression<Func<TEntity, bool>> expression,
                params Expression<Func<TEntity, object>>[] includes)
     {
-        var query = _entities.Where(expression);
+        var query = _entities.Where(expression).AsNoTracking();
 
         if (includes.Any())
         {
@@ -79,6 +79,7 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
                             current, includeProperty) => current.Include(includeProperty)
                     );
             }
+
             return await query.SingleOrDefaultAsync();
         }
         catch (Exception ex)
@@ -100,6 +101,7 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
             .Take(limit)
             .AsNoTracking()
             .ToListAsync();
+
         return items;
     }
 }
