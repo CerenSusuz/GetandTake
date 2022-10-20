@@ -1,7 +1,6 @@
 ﻿using GetandTake.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace GetandTake.Core.DataAccess;
 
@@ -92,5 +91,15 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
     {
         _entities.Update(entity);
         _dbContext.SaveChanges();
+    }
+
+    public async Task<List<TEntity>> GetItemsByLimit(int limit)
+    {
+        List<TEntity> items;
+        items = await _entities
+            .Take(limit)
+            .AsNoTracking()
+            .ToListAsync();
+        return items;
     }
 }

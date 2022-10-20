@@ -1,5 +1,4 @@
 ﻿using GetandTake.Core.Models;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace GetandTake.Core.DataAccess;
@@ -18,6 +17,8 @@ public interface IBaseRepository<TEntity>
 
     Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter,
         params Expression<Func<TEntity, object>>[] includes);
+
+    Task<List<TEntity>> GetItemsByLimit(int limit);
 
     Task CreateAsync(TEntity entity);
 
