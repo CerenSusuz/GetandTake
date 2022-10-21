@@ -4,12 +4,7 @@ using GetandTake.Services.AutoMapper;
 using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.ConfigureLogging(logging =>
-{
-    logging.ClearProviders();
-    logging.AddConsole();
-});
-
+builder.RegisterLogging();
 // Add services to the container.
 builder.Services
     .AddRazorPages()
