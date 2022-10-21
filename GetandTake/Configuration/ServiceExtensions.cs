@@ -7,19 +7,19 @@ namespace GetandTake.Configuration;
 
 public static class ServiceExtensions
 {
-    public static void RegisterServices(this WebApplicationBuilder builder, AppSettings appSettings)
+    public static void RegisterServices(this IServiceCollection services, AppSettings appSettings)
     {
         //AppSettings
-        builder.Services.AddSingleton(appSettings);
+        services.AddSingleton(appSettings);
 
         //Business Services
-        builder.Services.AddScoped<IProductService, ProductManager>();    
-        builder.Services.AddScoped<ICategoryService, CategoryManager>();
-        builder.Services.AddScoped<ISupplierService, SupplierManager>();
+        services.AddScoped<IProductService, ProductManager>();
+        services.AddScoped<ICategoryService, CategoryManager>();
+        services.AddScoped<ISupplierService, SupplierManager>();
         
         //Database Repositories
-        builder.Services.AddScoped<IProductRepository, ProductRepository>();
-        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-        builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ISupplierRepository, SupplierRepository>();
     }
 }

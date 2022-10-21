@@ -6,10 +6,10 @@ namespace GetandTake.Configuration;
 public static class DatabaseExtensions
 {
     public static void RegisterDatabase(
-        this WebApplicationBuilder builder,
+        this IServiceCollection services,
         AppSettings appSettings)
     {
-        builder.Services.AddDbContext<NorthwindDbContext>(options =>
+        services.AddDbContext<NorthwindDbContext>(options =>
         {
             options.UseSqlServer(appSettings.Database.DefaultConnection);
         });
