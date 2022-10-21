@@ -1,24 +1,30 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace GetandTake.Models.DTOs.BaseDTO;
 
 public class ProductDTO 
 {
     [Required]
-    [StringLength(40)]
+    [DisplayName("Product Name")]
     public string ProductName { get; set; }
 
-    [StringLength(20)]
+    [DisplayName("Quantity per Unit")]
     public string QuantityPerUnit { get; set; }
 
+    [DisplayName("Unit Price")]
     public decimal? UnitPrice { get; set; }
 
+    [DisplayName("Units in Stock")]
     public int? UnitsInStock { get; set; }
 
+    [DisplayName("UnitsOnOrder")]
     public int? UnitsOnOrder { get; set; }
 
+    [DisplayName("ReorderLevel")]
     public int? ReorderLevel { get; set; }
 
+    [DisplayName("Discontinued")]
     public bool Discontinued { get; set; }
 
     public int? CategoryId { get; set; }

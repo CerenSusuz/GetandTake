@@ -2,7 +2,7 @@ using GetandTake.Models;
 using GetandTake.Services.Abstract;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GetandTake.Pages;
+namespace GetandTake.Pages.Categories;
 
 public class CategoryModel : PageModel
 {
