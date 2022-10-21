@@ -1,8 +1,14 @@
 using AutoMapper;
 using GetandTake.Configuration;
 using GetandTake.Services.AutoMapper;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+});
 
 // Add services to the container.
 builder.Services
@@ -26,8 +32,9 @@ var appSettings = new AppSettings
     Products = productSettings
 };
 
-ServiceExtensions.RegisterServices(builder, appSettings);
-DatabaseExtensions.RegisterDatabase(builder, appSettings);
+builder.Services.RegisterServices(appSettings);
+builder.Services.RegisterDatabase(appSettings);
+
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -37,6 +44,16 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.ExceptionHandler();
+
+app.UseStatusCodePages(async statusCodeContext =>
+{
+    statusCodeContext.HttpContext.Response.ContentType = Text.Plain;
+
+    await statusCodeContext.HttpContext.Response.WriteAsync(
+        $"Status Code Page: {statusCodeContext.HttpContext.Response.StatusCode}");
+});
 
 app.UseHttpsRedirection();
 
