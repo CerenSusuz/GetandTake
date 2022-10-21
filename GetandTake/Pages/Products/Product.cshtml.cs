@@ -9,6 +9,7 @@ public class ProductModel : PageModel
 {
     private readonly IProductService _productService;
     private readonly AppSettings _appSettings;
+    private readonly ILogger _logger;
 
     public IEnumerable<ProductsDTO> Products { get; private set; }
 
@@ -17,16 +18,21 @@ public class ProductModel : PageModel
     public ProductModel
         (
         IProductService productService,
-        AppSettings appSettings
+        AppSettings appSettings,
+        ILogger<ProductModel> logger
         )
     {
         _productService = productService;
         _appSettings = appSettings;
+        _logger = logger;
     }
 
     public async Task OnGet()
     {
+        _logger.LogInformation("Products process start", 
+            DateTime.UtcNow.ToLongTimeString());
         AmountOfProduct = _appSettings.Products.MaximumAmount;
         Products = await _productService.GetByMaxAmountOfAsync(AmountOfProduct);
+
     }
 }
