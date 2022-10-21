@@ -15,13 +15,16 @@ public class ProductDTO
     [DisplayName("Unit Price")]
     public decimal? UnitPrice { get; set; }
 
-    [DisplayName("Quantity per Unit")]
+    [DisplayName("Units in Stock")]
     public int? UnitsInStock { get; set; }
 
+    [DisplayName("UnitsOnOrder")]
     public int? UnitsOnOrder { get; set; }
 
+    [DisplayName("ReorderLevel")]
     public int? ReorderLevel { get; set; }
 
+    [DisplayName("Discontinued")]
     public bool Discontinued { get; set; }
 
     public int? CategoryId { get; set; }
