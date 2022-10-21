@@ -29,10 +29,10 @@ public class ProductModel : PageModel
 
     public async Task OnGet()
     {
-        _logger.LogInformation("Products process start", 
+        _logger.LogInformation("Products process start at {DT}", 
             DateTime.UtcNow.ToLongTimeString());
+
         AmountOfProduct = _appSettings.Products.MaximumAmount;
         Products = await _productService.GetByMaxAmountOfAsync(AmountOfProduct);
-
     }
 }
