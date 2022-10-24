@@ -18,17 +18,18 @@ public static class CustomExceptionHandler
 
                 var exceptionHandlerPathFeature =
                     context.Features.Get<IExceptionHandlerPathFeature>();
-                if (exceptionHandlerPathFeature != null)
+                if (exceptionHandlerPathFeature == null)
                 {
-                    if (exceptionHandlerPathFeature?.Error is FileNotFoundException)
-                    {
-                        await context.Response.WriteAsync(" The file was not found.");
-                    }
+                    return;
+                }
+                if (exceptionHandlerPathFeature.Error is FileNotFoundException)
+                {
+                    await context.Response.WriteAsync(" The file was not found.");
+                }
 
-                    if (exceptionHandlerPathFeature?.Path == "/")
-                    {
-                        await context.Response.WriteAsync(" Page: Home.");
-                    }
+                if (exceptionHandlerPathFeature.Path == "/")
+                {
+                    await context.Response.WriteAsync(" Page: Home.");
                 }
             });
         });
