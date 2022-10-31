@@ -10,5 +10,4 @@ public class IndexModel : PageModel
     {
         _logger = logger;
     }
-
 }
