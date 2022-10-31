@@ -18,10 +18,12 @@ public static class CustomExceptionHandler
 
                 var exceptionHandlerPathFeature =
                     context.Features.Get<IExceptionHandlerPathFeature>();
+                
                 if (exceptionHandlerPathFeature == null)
                 {
                     return;
                 }
+
                 if (exceptionHandlerPathFeature.Error is FileNotFoundException)
                 {
                     await context.Response.WriteAsync(" The file was not found.");

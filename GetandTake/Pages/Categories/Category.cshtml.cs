@@ -20,7 +20,7 @@ public class CategoryModel : PageModel
     }
     public async Task OnGet()
     {
-        _logger.LogInformation("Categories process start at the {DT}", 
+        _logger.LogInformation("Categories process start {DT}", 
             DateTime.UtcNow.ToShortTimeString());
 
         Categories = await _categoryService.GetAllAsync();
