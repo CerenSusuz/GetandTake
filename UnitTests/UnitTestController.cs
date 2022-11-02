@@ -48,6 +48,24 @@ public class UnitTestController
         return Task.CompletedTask;
     }
 
+    [Fact]
+    public void IndexOf_NullProduct_ThrowsArgumentNullException()
+    {
+        //arrange
+        var productService = new Mock<IProductService>();
+        var productToFind = new ProductsDTO();
+        var productController = new ProductController(productService.Object);
+
+        //act
+        var productResult = productController.ProductList();
+
+        //assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            int index = productResult.Result.IndexOf(productToFind);
+        });
+    }
+
     private static Task<List<ProductsDTO>> GetProductsAsync()
     {
         List<ProductsDTO> products = new()
@@ -77,6 +95,20 @@ public class UnitTestController
                 UnitsInStock = 17,
                 UnitsOnOrder = 40,
                 ReorderLevel = 25,
+                Discontinued = false
+            },
+
+            new ProductsDTO
+            {
+                ProductID = 3,
+                ProductName = "Testing",
+                Supplier = null,
+                Category  = null,
+                QuantityPerUnit = null,
+                UnitPrice = null,
+                UnitsInStock = null,
+                UnitsOnOrder = null,
+                ReorderLevel = null,
                 Discontinued = false
             },
         };
