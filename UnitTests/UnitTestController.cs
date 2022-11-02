@@ -1,40 +1,40 @@
-﻿using GetandTake.Controller;
+﻿using AutoMapper;
+using GetandTake.Controller;
 using GetandTake.Models.DTOs.ListDTO;
 using GetandTake.Services.Abstract;
 using Moq;
+using Xunit;
 
 namespace UnitTests;
 
 public class UnitTestController
 {
     [Fact]
-    public Task ProductList_ShouldExecuteSuccessullyAndReturnProducts()
+    public void ProductList_ShouldExecuteSuccessullyAndReturnProducts()
     {
         //arrange
         var productService = new Mock<IProductService>();
-        var productList = GetProductsAsync();
+        var productList = GetProducts();
         productService.Setup(product => product.GetAllAsync())
-            .Returns(productList);
+            .ReturnsAsync(productList);
         var productController = new ProductController(productService.Object);
 
         //act
-        var productResult = productController.ProductList();
+        var productResult = productController.ProductList().Result;
 
         //assert
         Assert.NotNull(productResult);
-        Assert.Equal(productList.Result.Count, productResult.Result.Count);
-        Assert.Equal(productList.ToString(), productResult.ToString());
-        return Task.CompletedTask;
+        Assert.Equal(productList.Count, productResult.Count);
     }
 
     [Fact]
-    public Task Product_ShouldExecuteSuccessullyAndReturnProduct()
+    public void Product_ShouldExecuteSuccessullyAndReturnProduct()
     {
         //arrange
         var productService = new Mock<IProductService>();
-        var productList = GetProductsAsync().Result;
-        productService.Setup(product => product.GetByIdAsync(2).Result)
-            .Returns(productList[1]);
+        var productList = GetProducts();
+        productService.Setup(product => product.GetByIdAsync(2))
+            .ReturnsAsync(productList[1]);
         var productController = new ProductController(productService.Object);
 
         //act
@@ -43,9 +43,21 @@ public class UnitTestController
         //assert
         Assert.NotNull(productResult);
         Assert.Equal(productList[1].ProductID, productResult.Result.ProductID);
-        Assert.True(productList[1].ProductID == productResult.Result.ProductID);
-        
-        return Task.CompletedTask;
+    }
+
+    [Fact]
+    public void Product_GetProductByIdWithInvalıdArguments_ThrowsArgumentException()
+    {
+        //arrange
+        var productService = new Mock<IProductService>();
+        var productList = GetProducts();
+        productService.SetupSequence(product => product.GetByIdAsync(8))
+            .ReturnsAsync(productList[1])
+            .ThrowsAsync(new Exception());
+        var productController = new ProductController(productService.Object);
+
+        //act & assert
+        Assert.ThrowsAsync<ArgumentException>(() => productController.GetProductByIdAsync(2));
     }
 
     [Fact]
@@ -57,16 +69,16 @@ public class UnitTestController
         var productController = new ProductController(productService.Object);
 
         //act
-        var productResult = productController.ProductList();
+        var productResult = productController.ProductList().Result;
 
         //assert
         Assert.Throws<NullReferenceException>(() =>
         {
-            int index = productResult.Result.IndexOf(productToFind);
+            int index = productResult.IndexOf(productToFind);
         });
     }
 
-    private static Task<List<ProductsDTO>> GetProductsAsync()
+    private static List<ProductsDTO> GetProducts()
     {
         List<ProductsDTO> products = new()
         {
@@ -113,7 +125,7 @@ public class UnitTestController
             },
         };
 
-        return Task.FromResult(products);
+        return products;
     }
 }
 
