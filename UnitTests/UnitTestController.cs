@@ -8,7 +8,7 @@ namespace UnitTests;
 public class UnitTestController
 {
     [Fact]
-    public void ProductList_ShouldExecuteSuccessullyAndReturnProducts()
+    public Task ProductList_ShouldExecuteSuccessullyAndReturnProducts()
     {
         //arrange
         var productService = new Mock<IProductService>();
@@ -24,6 +24,28 @@ public class UnitTestController
         Assert.NotNull(productResult);
         Assert.Equal(productList.Result.Count, productResult.Result.Count);
         Assert.Equal(productList.ToString(), productResult.ToString());
+        return Task.CompletedTask;
+    }
+
+    [Fact]
+    public Task Product_ShouldExecuteSuccessullyAndReturnProduct()
+    {
+        //arrange
+        var productService = new Mock<IProductService>();
+        var productList = GetProductsAsync().Result;
+        productService.Setup(product => product.GetByIdAsync(2).Result)
+            .Returns(productList[1]);
+        var productController = new ProductController(productService.Object);
+
+        //act
+        var productResult = productController.GetProductByIdAsync(2);
+
+        //assert
+        Assert.NotNull(productResult);
+        Assert.Equal(productList[1].ProductID, productResult.Result.ProductID);
+        Assert.True(productList[1].ProductID == productResult.Result.ProductID);
+        
+        return Task.CompletedTask;
     }
 
     private static Task<List<ProductsDTO>> GetProductsAsync()
