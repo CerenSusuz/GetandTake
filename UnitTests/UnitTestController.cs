@@ -1,30 +1,19 @@
 ﻿using GetandTake.Controller;
-using GetandTake.Models;
-using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
 using GetandTake.Services.Abstract;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnitTests;
+
 public class UnitTestController
 {
-    private readonly Mock<IProductService> productService;
-	public UnitTestController()
-	{
-		productService = new Mock<IProductService>();
-	}
-
-	[Fact]
-	public void GetProductItems_ProductList()
-	{
+    [Fact]
+    public void ProductList_ShouldExecuteSuccessullyAndReturnProducts()
+    {
         //arrange
-        var productList = GetProductsData();
-        productService.Setup(x => x.GetAllAsync())
+        var productService = new Mock<IProductService>();
+        var productList = GetProductsAsync();
+        productService.Setup(product => product.GetAllAsync())
             .Returns(productList);
         var productController = new ProductController(productService.Object);
 
@@ -33,13 +22,13 @@ public class UnitTestController
 
         //assert
         Assert.NotNull(productResult);
-        Assert.Equal(GetProductsData().Result.Count(), productResult.Result.Count());
-        Assert.Equal(GetProductsData().ToString(), productResult.ToString());
+        Assert.Equal(productList.Result.Count, productResult.Result.Count);
+        Assert.Equal(productList.ToString(), productResult.ToString());
     }
 
-    private async Task<List<ProductsDTO>> GetProductsData()
+    private static Task<List<ProductsDTO>> GetProductsAsync()
     {
-        List<ProductsDTO> productsData = new List<ProductsDTO>
+        List<ProductsDTO> products = new()
         {
             new ProductsDTO
             {
@@ -54,8 +43,23 @@ public class UnitTestController
                 ReorderLevel = 1,
                 Discontinued = true
             },
+
+            new ProductsDTO
+            {
+                ProductID = 2,
+                ProductName = "Chang",
+                Supplier = "Nord-Ost-Fisch Handelsgesellschaft mbH",
+                Category  = "Dairy Products",
+                QuantityPerUnit = "24 - 12 oz bottles",
+                UnitPrice = 19,
+                UnitsInStock = 17,
+                UnitsOnOrder = 40,
+                ReorderLevel = 25,
+                Discontinued = false
+            },
         };
-        return productsData;
+
+        return Task.FromResult(products);
     }
 }
 
