@@ -28,7 +28,7 @@ public class CategoryManager : ICategoryService
     }
     
     public async Task<List<Category>> GetAllAsync() => 
-        await _repository.GetAllItemsAsync();
+        await _repository.GetItemsAsync();
 
     public async Task<Category> GetByIdAsync(int categoryId) => 
         await _repository.GetAsync(category => category.CategoryID == categoryId);

@@ -28,7 +28,7 @@ public class SupplierManager : ISupplierService
     }
 
     public async Task<List<Supplier>> GetAllAsync() => 
-        await _repository.GetAllItemsAsync();
+        await _repository.GetItemsAsync();
 
     public async Task<Supplier> GetByIdAsync(int supplierId) => 
         await _repository.GetAsync(supplier => supplier.SupplierID == supplierId);

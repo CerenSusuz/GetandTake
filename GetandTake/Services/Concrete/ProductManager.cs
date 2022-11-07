@@ -39,14 +39,14 @@ public class ProductManager : IProductService
 
     public async Task<List<ProductsDTO>> GetAllAsync()
     {
-        var products = await _repository.GetItemsWithIncludesAsync(include => include.Category, include => include.Supplier);
+        var products = await _repository.GetItemsAsync(include => include.Category, include => include.Supplier);
 
         return _mapper.Map<List<ProductsDTO>>(products);
     }
 
     public async Task<List<ProductsDTO>> GetAllByCategoryIdAsync(int categoryId)
     {
-        var products = await _repository.GetItemsByFilterWithIncludesAsync(
+        var products = await _repository.GetItemsAsync(
             category => category.CategoryID == categoryId,
             include => include.Category, 
             include => include.Supplier);
@@ -56,7 +56,7 @@ public class ProductManager : IProductService
 
     public async Task<List<ProductsDTO>> GetAllBySupplierIdAsync(int supplierId)
     {
-        var products = await _repository.GetItemsByFilterWithIncludesAsync(supplier => supplier.SupplierID == supplierId,
+        var products = await _repository.GetItemsAsync(supplier => supplier.SupplierID == supplierId,
             include => include.Supplier);
 
         return _mapper.Map<List<ProductsDTO>>(products);
@@ -77,7 +77,7 @@ public class ProductManager : IProductService
         {
             return await GetAllAsync();
         }
-        var entities = await _repository.GetItemsByLimit(maximumAmount);
+        var entities = await _repository.GetItemsAsync(maximumAmount);
         
         return _mapper.Map<List<ProductsDTO>>(entities);
     }

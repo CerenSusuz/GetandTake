@@ -18,10 +18,10 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
         _entities = _dbContext.Set<TEntity>();
     }
 
-    public async Task<List<TEntity>> GetAllItemsAsync() =>
+    public async Task<List<TEntity>> GetItemsAsync() =>
                 await _entities.AsNoTracking().ToListAsync();
 
-    public async Task<List<TEntity>> GetItemsByFilterWithIncludesAsync(
+    public async Task<List<TEntity>> GetItemsAsync(
                Expression<Func<TEntity, bool>> expression,
                params Expression<Func<TEntity, object>>[] includes)
     {
@@ -39,7 +39,7 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
         return await query.ToListAsync();
     }
 
-    public async Task<List<TEntity>> GetItemsWithIncludesAsync(params Expression<Func<TEntity, object>>[] includes)
+    public async Task<List<TEntity>> GetItemsAsync(params Expression<Func<TEntity, object>>[] includes)
     {
         var query = _entities.AsNoTracking();
         if (includes.Any())
@@ -94,7 +94,7 @@ public abstract class BaseRepository<TEntity, TContext> : IBaseRepository<TEntit
         _dbContext.SaveChanges();
     }
 
-    public async Task<List<TEntity>> GetItemsByLimit(int limit) =>
+    public async Task<List<TEntity>> GetItemsAsync(int limit) =>
         await _entities
             .Take(limit)
             .AsNoTracking()
