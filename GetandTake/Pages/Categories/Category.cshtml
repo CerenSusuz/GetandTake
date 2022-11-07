@@ -1,7 +1,7 @@
 ﻿@page
 @model GetandTake.Pages.Categories.CategoryModel
 <div class="row pb-2">
-    <h4 class="text-success pl-3">
+    <h4 class="text-dark pl-3">
         Categories
     </h4>
     <hr />
@@ -10,13 +10,26 @@
     <div class="row">
         @foreach (var category in Model.Categories)
         {
-            <div class="col-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">@category.CategoryName</h5>
+            <div class="col-4">
+                <div class="card border-dark bg-dark text-white m-2">
+                    <div class="card-body m-2">
+                        <h5 class="card-title ">@category.CategoryName</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body m-2">
                         <p class="card-text">@category.Description</p>
+                        <div class="card-body m-2">
+                            @if (@category.Picture != null)
+                            {
+                                <img src="data:image/png;base64,@Convert.ToBase64String(@category.Picture,78, @category.Picture.Length -78)" />
+                            }
+                            <p>There is no picture of that category</p>
+                        </div>
+                        <a asp-page="Edit" asp-route-id="@category.CategoryID" class="btn btn-outline-success">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a asp-page="Upload" asp-route-id="@category.CategoryID" class="btn btn-outline-primary">
+                            <i class="bi bi-upload"></i>
+                        </a>
                     </div>
                 </div>
             </div>

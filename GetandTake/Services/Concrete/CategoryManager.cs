@@ -11,10 +11,10 @@ public class CategoryManager : ICategoryService
     public CategoryManager(ICategoryRepository repository) =>
         _repository = repository;
 
-    public void Delete(int categoryId) => 
+    public void Delete(int categoryId) =>
         _repository.Delete(entity => entity.CategoryID == categoryId);
 
-    public async Task CreateAsync(Category category) => 
+    public async Task CreateAsync(Category category) =>
         await _repository.CreateAsync(category);
 
     public async Task UpdateAsync(int categoryId, Category category)
@@ -26,10 +26,10 @@ public class CategoryManager : ICategoryService
             _repository.Update(category);
         }
     }
-    
-    public async Task<List<Category>> GetAllAsync() => 
+
+    public async Task<List<Category>> GetAllAsync() =>
         await _repository.GetItemsAsync();
 
-    public async Task<Category> GetByIdAsync(int categoryId) => 
+    public async Task<Category> GetByIdAsync(int categoryId) =>
         await _repository.GetAsync(category => category.CategoryID == categoryId);
 }
