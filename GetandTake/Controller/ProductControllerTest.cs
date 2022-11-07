@@ -7,11 +7,11 @@ namespace GetandTake.Controller;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProductController : ControllerBase
+public class ProductControllerTest : ControllerBase
 {
     private readonly IProductService productService;
 
-    public ProductController(IProductService _productService)
+    public ProductControllerTest(IProductService _productService)
     {
         productService = _productService;
     }
