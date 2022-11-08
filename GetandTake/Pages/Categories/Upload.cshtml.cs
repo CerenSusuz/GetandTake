@@ -1,54 +1,48 @@
-using GetandTake.Core.Models;
 using GetandTake.Models;
 using GetandTake.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GetandTake.Pages.Categories
+namespace GetandTake.Pages.Categories;
+
+public class UploadModel : PageModel
 {
-    public class UploadModel : PageModel
+    private readonly ICategoryService _categoryService;
+
+    public UploadModel(ICategoryService categoryService)
     {
-        private readonly ICategoryService _categoryService;
+        _categoryService = categoryService;
+    }
 
-        [BindProperty]
-        public FileUpload FileUpload { get; set; }
+    [BindProperty]
+    public IFormFile Upload { get; set; }
 
-        public UploadModel(ICategoryService categoryService)
+    [BindProperty]
+    public Category Category { get; set; }
+
+    public async Task OnGet(int id)
+    {
+        Category = await _categoryService.GetByIdAsync(id);
+    }
+
+    public async Task<IActionResult> OnPost(int id)
+    {
+        Category cat = await _categoryService.GetByIdAsync(id);
+        if (Upload.Length > 0)
         {
-            _categoryService = categoryService;
-        }
-
-        public Category Category { get; set; }
-
-        public async Task OnGet(int id)
-        {
-            Category = await _categoryService.GetByIdAsync(id);
-        }
-
-        public async Task<IActionResult> OnPostUploadAsync()
-        {
-            using (var memoryStream = new MemoryStream())
+            using (var stream = new MemoryStream())
             {
-                await FileUpload.FormFile.CopyToAsync(memoryStream);
-
-                // Upload the file if less than 2 MB
-                if (memoryStream.Length < 2097152)
+                Upload.CopyTo(stream);
+                Category category = new()
                 {
-                    var file = new Category()
-                    {
-                        CategoryName = Category.CategoryName,
-                        Description = Category.Description,
-                        Picture = memoryStream.ToArray()
-                    };
-                    await _categoryService.UpdateAsync(Category.CategoryID, Category);
-                }
-                else
-                {
-                    ModelState.AddModelError("File", "The file is too large.");
-                }
-            }
-
-            return Page();
+                    CategoryName = cat.CategoryName,
+                    Description = cat.Description,
+                    Picture = stream.ToArray()
+                };
+                await _categoryService.UpdateAsync(id, category);
+            };
+            return RedirectToPage("Category");
         }
+        return Page();
     }
 }

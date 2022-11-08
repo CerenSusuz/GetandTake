@@ -17,12 +17,13 @@
                     </div>
                     <div class="card-body m-2">
                         <p class="card-text">@category.Description</p>
-                        <div class="card-body m-2">
+                        <div class="card-body m-4">
                             @if (@category.Picture != null)
                             {
-                                <img src="data:image/png;base64,@Convert.ToBase64String(@category.Picture,78, @category.Picture.Length -78)" />
+                                <img fill="#868e96" src="data:image/png;base64,@Convert.ToBase64String(@category.Picture,78, @category.Picture.Length -78)" />
+                            }else{
+                                <p>There is no picture of that category</p>
                             }
-                            <p>There is no picture of that category</p>
                         </div>
                         <a asp-page="Edit" asp-route-id="@category.CategoryID" class="btn btn-outline-success">
                             <i class="bi bi-pencil-fill"></i>

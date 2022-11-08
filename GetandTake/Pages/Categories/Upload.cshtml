@@ -5,16 +5,25 @@
         Upload Category Image
     </h3>
 </div>
-<div class="mb-2">
-    <form enctype="multipart/form-data" method="post">
-        <dl>
-            <dt>
-                <label asp-for="FileUpload.FormFile"></label>
-            </dt>
-            <dd>
-                <input asp-for="FileUpload.FormFile" type="file">
-            </dd>
-        </dl>
-        <button type="submit" class="btn btn-success">Upload Image</button>
-    </form>
+<div class="col-4">
+    <div class="border p-3 mt-4">
+        <label asp-for="Category.CategoryName">CategoryName</label>
+        <input type="text" disabled asp-for="Category.CategoryName" />
+        <hr />
+        <label asp-for="Category.Description">Description</label>
+        <input type="text" disabled asp-for="Category.Description" />
+        <hr />
+    </div>
 </div>
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="file" asp-for="Upload" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit"/>
+        </div>
+    </div>
+</form>
