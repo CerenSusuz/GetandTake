@@ -37,7 +37,15 @@ public class CategoryManager : ICategoryService
     public async Task UploadImage(IFormFile file, int id)
     {
         var category = await GetByIdAsync(id);
+       var category = await GetByIdAsync(id);
+       
         if (category.ImagePath == null)
+        {
+              throw new Exception(...);
+        }
+        
+        category.ImagePath = FileHelper.Add(file);
+        _repository.Update(category);
         {
             category.ImagePath = FileHelper.Add(file);
             _repository.Update(category);
