@@ -2,6 +2,8 @@
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
 using GetandTake.Services.Abstract;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 
 namespace GetandTake.Services.Concrete;
 
@@ -34,6 +36,7 @@ public class CategoryManager : ICategoryService
     public async Task<Category> GetByIdAsync(int categoryId) =>
         await _repository.GetAsync(category => category.CategoryID == categoryId);
 
+    [ResponseCache(NoStore = false, Duration = 10, Location = ResponseCacheLocation.Any)]
     public async Task UploadImage(IFormFile file, int id)
     {
         var category = await GetByIdAsync(id);

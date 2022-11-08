@@ -8,15 +8,14 @@ builder.RegisterLogging();
 // Add services to the container.
 builder.Services
     .AddRazorPages()
-    .AddRazorRuntimeCompilation()
-    .AddMvcOptions(options =>
-    {
-        options.MaxModelValidationErrors = 50;
-        options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
-        _ => "The field is required.");
-    });
+    .AddRazorRuntimeCompilation();
 builder.Services.AddSingleton(new MapperConfiguration(mapperConfig =>
                                                       mapperConfig.AddProfile(new AutoMapperProfile())).CreateMapper());
+builder.Services.AddResponseCaching(options =>
+{
+    options.MaximumBodySize = 1024;
+    options.UseCaseSensitivePaths = true;
+});
 
 var databaseSettings = builder.Configuration.GetSection(nameof(AppSettings.Database)).Get<DatabaseSettings>();
 var productSettings = builder.Configuration.GetSection(nameof(AppSettings.Products)).Get<ProductsSettings>();
@@ -55,6 +54,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseResponseCaching();
 
 app.UseAuthorization();
 
