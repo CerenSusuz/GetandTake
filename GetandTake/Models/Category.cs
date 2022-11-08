@@ -14,7 +14,7 @@ public class Category : BaseEntity
 
     public string? ImagePath { get; set; }
 
-    public ICollection<Product>? Products { get; set; }
+    public ICollection<Product> Products { get; set; }
 
-    public ICollection<CategoryImage>? Images { get; set; }
+    public ICollection<CategoryImage> Images { get; set; }
 }
