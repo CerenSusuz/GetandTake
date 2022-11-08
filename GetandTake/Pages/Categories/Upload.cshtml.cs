@@ -8,10 +8,12 @@ namespace GetandTake.Pages.Categories;
 public class UploadModel : PageModel
 {
     private readonly ICategoryService _categoryService;
+    private readonly ICategoryImageService _categoryImageService;
 
-    public UploadModel(ICategoryService categoryService)
+    public UploadModel(ICategoryService categoryService, ICategoryImageService categoryImageService)
     {
         _categoryService = categoryService;
+        _categoryImageService = categoryImageService;
     }
 
     [BindProperty]
@@ -27,22 +29,8 @@ public class UploadModel : PageModel
 
     public async Task<IActionResult> OnPost(int id)
     {
-        Category cat = await _categoryService.GetByIdAsync(id);
-        if (Upload.Length > 0)
-        {
-            using (var stream = new MemoryStream())
-            {
-                Upload.CopyTo(stream);
-                Category category = new()
-                {
-                    CategoryName = cat.CategoryName,
-                    Description = cat.Description,
-                    Picture = stream.ToArray()
-                };
-                await _categoryService.UpdateAsync(id, category);
-            };
-            return RedirectToPage("Category");
-        }
-        return Page();
+        await _categoryImageService.Add(Upload, id);
+
+        return RedirectToPage("Category");
     }
 }
