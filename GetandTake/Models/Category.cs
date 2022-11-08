@@ -12,6 +12,8 @@ public class Category : BaseEntity
 
     public byte[]? Picture { get; set; }
 
+    public string? ImagePath { get; set; }
+
     public ICollection<Product>? Products { get; set; }
 
     public ICollection<CategoryImage>? Images { get; set; }

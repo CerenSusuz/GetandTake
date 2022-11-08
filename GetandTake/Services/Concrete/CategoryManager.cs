@@ -1,4 +1,5 @@
-﻿using GetandTake.DataAccess.Repositories.Abstract;
+﻿using GetandTake.Core.Helper;
+using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
 using GetandTake.Services.Abstract;
 
@@ -32,4 +33,25 @@ public class CategoryManager : ICategoryService
 
     public async Task<Category> GetByIdAsync(int categoryId) =>
         await _repository.GetAsync(category => category.CategoryID == categoryId);
+
+    public async Task UploadImage(IFormFile file, int id)
+    {
+        var category = await GetByIdAsync(id);
+        if (category.ImagePath == null)
+        {
+            category.ImagePath = FileHelper.Add(file);
+            _repository.Update(category);
+        }
+    }
+
+    public async Task EditImage(IFormFile file, int id)
+    {
+        var category = await GetByIdAsync(id);
+        if (category.ImagePath != null)
+        {
+            category.CategoryID = id;
+            category.ImagePath = FileHelper.Add(file);
+            _repository.Update(category);
+        }
+    }
 }

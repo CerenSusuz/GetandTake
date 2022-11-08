@@ -13,17 +13,24 @@
         <label asp-for="Category.Description">Description</label>
         <input type="text" disabled asp-for="Category.Description" />
         <hr />
+        @if (Model.Category.ImagePath != null)
+        {
+            string imagePath = $"https://localhost:7005/" + Model.Category.ImagePath;
+            <img src="@imagePath" />
+        }
+        <hr />
     </div>
 </div>
-<form method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <div class="col-md-10">
-            <input type="file" asp-for="Upload" />
+@if (Model.Category.ImagePath == null)
+{
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="file" asp-for="Upload" class="btn btn-outline-success" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
         <div class="col-md-10">
-            <input type="submit"/>
+            <input type="submit" class="btn btn-outline-success"/>
         </div>
-    </div>
-</form>
+    </form>
+}
