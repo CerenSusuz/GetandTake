@@ -1,10 +1,5 @@
 ﻿@page
 @model GetandTake.Pages.Categories.UploadModel
-<div>
-    <h3>
-        Upload Category Image
-    </h3>
-</div>
 <div class="col-4">
     <div class="border p-3 mt-4">
         <label asp-for="Category.CategoryName">CategoryName</label>
@@ -23,6 +18,11 @@
 </div>
 @if (Model.Category.ImagePath == null)
 {
+    <div>
+        <h3>
+            Upload Category Image
+        </h3>
+    </div>
     <form method="post" enctype="multipart/form-data">
         <div class="form-group">
             <div class="col-md-10">

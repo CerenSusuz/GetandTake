@@ -9,15 +9,21 @@ public class FileHelper
         {
             var sourcePath = Path.GetTempFileName();
             if (file.Length > 0)
+            {
                 using (var stream = new FileStream(sourcePath, FileMode.Create))
+                {
                     file.CopyTo(stream);
-            File.Move(sourcePath, result.NewPath);
+                    File.Move(sourcePath, result.NewFilePath);
+                }
+            }
         }
         catch (Exception exception)
         {
+
             return exception.Message;
         }
-        return result.LastPath;
+
+        return result.FilePath;
     }
 
     public static string Update(string sourcePath, IFormFile file)
@@ -27,16 +33,18 @@ public class FileHelper
         {
             if (sourcePath.Length > 0)
             {
-                using var stream = new FileStream(result.NewPath, FileMode.Create);
+                using var stream = new FileStream(result.NewFilePath, FileMode.Create);
                 file.CopyTo(stream);
             }
             File.Delete(sourcePath);
         }
         catch (Exception exception)
         {
+
             return exception.Message;
         }
-        return result.LastPath;
+
+        return result.FilePath;
     }
 
     public static void Delete(string path)
@@ -44,10 +52,10 @@ public class FileHelper
         File.Delete(path);
     }
 
-    public static (string NewPath, string LastPath) NewPath(IFormFile file)
+    public static (string NewFilePath, string FilePath) NewPath(IFormFile file)
     {
-        FileInfo ff = new FileInfo(file.FileName);
-        string fileExtension = ff.Extension;
+        var fileInfo = new FileInfo(file.FileName);
+        string fileExtension = fileInfo.Extension;
         var newPath = Guid.NewGuid() + fileExtension;
         string path = Environment.CurrentDirectory + @"\wwwroot\img";
         string result = $@"{path}\{newPath}";
