@@ -14,11 +14,12 @@ public static class CustomExceptionHandler
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 context.Response.ContentType = Text.Plain;
 
-                await context.Response.WriteAsync("An exception was thrown.");
-
+                
                 var exceptionHandlerPathFeature =
                     context.Features.Get<IExceptionHandlerPathFeature>();
-                
+
+                await context.Response.WriteAsync(exceptionHandlerPathFeature.Error.ToString());
+
                 if (exceptionHandlerPathFeature == null)
                 {
                     return;

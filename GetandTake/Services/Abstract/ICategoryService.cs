@@ -13,4 +13,6 @@ public interface ICategoryService
     Task CreateAsync(Category category);
 
     void Delete(int categoryId);
+
+    Task UploadImage(IFormFile file, int id);
 }

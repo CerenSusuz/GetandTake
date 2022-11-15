@@ -1,6 +1,8 @@
-﻿using GetandTake.DataAccess.Repositories.Abstract;
+﻿using GetandTake.Core.Helper;
+using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
 using GetandTake.Services.Abstract;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GetandTake.Services.Concrete;
 
@@ -11,10 +13,10 @@ public class CategoryManager : ICategoryService
     public CategoryManager(ICategoryRepository repository) =>
         _repository = repository;
 
-    public void Delete(int categoryId) => 
+    public void Delete(int categoryId) =>
         _repository.Delete(entity => entity.CategoryID == categoryId);
 
-    public async Task CreateAsync(Category category) => 
+    public async Task CreateAsync(Category category) =>
         await _repository.CreateAsync(category);
 
     public async Task UpdateAsync(int categoryId, Category category)
@@ -26,10 +28,18 @@ public class CategoryManager : ICategoryService
             _repository.Update(category);
         }
     }
-    
-    public async Task<List<Category>> GetAllAsync() => 
+
+    public async Task<List<Category>> GetAllAsync() =>
         await _repository.GetItemsAsync();
 
-    public async Task<Category> GetByIdAsync(int categoryId) => 
+    public async Task<Category> GetByIdAsync(int categoryId) =>
         await _repository.GetAsync(category => category.CategoryID == categoryId);
+
+    [ResponseCache(NoStore = false, Duration = 10, Location = ResponseCacheLocation.Any)]
+    public async Task UploadImage(IFormFile file, int id)
+    {
+        var category = await GetByIdAsync(id);
+        category.ImagePath = FileHelper.Upload(file);
+        _repository.Update(category);
+    }
 }

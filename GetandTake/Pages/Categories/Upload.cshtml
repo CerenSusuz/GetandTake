@@ -1,0 +1,36 @@
+﻿@page
+@model GetandTake.Pages.Categories.UploadModel
+<div class="col-4">
+    <div class="border p-3 mt-4">
+        <label asp-for="Category.CategoryName">CategoryName</label>
+        <input type="text" disabled asp-for="Category.CategoryName" />
+        <hr />
+        <label asp-for="Category.Description">Description</label>
+        <input type="text" disabled asp-for="Category.Description" />
+        <hr />
+        @if (Model.Category.ImagePath != null)
+        {
+            string imagePath = $"https://localhost:7005/" + Model.Category.ImagePath;
+            <img src="@imagePath" />
+        }
+        <hr />
+    </div>
+</div>
+@if (Model.Category.ImagePath == null)
+{
+    <div>
+        <h3>
+            Upload Category Image
+        </h3>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="file" asp-for="Upload" class="btn btn-outline-success" />
+            </div>
+        </div>
+        <div class="col-md-10">
+            <input type="submit" class="btn btn-outline-success"/>
+        </div>
+    </form>
+}
