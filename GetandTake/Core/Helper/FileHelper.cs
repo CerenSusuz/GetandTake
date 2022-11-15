@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore;
-
-namespace GetandTake.Core.Helper;
+﻿namespace GetandTake.Core.Helper;
 
 public class FileHelper
 {

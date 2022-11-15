@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace GetandTake.Configuration;

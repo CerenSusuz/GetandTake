@@ -1,5 +1,4 @@
-﻿using GetandTake.Models.DTOs.BaseDTO;
-using GetandTake.Models.DTOs.ListDTO;
+﻿using GetandTake.Models.DTOs.ListDTO;
 using GetandTake.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
