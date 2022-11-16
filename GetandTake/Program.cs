@@ -12,7 +12,7 @@ builder.Services
     .AddRazorPages()
     .AddMvcOptions(options =>
     {
-        options.Filters.Add(new CustomPageFilter());
+        options.Filters.Add(new LogActionFilter());
     })
     .AddRazorRuntimeCompilation();
 builder.Services.AddSingleton(new MapperConfiguration(mapperConfig =>
