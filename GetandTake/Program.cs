@@ -1,5 +1,7 @@
 using AutoMapper;
 using GetandTake.Configuration;
+using GetandTake.Extensions;
+using GetandTake.Filters;
 using GetandTake.Services.AutoMapper;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -8,6 +10,10 @@ builder.RegisterLogging();
 // Add services to the container.
 builder.Services
     .AddRazorPages()
+    .AddMvcOptions(options =>
+    {
+        options.Filters.Add(new CustomPageFilter());
+    })
     .AddRazorRuntimeCompilation();
 builder.Services.AddSingleton(new MapperConfiguration(mapperConfig =>
                                                       mapperConfig.AddProfile(new AutoMapperProfile())).CreateMapper());
@@ -60,6 +66,8 @@ app.UseResponseCaching();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseMyCustomMiddleware();
 
 app.Run();
 
