@@ -18,6 +18,7 @@ public class CategoryModel : PageModel
         _categoryService = categoryService;
         _logger = logger;
     }
+
     public async Task OnGet()
     {
         _logger.LogInformation("Categories process start {DT}", 
