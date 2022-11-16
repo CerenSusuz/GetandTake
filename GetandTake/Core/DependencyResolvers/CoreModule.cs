@@ -1,7 +1,6 @@
 ﻿using GetandTake.Core.CrossCuttingConcerns.Caching;
 using GetandTake.Core.CrossCuttingConcerns.Caching.Microsoft;
 using GetandTake.Core.Utilities.IoC;
-using System.Diagnostics;
 
 namespace GetandTake.Core.DependencyResolvers;
 

@@ -1,7 +1,7 @@
 ﻿using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
 
-namespace GetandTake.Services.Abstract;
+namespace GetandTake.Business.Services.Abstract;
 
 public interface IProductService
 {
@@ -10,7 +10,7 @@ public interface IProductService
     Task<List<ProductsDTO>> GetAllByCategoryIdAsync(int categoryId);
 
     Task<List<ProductsDTO>> GetAllBySupplierIdAsync(int supplierId);
-    
+
     Task<List<ProductsDTO>> GetByMaxAmountOfAsync(int maximumAmount);
 
     Task<ProductsDTO> GetByIdAsync(int productId);

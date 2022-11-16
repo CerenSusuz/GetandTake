@@ -1,6 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using GetandTake.Core.CrossCuttingConcerns.Caching;
-using GetandTake.Core.Interceptors;
+using GetandTake.Core.Utilities.Interceptors;
 using GetandTake.Core.Utilities.IoC;
 
 namespace GetandTake.Core.Aspects.Caching;

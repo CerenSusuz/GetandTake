@@ -1,8 +1,8 @@
-﻿using GetandTake.Models.DTOs.ListDTO;
-using GetandTake.Services.Abstract;
+﻿using GetandTake.Business.Services.Abstract;
+using GetandTake.Models.DTOs.ListDTO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GetandTake.Controller;
+namespace GetandTake.TestController;
 
 [Route("api/[controller]")]
 [ApiController]

@@ -1,6 +1,6 @@
+using GetandTake.Business.Services.Abstract;
 using GetandTake.Configuration;
 using GetandTake.Models.DTOs.ListDTO;
-using GetandTake.Services.Abstract;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GetandTake.Pages.Products;

@@ -2,13 +2,13 @@
 using AutoMapper;
 using GetandTake.Core.CrossCuttingConcerns.Caching.Microsoft;
 using GetandTake.Core.CrossCuttingConcerns.Caching;
-using GetandTake.Services.Abstract;
-using GetandTake.Services.Concrete;
 using System.Reflection;
 using Castle.DynamicProxy;
-using GetandTake.Core.Interceptors;
 using Module = Autofac.Module;
 using Autofac.Extras.DynamicProxy;
+using GetandTake.Business.Services.Concrete;
+using GetandTake.Business.Services.Abstract;
+using GetandTake.Core.Utilities.Interceptors;
 
 namespace GetandTake.Business.DependencyResolvers.Autofac;
 

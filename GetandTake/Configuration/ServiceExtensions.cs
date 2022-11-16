@@ -1,7 +1,7 @@
-﻿using GetandTake.DataAccess.Repositories.Abstract;
+﻿using GetandTake.Business.Services.Abstract;
+using GetandTake.Business.Services.Concrete;
+using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.DataAccess.Repositories.Concrete;
-using GetandTake.Services.Abstract;
-using GetandTake.Services.Concrete;
 
 namespace GetandTake.Configuration;
 

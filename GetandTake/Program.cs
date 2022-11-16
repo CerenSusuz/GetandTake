@@ -1,12 +1,10 @@
 using AutoMapper;
+using GetandTake.Business.Services.AutoMapper;
 using GetandTake.Configuration;
 using GetandTake.Core.DependencyResolvers;
 using GetandTake.Core.Extensions;
 using GetandTake.Core.Filters;
 using GetandTake.Core.Utilities.IoC;
-using GetandTake.Services.AutoMapper;
-using static System.Net.Mime.MediaTypeNames;
-
 var builder = WebApplication.CreateBuilder(args);
 builder.RegisterLogging();
 // Add services to the container.
@@ -49,17 +47,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+    app.ExceptionHandler();
 }
-
-app.ExceptionHandler();
-
-app.UseStatusCodePages(async statusCodeContext =>
-{
-    statusCodeContext.HttpContext.Response.ContentType = Text.Plain;
-
-    await statusCodeContext.HttpContext.Response.WriteAsync(
-        $"Status Code Page: {statusCodeContext.HttpContext.Response.StatusCode}");
-});
 
 app.UseHttpsRedirection();
 
@@ -67,9 +56,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseResponseCaching();
+app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseResponseCaching();
 
 app.MapRazorPages();
 

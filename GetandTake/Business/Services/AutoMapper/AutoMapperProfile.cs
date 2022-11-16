@@ -3,7 +3,7 @@ using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
 
-namespace GetandTake.Services.AutoMapper;
+namespace GetandTake.Business.Services.AutoMapper;
 
 public class AutoMapperProfile : Profile
 {
@@ -15,7 +15,7 @@ public class AutoMapperProfile : Profile
                                   entity => entity.MapFrom(entity =>
      entity.Category.CategoryName))
             .ForMember(dto => dto.Supplier,
-                               entity => entity.MapFrom(entity => 
+                               entity => entity.MapFrom(entity =>
      entity.Supplier.CompanyName));
     }
 }

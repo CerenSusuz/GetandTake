@@ -1,11 +1,11 @@
-﻿using GetandTake.Core.Aspects.Caching;
+﻿using GetandTake.Business.Services.Abstract;
+using GetandTake.Core.Aspects.Caching;
 using GetandTake.Core.Utilities.Helper;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
-using GetandTake.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GetandTake.Services.Concrete;
+namespace GetandTake.Business.Services.Concrete;
 
 public class CategoryManager : ICategoryService
 {

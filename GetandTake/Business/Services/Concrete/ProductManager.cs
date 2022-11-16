@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
+using GetandTake.Business.Services.Abstract;
 using GetandTake.Core.Aspects.Caching;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
-using GetandTake.Services.Abstract;
 
-namespace GetandTake.Services.Concrete;
+namespace GetandTake.Business.Services.Concrete;
 
 public class ProductManager : IProductService
 {
@@ -39,7 +39,7 @@ public class ProductManager : IProductService
     }
 
     [CacheRemoveAspect("IProductService.Get")]
-    public void Delete(int productId) => 
+    public void Delete(int productId) =>
         _repository.Delete(product => product.ProductID == productId);
 
     [CacheAspect]
@@ -55,7 +55,7 @@ public class ProductManager : IProductService
     {
         var products = await _repository.GetItemsAsync(
             category => category.CategoryID == categoryId,
-            include => include.Category, 
+            include => include.Category,
             include => include.Supplier);
 
         return _mapper.Map<List<ProductsDTO>>(products);
@@ -74,7 +74,7 @@ public class ProductManager : IProductService
     public async Task<ProductsDTO> GetByIdAsync(int productId)
     {
         var findProduct = await _repository.GetAsync(product => product.ProductID == productId,
-            include => include.Category, 
+            include => include.Category,
             include => include.Supplier);
 
         return _mapper.Map<ProductsDTO>(findProduct);
@@ -88,7 +88,7 @@ public class ProductManager : IProductService
             return await GetAllAsync();
         }
         var entities = await _repository.GetItemsAsync(maximumAmount);
-        
+
         return _mapper.Map<List<ProductsDTO>>(entities);
     }
 }
