@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics;
 
-namespace GetandTake.Filters;
+namespace GetandTake.Core.Filters;
 
 public class LogActionFilter : ActionFilterAttribute
 
@@ -29,7 +29,7 @@ public class LogActionFilter : ActionFilterAttribute
     private void Log(string methodName, RouteData routeData)
     {
         var pageName = routeData.Values["page"];
-        var message = String.Format("{0} page:{1}", methodName, pageName);
+        var message = string.Format("{0} page:{1}", methodName, pageName);
         Debug.WriteLine(message, "Action Filter Log");
     }
 }

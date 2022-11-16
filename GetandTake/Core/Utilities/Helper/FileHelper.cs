@@ -1,4 +1,4 @@
-﻿namespace GetandTake.Core.Helper;
+﻿namespace GetandTake.Core.Utilities.Helper;
 
 public class FileHelper
 {

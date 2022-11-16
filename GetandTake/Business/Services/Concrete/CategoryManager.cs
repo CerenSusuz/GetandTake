@@ -1,4 +1,5 @@
-﻿using GetandTake.Core.Helper;
+﻿using GetandTake.Core.Aspects.Caching;
+using GetandTake.Core.Utilities.Helper;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
 using GetandTake.Services.Abstract;
@@ -13,12 +14,15 @@ public class CategoryManager : ICategoryService
     public CategoryManager(ICategoryRepository repository) =>
         _repository = repository;
 
+    [CacheRemoveAspect("ICategoryService.Get")]
     public void Delete(int categoryId) =>
         _repository.Delete(entity => entity.CategoryID == categoryId);
 
+    [CacheRemoveAspect("ICategoryService.Get")]
     public async Task CreateAsync(Category category) =>
         await _repository.CreateAsync(category);
 
+    [CacheRemoveAspect("ICategoryService.Get")]
     public async Task UpdateAsync(int categoryId, Category category)
     {
         var findCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
@@ -29,9 +33,11 @@ public class CategoryManager : ICategoryService
         }
     }
 
+    [CacheAspect]
     public async Task<List<Category>> GetAllAsync() =>
         await _repository.GetItemsAsync();
 
+    [CacheAspect]
     public async Task<Category> GetByIdAsync(int categoryId) =>
         await _repository.GetAsync(category => category.CategoryID == categoryId);
 

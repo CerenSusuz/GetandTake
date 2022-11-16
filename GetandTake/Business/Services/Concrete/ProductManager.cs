@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GetandTake.Core.Aspects.Caching;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
@@ -16,12 +17,15 @@ public class ProductManager : IProductService
         _repository = repository;
         _mapper = mapper;
     }
+
+    [CacheRemoveAspect("IProductService.Get")]
     public async Task CreateAsync(ProductDTO productDto)
     {
         var product = _mapper.Map<Product>(productDto);
         await _repository.CreateAsync(product);
     }
 
+    [CacheRemoveAspect("IProductService.Get")]
     public async Task UpdateAsync(int productId, ProductDTO productDto)
     {
         var findProduct = await _repository.GetAsync(
@@ -34,9 +38,11 @@ public class ProductManager : IProductService
         }
     }
 
+    [CacheRemoveAspect("IProductService.Get")]
     public void Delete(int productId) => 
         _repository.Delete(product => product.ProductID == productId);
 
+    [CacheAspect]
     public async Task<List<ProductsDTO>> GetAllAsync()
     {
         var products = await _repository.GetItemsAsync(include => include.Category, include => include.Supplier);
@@ -44,6 +50,7 @@ public class ProductManager : IProductService
         return _mapper.Map<List<ProductsDTO>>(products);
     }
 
+    [CacheAspect]
     public async Task<List<ProductsDTO>> GetAllByCategoryIdAsync(int categoryId)
     {
         var products = await _repository.GetItemsAsync(
@@ -54,6 +61,7 @@ public class ProductManager : IProductService
         return _mapper.Map<List<ProductsDTO>>(products);
     }
 
+    [CacheAspect]
     public async Task<List<ProductsDTO>> GetAllBySupplierIdAsync(int supplierId)
     {
         var products = await _repository.GetItemsAsync(supplier => supplier.SupplierID == supplierId,
@@ -62,6 +70,7 @@ public class ProductManager : IProductService
         return _mapper.Map<List<ProductsDTO>>(products);
     }
 
+    [CacheAspect]
     public async Task<ProductsDTO> GetByIdAsync(int productId)
     {
         var findProduct = await _repository.GetAsync(product => product.ProductID == productId,
@@ -71,6 +80,7 @@ public class ProductManager : IProductService
         return _mapper.Map<ProductsDTO>(findProduct);
     }
 
+    [CacheAspect]
     public async Task<List<ProductsDTO>> GetByMaxAmountOfAsync(int maximumAmount)
     {
         if (maximumAmount == default)

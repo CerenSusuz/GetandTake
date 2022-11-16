@@ -1,7 +1,9 @@
 using AutoMapper;
 using GetandTake.Configuration;
-using GetandTake.Extensions;
-using GetandTake.Filters;
+using GetandTake.Core.DependencyResolvers;
+using GetandTake.Core.Extensions;
+using GetandTake.Core.Filters;
+using GetandTake.Core.Utilities.IoC;
 using GetandTake.Services.AutoMapper;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -15,6 +17,11 @@ builder.Services
         options.Filters.Add(new LogActionFilter());
     })
     .AddRazorRuntimeCompilation();
+
+builder.Services.AddDependencyResolvers(new ICoreModule[]{
+    new CoreModule()
+});
+
 builder.Services.AddSingleton(new MapperConfiguration(mapperConfig =>
                                                       mapperConfig.AddProfile(new AutoMapperProfile())).CreateMapper());
 builder.Services.AddResponseCaching(options =>
@@ -34,7 +41,6 @@ var appSettings = new AppSettings
 
 builder.Services.RegisterServices(appSettings);
 builder.Services.RegisterDatabase(appSettings);
-
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
