@@ -12,8 +12,6 @@ public class CacheAspect : MethodInterception
 
     public readonly int _duration;
 
-    public string Location { get; set; } = "Client";
-
     public CacheAspect()
     {
         _duration = _defaultDuration;
@@ -29,7 +27,7 @@ public class CacheAspect : MethodInterception
     {
         var methodName = string.Format($"{invocation.Method.ReflectedType.FullName}.{invocation.Method.Name}");
         var arguments = invocation.Arguments.ToList();
-        var key = $"{methodName}({string.Join(",", arguments.Select(x => x?.ToString() ?? "<Null>"))})";
+        var key = $"{methodName}({string.Join(",", arguments.Select(key => key?.ToString() ?? "<Null>"))})";
         
         if (_cacheService.IsAdded(key))
         {

@@ -5,6 +5,8 @@ using GetandTake.Core.DependencyResolvers;
 using GetandTake.Core.Extensions;
 using GetandTake.Core.Filters;
 using GetandTake.Core.Utilities.IoC;
+using GetandTake.Middlewares;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.RegisterLogging();
 // Add services to the container.
@@ -62,9 +64,12 @@ app.UseAuthorization();
 
 app.UseResponseCaching();
 
-app.MapRazorPages();
+app.UseWhen(context => context.Request.Path.Value.Contains("/Categories/Images"), appBuilder =>
+{
+    appBuilder.UseMiddleware<CachingMiddleware>();
+});
 
-app.UseMyCustomMiddleware();
+app.MapRazorPages();
 
 app.Run();
 

@@ -1,4 +1,5 @@
 ﻿using GetandTake.Business.Services.Abstract;
+using GetandTake.Core.Aspects.Caching;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
 
@@ -11,12 +12,15 @@ public class SupplierManager : ISupplierService
     public SupplierManager(ISupplierRepository repository) =>
         _repository = repository;
 
+    [CacheRemoveAspect("ISupplierService.Get")]
     public async Task CreateAsync(Supplier supplier) =>
         await _repository.CreateAsync(supplier);
 
+    [CacheRemoveAspect("ISupplierService.Get")]
     public void Delete(int supplierId) =>
         _repository.Delete(entity => entity.SupplierID == supplierId);
 
+    [CacheRemoveAspect("ISupplierService.Get")]
     public async Task UpdateAsync(int supplierId, Supplier supplier)
     {
         var findSupplier = await _repository.GetAsync(category => category.SupplierID == supplierId);
@@ -27,9 +31,11 @@ public class SupplierManager : ISupplierService
         }
     }
 
+    [CacheAspect]
     public async Task<List<Supplier>> GetAllAsync() =>
         await _repository.GetItemsAsync();
 
+    [CacheAspect]
     public async Task<Supplier> GetByIdAsync(int supplierId) =>
         await _repository.GetAsync(supplier => supplier.SupplierID == supplierId);
 }
