@@ -3,6 +3,13 @@
 @{
     ViewData["Title"] = "Create a Product";
 }
+@if (!ModelState.IsValid)
+{
+    <div class="col-md-offset-2 col-md-10">
+        <h3 class="text-danger">Validation Errors</h3>
+        <div asp-validation-summary="All"></div>
+    </div>
+}
 <form method="post">
     <div class="border p-3 mt-4">
         <div asp-validation-summary="All"></div>

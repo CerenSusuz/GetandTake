@@ -1,7 +1,14 @@
 ﻿@page
 @model GetandTake.Pages.Categories.EditModel
 @{
-    ViewData["Title"] = Model.IsNewCategory ? "New Category" : "Edit Category";
+    ViewData["Title"] = "Edit Category";
+}
+@if (!ModelState.IsValid)
+{
+    <div class="col-md-offset-2 col-md-10">
+        <h3 class="text-danger">Validation Errors</h3>
+        <div asp-validation-summary="All"></div>
+    </div>  
 }
 <div class="container">
     <div class="row">
@@ -24,7 +31,6 @@
                         </h4>
                         <hr />
                     </div>
-                    <div asp-validation-summary="All"></div>
                     <div class="mb-2">
                         <label asp-for="Category.CategoryName" class="col-sm-2 col-form-label">Category Name</label>
                         <input type="text" asp-for="Category.CategoryName" class="form-control" />

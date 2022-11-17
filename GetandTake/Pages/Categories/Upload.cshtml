@@ -3,6 +3,13 @@
 @{
     ViewData["Title"] = "Upload Image";
 }
+@if (!ModelState.IsValid)
+{
+    <div class="col-md-offset-2 col-md-10">
+        <h3 class="text-danger">Validation Errors</h3>
+        <div asp-validation-summary="All"></div>
+    </div>
+}
 <div class="col-4">
     <div class="border p-3 mt-4">
         <label asp-for="Category.CategoryName">CategoryName</label>
