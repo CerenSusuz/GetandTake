@@ -1,11 +1,13 @@
 using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GetandTake.Pages.Products;
 
+//[Authorize]
 public class CreateModel : PageModel
 {
     private readonly IProductService _productService;

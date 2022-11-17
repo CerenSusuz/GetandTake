@@ -1,10 +1,12 @@
 using GetandTake.Models;
 using GetandTake.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GetandTake.Pages.Categories;
 
+//[Authorize]
 public class UploadModel : PageModel
 {
     private readonly ICategoryService _categoryService;
