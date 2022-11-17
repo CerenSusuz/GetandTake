@@ -1,11 +1,16 @@
 ﻿@page
 @model GetandTake.Pages.Categories.ImagesModel
-<h3>All Images</h3>
-@foreach (var category in Model.Categories)
+@{
+    var categories = await categoryService.GetAllAsync();
+}
+@section Title{
+    <h5 class="title">Images</h5>
+}
+@foreach (var category in categories)
 {
     @if (@category.ImagePath != null)
     {
         string imagePath = $"https://localhost:7005/" + @category.ImagePath;
-        <img src="@imagePath" class="img-thumbnail" width="250px;" />
+        <img src="@imagePath" class="img-thumbnail" width="220px;" />
     }
 }

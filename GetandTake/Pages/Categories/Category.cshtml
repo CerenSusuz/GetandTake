@@ -1,18 +1,17 @@
 ﻿@page
 @model GetandTake.Pages.Categories.CategoryModel
-<div class="row pb-2">
-    <h4 class="text-dark pl-3">
-        Categories
-    </h4>
-    <hr />
-</div>
-<div class="container">
-    <a asp-page="Images" class="btn btn-outline-success">
-        Show Images
+@{
+    var categories = await categoryService.GetAllAsync();
+}
+@section Title{
+    <h5 class="title">Images of Categories</h5>
+    <a asp-page="Images" class="btn btn-outline-primary">
         <i class="bi bi-card-image"></i>
     </a>
-    <div class="row">
-        @foreach (var category in Model.Categories)
+}
+    <div class="container">
+        <div class="row">
+        @foreach (var category in categories)
         {
             <div class="col-4">
                 <div class="card border-dark  text-white m-2">

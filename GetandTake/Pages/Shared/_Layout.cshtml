@@ -11,6 +11,16 @@
 <body>
     @await Html.PartialAsync("_Header.cshtml")
     <div class="container">
+        <div class="row">
+            @if (IsSectionDefined("Title"))
+            {
+            @RenderSection("Title", required:false)
+            }
+            else
+            {
+                <h2 class="title">@ViewData["Title"]</h2>
+            }
+        </div>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

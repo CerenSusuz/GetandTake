@@ -27,7 +27,7 @@ public class ProductModel : PageModel
         _logger = logger;
     }
 
-    public async Task OnGet()
+    public async Task OnGetAsync()
     {
         _logger.LogInformation("Products process start at {DT}", 
             DateTime.UtcNow.ToLongTimeString());

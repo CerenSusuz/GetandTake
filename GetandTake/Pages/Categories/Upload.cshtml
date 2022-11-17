@@ -1,5 +1,8 @@
 ﻿@page
 @model GetandTake.Pages.Categories.UploadModel
+@{
+    ViewData["Title"] = "Upload Image";
+}
 <div class="col-4">
     <div class="border p-3 mt-4">
         <label asp-for="Category.CategoryName">CategoryName</label>
@@ -26,7 +29,7 @@
     <form method="post" enctype="multipart/form-data">
         <div class="form-group">
             <div class="col-md-10">
-                <input type="file" asp-for="Upload" class="btn btn-outline-success" />
+                <input type="file" asp-for="Image" class="btn btn-outline-success" />
             </div>
         </div>
         <div class="col-md-10">

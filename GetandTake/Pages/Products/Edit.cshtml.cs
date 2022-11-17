@@ -10,36 +10,24 @@ namespace GetandTake.Pages.Products;
 public class EditModel : PageModel
 {
     private readonly IProductService _productService;
-    private readonly ICategoryService _categoryService;
-    private readonly ISupplierService _supplierService;
 
     public ProductsDTO ProductDTO { get; set; }
 
     [BindProperty]
     public ProductDTO Product { get; set; }
 
-    public IEnumerable<Category> Categories { get; private set; }
-
-    public IEnumerable<Supplier> Suppliers { get; private set; }
-
     public EditModel(
-        IProductService productService,
-        ICategoryService categoryService,
-        ISupplierService supplierService)
+        IProductService productService)
     {
         _productService = productService;
-        _categoryService = categoryService;
-        _supplierService = supplierService;
     }
 
-    public async Task OnGet(int id)
+    public async Task OnGetAsync(int id)
     {
         ProductDTO = await _productService.GetByIdAsync(id);
-        Categories = await _categoryService.GetAllAsync();
-        Suppliers = await _supplierService.GetAllAsync();
     }
 
-    public async Task<IActionResult> OnPost(int id)
+    public async Task<IActionResult> OnPostUpdateAsync(int id)
     {
         if (!ModelState.IsValid)
         {

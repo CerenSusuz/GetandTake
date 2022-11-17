@@ -1,5 +1,10 @@
 ﻿@page
 @model GetandTake.Pages.Products.EditModel
+@{
+    var categories = await categoryService.GetAllAsync();
+    var suppliers = await supplierService.GetAllAsync();
+    ViewData["Title"] = "Edit Product";
+}
 <div class="container">
     <div class="row">
         <div class="col-4">
@@ -83,7 +88,7 @@
                         <label asp-for="Product.CategoryId" class="col-sm-2 col-form-label">Category</label>
                         <select asp-for="Product.CategoryId" class="form-select">
                             <option selected disabled>@Model.ProductDTO.Category</option>
-                            @foreach (var category in Model.Categories)
+                            @foreach (var category in categories)
                             {
                                 <option value="@category.CategoryID">@category.CategoryName</option>
                             }
@@ -93,13 +98,13 @@
                         <label asp-for="Product.SupplierId" class="col-sm-2 col-form-label">Supplier</label>
                         <select asp-for="Product.SupplierId" class="form-select">
                             <option selected disabled>@Model.ProductDTO.Supplier</option>
-                            @foreach (var supplier in Model.Suppliers)
+                            @foreach (var supplier in suppliers)
                             {
                                 <option value="@supplier.SupplierID">@supplier.CompanyName</option>
                             }
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" asp-page-handler="Update" class="btn btn-success">Edit</button>
                 </div>
             </form>
         </div>

@@ -1,13 +1,10 @@
 ﻿@page
 @model GetandTake.Pages.Products.CreateModel
+@{
+    ViewData["Title"] = "Create a Product";
+}
 <form method="post">
     <div class="border p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-success pl-3">
-                Create New Product
-            </h2>
-            <hr />
-        </div>
         <div asp-validation-summary="All"></div>
         <div class="mb-2">
             <label asp-for="ProductDTO.ProductName" class="col-sm-2 col-form-label">Product Name</label>
@@ -64,6 +61,6 @@
                 }
             </select>
         </div>
-        <button type="submit" class="btn btn-success">Create</button>
+        <button type="submit" asp-page-handler="Create" class="btn btn-success">Create</button>
     </div>
 </form>
