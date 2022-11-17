@@ -1,0 +1,9 @@
+﻿@using GetandTake.Models.DTOs.ListDTO
+@model List<ProductsDTO>
+<h3>Products</h3>
+<ul>
+    @foreach (var product in Model)
+    {
+        <li>@product.ProductName</li>
+    }
+</ul>

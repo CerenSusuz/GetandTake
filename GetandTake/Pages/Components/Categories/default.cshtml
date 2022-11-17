@@ -1,0 +1,9 @@
+﻿@using GetandTake.Models
+@model List<Category>
+<h3>Categories</h3>
+<ul>
+    @foreach (var category in Model)
+    {
+        <li>@category.CategoryName</li>
+    }
+</ul>
