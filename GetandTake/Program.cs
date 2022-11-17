@@ -1,6 +1,8 @@
 using AutoMapper;
 using GetandTake.Configuration;
 using GetandTake.Services.AutoMapper;
+using SmartBreadcrumbs.Extensions;
+using System.Reflection;
 using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,16 @@ builder.Services.AddResponseCaching(options =>
 {
     options.MaximumBodySize = 1024;
     options.UseCaseSensitivePaths = true;
+});
+
+builder.Services.AddBreadcrumbs(Assembly.GetExecutingAssembly(), options =>
+{
+    options.TagName = "nav";
+    options.TagClasses = "";
+    options.OlClasses = "breadcrumb";
+    options.LiClasses = "breadcrumb-item";
+    options.ActiveLiClasses = "breadcrumb-item active";
+    options.SeparatorElement = "<li class=\"separator\">/</li>";
 });
 
 var databaseSettings = builder.Configuration.GetSection(nameof(AppSettings.Database)).Get<DatabaseSettings>();

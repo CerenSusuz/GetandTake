@@ -2,9 +2,11 @@ using GetandTake.Configuration;
 using GetandTake.Models.DTOs.ListDTO;
 using GetandTake.Services.Abstract;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartBreadcrumbs.Attributes;
 
 namespace GetandTake.Pages.Products;
 
+[Breadcrumb("Products", FromPage = typeof(IndexModel))]
 public class ProductModel : PageModel
 {
     private readonly IProductService _productService;

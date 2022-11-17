@@ -1,9 +1,11 @@
 using GetandTake.Models;
 using GetandTake.Services.Abstract;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartBreadcrumbs.Attributes;
 
 namespace GetandTake.Pages.Categories;
 
+[Breadcrumb("Categories", FromPage = typeof(IndexModel))]
 public class CategoryModel : PageModel
 {
     private readonly ICategoryService _categoryService;

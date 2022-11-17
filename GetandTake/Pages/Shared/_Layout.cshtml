@@ -11,6 +11,9 @@
 <body>
     @await Html.PartialAsync("_Header.cshtml")
     <div class="container">
+        <breadcrumb></breadcrumb>
+    </div>
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

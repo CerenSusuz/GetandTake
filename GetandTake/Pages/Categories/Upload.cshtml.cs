@@ -2,9 +2,11 @@ using GetandTake.Models;
 using GetandTake.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartBreadcrumbs.Attributes;
 
 namespace GetandTake.Pages.Categories;
 
+[Breadcrumb("Upload Image", FromPage = typeof(CategoryModel))]
 public class UploadModel : PageModel
 {
     private readonly ICategoryService _categoryService;

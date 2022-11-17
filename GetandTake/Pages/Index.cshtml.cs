@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartBreadcrumbs.Attributes;
 
 namespace GetandTake.Pages
 {
+    [DefaultBreadcrumb("Home Page")]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
