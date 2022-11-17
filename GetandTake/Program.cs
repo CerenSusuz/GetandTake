@@ -1,11 +1,14 @@
 using AutoMapper;
 using GetandTake.Configuration;
 using GetandTake.Services.AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.RegisterLogging();
 // Add services to the container.
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
 builder.Services
     .AddRazorPages()
     .AddRazorRuntimeCompilation();
