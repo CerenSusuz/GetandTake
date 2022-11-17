@@ -1,4 +1,5 @@
 ﻿using GetandTake.Core.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace GetandTake.Models;
 
@@ -6,8 +7,10 @@ public class Product : BaseEntity
 {
     public int ProductID { get; set; }
 
+    [Required]
     public string ProductName { get; set; }
 
+    [Required]
     public string QuantityPerUnit { get; set; }
 
     public decimal? UnitPrice { get; set; }

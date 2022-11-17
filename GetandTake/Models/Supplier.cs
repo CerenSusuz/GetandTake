@@ -1,4 +1,5 @@
 ﻿using GetandTake.Core.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace GetandTake.Models;
 
@@ -6,6 +7,7 @@ public class Supplier : BaseEntity
 {
     public int SupplierID { get; set; }
 
+    [Required]
     public string CompanyName { get; set; }
 
     public string? ContactName { get; set; }
