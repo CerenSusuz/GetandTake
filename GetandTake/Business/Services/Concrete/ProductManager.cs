@@ -18,14 +18,14 @@ public class ProductManager : IProductService
         _mapper = mapper;
     }
 
-    [CacheRemoveAspect("IProductService.Get")]
+    [CacheRemoveAspect(nameof(IProductService.GetAllAsync))]
     public async Task CreateAsync(ProductDTO productDto)
     {
         var product = _mapper.Map<Product>(productDto);
         await _repository.CreateAsync(product);
     }
 
-    [CacheRemoveAspect("IProductService.Get")]
+    [CacheRemoveAspect(nameof(IProductService.GetAllAsync))]
     public async Task UpdateAsync(int productId, ProductDTO productDto)
     {
         var findProduct = await _repository.GetAsync(
@@ -38,7 +38,7 @@ public class ProductManager : IProductService
         }
     }
 
-    [CacheRemoveAspect("IProductService.Get")]
+    [CacheRemoveAspect(nameof(IProductService.GetAllAsync))]
     public void Delete(int productId) =>
         _repository.Delete(product => product.ProductID == productId);
 

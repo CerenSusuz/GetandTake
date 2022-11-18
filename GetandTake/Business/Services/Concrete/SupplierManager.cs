@@ -12,15 +12,15 @@ public class SupplierManager : ISupplierService
     public SupplierManager(ISupplierRepository repository) =>
         _repository = repository;
 
-    [CacheRemoveAspect("ISupplierService.Get")]
+    [CacheRemoveAspect(nameof(ISupplierService.GetAllAsync))]
     public async Task CreateAsync(Supplier supplier) =>
         await _repository.CreateAsync(supplier);
 
-    [CacheRemoveAspect("ISupplierService.Get")]
+    [CacheRemoveAspect(nameof(ISupplierService.GetAllAsync))]
     public void Delete(int supplierId) =>
         _repository.Delete(entity => entity.SupplierID == supplierId);
 
-    [CacheRemoveAspect("ISupplierService.Get")]
+    [CacheRemoveAspect(nameof(ISupplierService.GetAllAsync))]
     public async Task UpdateAsync(int supplierId, Supplier supplier)
     {
         var findSupplier = await _repository.GetAsync(category => category.SupplierID == supplierId);

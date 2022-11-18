@@ -14,15 +14,15 @@ public class CategoryManager : ICategoryService
     public CategoryManager(ICategoryRepository repository) =>
         _repository = repository;
 
-    [CacheRemoveAspect("ICategoryService.Get")]
+    [CacheRemoveAspect(nameof(ICategoryService.GetAllAsync))]
     public void Delete(int categoryId) =>
         _repository.Delete(entity => entity.CategoryID == categoryId);
 
-    [CacheRemoveAspect("ICategoryService.Get")]
+    [CacheRemoveAspect(nameof(ICategoryService.GetAllAsync))]
     public async Task CreateAsync(Category category) =>
         await _repository.CreateAsync(category);
 
-    [CacheRemoveAspect("ICategoryService.Get")]
+    [CacheRemoveAspect(nameof(ICategoryService.GetAllAsync))]
     public async Task UpdateAsync(int categoryId, Category category)
     {
         var findCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
