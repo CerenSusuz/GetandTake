@@ -27,9 +27,9 @@ public class ProductModel : PageModel
         _logger = logger;
     }
 
-    public async Task OnGetAsync()
+    public async Task OnGet()
     {
-        _logger.LogInformation("Products process start at {DT}", 
+        _logger.LogInformation("Products process start at {DT}",
             DateTime.UtcNow.ToLongTimeString());
 
         AmountOfProduct = _appSettings.Products.MaximumAmount;

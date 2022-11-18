@@ -1,8 +1,6 @@
 ﻿@page
 @model GetandTake.Pages.Products.EditModel
 @{
-    var categories = await categoryService.GetAllAsync();
-    var suppliers = await supplierService.GetAllAsync();
     ViewData["Title"] = "Edit Product";
 }
 @if (!ModelState.IsValid)

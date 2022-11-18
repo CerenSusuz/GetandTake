@@ -13,21 +13,6 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-page="/Products/Product">Products<i class="bi bi-file-plus-fill"></i></a>
                     </li>
-                    @*                        <li class="nav-item">
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                    <a class="nav-link" asp-area="" asp-page="/Account/Login">Login<i class="bi bi-file-plus-fill"></i></a>
-                    }
-                    else
-                    {
-                    <form method="post" asp-page="/Account/Login" asp-page-handler="Logout">
-                    <div class="input-group">
-                    <span>@User.Identity.IsAuthenticated</span>
-                    <button type="submit" class="btn btn-link">Logout</button>
-                    </div>
-                    </form>
-                    }
-                    </li>*@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                         <div class="dropdown-menu">

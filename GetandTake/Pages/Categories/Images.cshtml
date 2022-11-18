@@ -1,12 +1,10 @@
 ﻿@page
 @model GetandTake.Pages.Categories.ImagesModel
-@{
-    var categories = await categoryService.GetAllAsync();
-}
 @section Title{
     <h5 class="title">Images</h5>
 }
-@foreach (var category in categories)
+
+@foreach (var category in Model.Categories)
 {
     @if (@category.ImagePath != null)
     {

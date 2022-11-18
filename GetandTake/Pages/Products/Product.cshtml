@@ -1,8 +1,5 @@
 ﻿@page
 @model GetandTake.Pages.Products.ProductModel
-@{
-    var products = await productService.GetAllAsync();
-}
 @section Title{
     <h5 class="title">Products</h5>
 }
@@ -28,7 +25,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in products)
+            @foreach (var product in Model.Products)
             {
                 <tr>
                     <td>@product.ProductName</td>
