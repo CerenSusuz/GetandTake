@@ -7,14 +7,14 @@ namespace GetandTake.Core.Aspects.Caching;
 
 public class CacheAspect : MethodInterception
 {
-    private const int _defaultDuration = 60;
+    private const int defaultDuration = 60;
     private readonly ICacheService _cacheService;
 
     public readonly int _duration;
 
     public CacheAspect()
     {
-        _duration = _defaultDuration;
+        _duration = defaultDuration;
     }
 
     public CacheAspect(int duration)

@@ -1,5 +1,4 @@
-﻿using GetandTake.Core.Aspects.Caching;
-using Microsoft.Net.Http.Headers;
+﻿using Microsoft.Net.Http.Headers;
 
 namespace GetandTake.Middlewares;
 
@@ -13,7 +12,7 @@ public class CachingMiddleware
         ILoggerFactory logFactory)
     {
         _next = next;
-        _logger = logFactory.CreateLogger("CachingMiddleware");
+        _logger = logFactory.CreateLogger(nameof(CachingMiddleware));
     }
 
     public async Task InvokeAsync(HttpContext httpContext)

@@ -14,7 +14,7 @@ builder.Services
     .AddRazorPages()
     .AddMvcOptions(options =>
     {
-        options.Filters.Add(new LogActionFilter());
+        options.Filters.Add(typeof(LogActionFilterAttribute));
     })
     .AddRazorRuntimeCompilation();
 
@@ -32,11 +32,13 @@ builder.Services.AddResponseCaching(options =>
 
 var databaseSettings = builder.Configuration.GetSection(nameof(AppSettings.Database)).Get<DatabaseSettings>();
 var productSettings = builder.Configuration.GetSection(nameof(AppSettings.Products)).Get<ProductsSettings>();
+var hostSettings = builder.Configuration.GetSection(nameof(AppSettings.Host)).Get<HostSettings>();
 
 var appSettings = new AppSettings
 {
     Database = databaseSettings,
-    Products = productSettings
+    Products = productSettings,
+    Host = hostSettings
 };
 
 builder.Services.RegisterServices(appSettings);
@@ -49,7 +51,6 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-    app.ExceptionHandler();
 }
 
 app.UseHttpsRedirection();
@@ -61,6 +62,8 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.ExceptionHandler();
 
 app.UseResponseCaching();
 
