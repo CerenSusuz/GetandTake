@@ -6,7 +6,7 @@
     @if (@category.ImagePath != null)
     {
         <h5>@category.CategoryName</h5>
-        string imagePath = $"https://localhost:7005/" + @category.ImagePath;
+        string imagePath = Model.HostUrl + @category.ImagePath;
         <img src="@imagePath" class="img-thumbnail" width="250px;" />
         <a asp-page="Image" asp-route-id="@category.CategoryID" class="btn btn-outline-success">
             Show Image

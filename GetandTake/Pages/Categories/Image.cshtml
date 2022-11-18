@@ -1,9 +1,8 @@
 ﻿@page
 @model GetandTake.Pages.Categories.ImageModel
+
 @if (Model.Category.ImagePath != null)
 {
-    string imagePath = $"https://localhost:7005/" + Model.Category.ImagePath;
+    string imagePath = Model.HostUrl + Model.Category.ImagePath;
     <img src="@imagePath" class="img-thumbnail" width="250px;" />
 }
-
-
