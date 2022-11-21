@@ -7,6 +7,8 @@ using GetandTake.Core.Extensions;
 using GetandTake.Core.Filters;
 using GetandTake.Core.Utilities.IoC;
 using GetandTake.Middlewares;
+using SmartBreadcrumbs.Extensions;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.RegisterLogging();
@@ -29,6 +31,16 @@ builder.Services.AddResponseCaching(options =>
 {
     options.MaximumBodySize = 1024;
     options.UseCaseSensitivePaths = true;
+});
+
+builder.Services.AddBreadcrumbs(Assembly.GetExecutingAssembly(), options =>
+{
+    options.TagName = "nav";
+    options.TagClasses = "";
+    options.OlClasses = "breadcrumb";
+    options.LiClasses = "breadcrumb-item";
+    options.ActiveLiClasses = "breadcrumb-item active";
+    options.SeparatorElement = "<li class=\"separator\">/</li>";
 });
 
 var databaseSettings = builder.Configuration.GetSection(nameof(AppSettings.Database)).Get<DatabaseSettings>();
@@ -78,4 +90,3 @@ app.UseWhen(context => context.Request.Path.Value.Contains("/Categories/Images")
 app.MapRazorPages();
 
 app.Run();
-

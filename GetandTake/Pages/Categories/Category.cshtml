@@ -1,54 +1,11 @@
 ﻿@page
+@using GetandTake.ViewComponents
 @model GetandTake.Pages.Categories.CategoryModel
 @section Title
     {
-    <h5 class="title">Images of Categories</h5>
-    <a asp-page="Images" class="btn btn-outline-primary">
-        <i class="bi bi-card-image"></i>
-    </a>
+    <h5 class="title">Categories</h5>
 }
 
-    <div class="container">
-        <div class="row">
-
-        @foreach (var category in Model.Categories)
-        {
-            <div class="col-4">
-                <div class="card border-dark  text-white m-2">
-                    <div class="card-body m-2">
-                        <h5 class="card-title text-dark">@category.CategoryName</h5>
-                    </div>
-                    <div class="card-body m-2">
-                        <p class="card-text text-dark">@category.Description</p>
-                        <div class="card-body m-4">
-                            
-                            @if (@category.Picture != null)
-                            {
-                                <img class="img-thumbnail" fill="#868e96" src="data:image/png;base64,@Convert.ToBase64String(@category.Picture,78, @category.Picture.Length -78)" />
-                            }
-                            else
-                            {
-                                <p>There is no picture of that category</p>
-                            }
-
-                        </div>
-                        <a asp-page="Edit" asp-route-id="@category.CategoryID" class="btn btn-outline-success">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                        <a asp-page="Upload" asp-route-id="@category.CategoryID" class="btn btn-outline-primary">
-                            <i class="bi bi-file-arrow-up-fill"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+<div class="col-md-3">
+    @await  Component.InvokeAsync("Category")
 </div>
-
-@section Footer
-    {
-    <div class="alert alert-dismissible alert-danger">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Oh snap!</strong> <a href="#" class="alert-link">can't edit categories'</a>
-    </div>
-}

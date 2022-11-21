@@ -2,9 +2,11 @@ using GetandTake.Business.Services.Abstract;
 using GetandTake.Configuration.Settings;
 using GetandTake.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartBreadcrumbs.Attributes;
 
 namespace GetandTake.Pages.Categories;
 
+[Breadcrumb("Images", FromPage = typeof(CategoryModel))]
 public class ImagesModel : PageModel
 {
     private readonly ICategoryService _categoryService;

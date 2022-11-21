@@ -4,9 +4,11 @@ using GetandTake.Models.DTOs.BaseDTO;
 using GetandTake.Models.DTOs.ListDTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartBreadcrumbs.Attributes;
 
 namespace GetandTake.Pages.Products;
 
+[Breadcrumb("Edit Product", FromPage = typeof(ProductModel))]
 public class EditModel : PageModel
 {
     private readonly IProductService _productService;

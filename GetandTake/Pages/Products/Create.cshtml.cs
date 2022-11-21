@@ -3,9 +3,11 @@ using GetandTake.Models;
 using GetandTake.Models.DTOs.BaseDTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartBreadcrumbs.Attributes;
 
 namespace GetandTake.Pages.Products;
 
+[Breadcrumb("Create Product", FromPage = typeof(ProductModel))]
 public class CreateModel : PageModel
 {
     private readonly IProductService _productService;
