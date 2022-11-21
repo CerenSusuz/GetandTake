@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace GetandTake.Configuration;
+namespace GetandTake.Core.Helper;
 
 public static class ImageLinkHtmlHelperExtension
 {
