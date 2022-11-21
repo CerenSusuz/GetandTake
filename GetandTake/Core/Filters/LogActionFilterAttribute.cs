@@ -22,9 +22,9 @@ public class LogActionFilterAttribute : ResultFilterAttribute, IAsyncPageFilter
     {
         var page = context.RouteData.Values["page"];
 
-        if (_appSettings.LogFilter.IsLogFilterActive)
+        if (_appSettings.LoggingParameters.IsLogFilterActive)
         {
-            _logger.LogInformation(nameof(context), page);
+            _logger.LogInformation($"The page is {page} {nameof(OnPageHandlerExecutionAsync)}");
         }
         await next.Invoke();
     }

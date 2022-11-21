@@ -34,14 +34,14 @@ builder.Services.AddResponseCaching(options =>
 var databaseSettings = builder.Configuration.GetSection(nameof(AppSettings.Database)).Get<DatabaseSettings>();
 var productSettings = builder.Configuration.GetSection(nameof(AppSettings.Products)).Get<ProductsSettings>();
 var hostSettings = builder.Configuration.GetSection(nameof(AppSettings.Host)).Get<HostSettings>();
-var logFilterSettings = builder.Configuration.GetSection(nameof(AppSettings.LogFilter)).Get<LogFilterSettings>();
+var logFilterSettings = builder.Configuration.GetSection(nameof(AppSettings.LoggingParameters)).Get<LogFilterSettings>();
 
 var appSettings = new AppSettings
 {
     Database = databaseSettings,
     Products = productSettings,
     Host = hostSettings,
-    LogFilter = logFilterSettings
+    LoggingParameters = logFilterSettings
 };
 
 builder.Services.RegisterServices(appSettings);

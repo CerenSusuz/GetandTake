@@ -8,5 +8,5 @@ public class AppSettings
 
     public HostSettings Host { get; set; }
 
-    public LogFilterSettings LogFilter { get; set; }
+    public LogFilterSettings LoggingParameters { get; set; }
 }
