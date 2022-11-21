@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace GetandTake.Configuration;
+namespace GetandTake.Configuration.Extensions;
 
 public static class CustomExceptionHandler
 {
@@ -14,7 +14,7 @@ public static class CustomExceptionHandler
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 context.Response.ContentType = Text.Plain;
 
-                
+
                 var exceptionHandlerPathFeature =
                     context.Features.Get<IExceptionHandlerPathFeature>();
 

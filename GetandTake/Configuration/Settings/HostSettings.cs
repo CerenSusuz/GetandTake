@@ -1,4 +1,4 @@
-﻿namespace GetandTake.Configuration;
+﻿namespace GetandTake.Configuration.Settings;
 
 public class HostSettings
 {

@@ -1,7 +1,8 @@
-﻿using GetandTake.DataAccess;
+﻿using GetandTake.Configuration.Settings;
+using GetandTake.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
-namespace GetandTake.Configuration;
+namespace GetandTake.Configuration.Extensions;
 
 public static class DatabaseExtensions
 {

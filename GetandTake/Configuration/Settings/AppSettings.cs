@@ -1,4 +1,4 @@
-﻿namespace GetandTake.Configuration;
+﻿namespace GetandTake.Configuration.Settings;
 
 public class AppSettings
 {
@@ -7,4 +7,6 @@ public class AppSettings
     public ProductsSettings Products { get; set; }
 
     public HostSettings Host { get; set; }
+
+    public LogFilterSettings LogFilter { get; set; }
 }

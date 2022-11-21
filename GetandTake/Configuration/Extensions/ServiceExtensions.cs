@@ -1,9 +1,12 @@
 ﻿using GetandTake.Business.Services.Abstract;
 using GetandTake.Business.Services.Concrete;
+using GetandTake.Configuration.Settings;
+using GetandTake.Core.CrossCuttingConcerns.Caching.Microsoft;
+using GetandTake.Core.CrossCuttingConcerns.Caching;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.DataAccess.Repositories.Concrete;
 
-namespace GetandTake.Configuration;
+namespace GetandTake.Configuration.Extensions;
 
 public static class ServiceExtensions
 {
@@ -16,10 +19,13 @@ public static class ServiceExtensions
         services.AddScoped<IProductService, ProductManager>();
         services.AddScoped<ICategoryService, CategoryManager>();
         services.AddScoped<ISupplierService, SupplierManager>();
-        
+
         //Database Repositories
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ISupplierRepository, SupplierRepository>();
+
+        services.AddMemoryCache();
+        services.AddSingleton<ICacheService, MemoryCacheManager>();
     }
 }
