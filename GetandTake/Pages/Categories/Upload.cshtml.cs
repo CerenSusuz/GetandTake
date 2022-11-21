@@ -15,19 +15,19 @@ public class UploadModel : PageModel
     }
 
     [BindProperty]
-    public IFormFile Upload { get; set; }
+    public IFormFile Image { get; set; }
 
     [BindProperty]
     public Category Category { get; set; }
 
-    public async Task OnGet(int id)
+    public async Task OnGetAsync(int id)
     {
         Category = await _categoryService.GetByIdAsync(id);
     }
 
     public async Task<IActionResult> OnPost(int id)
     {
-        await _categoryService.UploadImage(Upload, id);
+        await _categoryService.UploadImage(Image, id);
 
         return RedirectToPage("Category");
     }

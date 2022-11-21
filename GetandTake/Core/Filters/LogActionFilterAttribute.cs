@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GetandTake.Core.Filters;
 
-public class LogActionFilterAttribute : ResultFilterAttribute, IAsyncPageFilter
+[AttributeUsage(AttributeTargets.All)]
+public class LogActionFilterAttribute : Attribute, IAsyncPageFilter
 {
     private readonly ILogger<LogActionFilterAttribute> _logger;
     private readonly AppSettings _appSettings;

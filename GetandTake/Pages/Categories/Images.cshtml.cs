@@ -21,7 +21,7 @@ public class ImagesModel : PageModel
         _categoryService = categoryService;
         _appSettings = appSettings;
     }
-    
+
 
     public async Task OnGet()
     {

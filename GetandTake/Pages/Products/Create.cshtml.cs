@@ -29,13 +29,13 @@ public class CreateModel : PageModel
         _supplierService = supplierService;
     }
 
-    public async Task OnGet()
+    public async Task OnGetAsync()
     {
         Categories = await _categoryService.GetAllAsync();
         Suppliers = await _supplierService.GetAllAsync();
     }
 
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPostCreateAsync()
     {
         if (!ModelState.IsValid)
         {
@@ -46,4 +46,3 @@ public class CreateModel : PageModel
         return RedirectToPage("Product");
     }
 }
-

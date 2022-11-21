@@ -1,4 +1,5 @@
 ﻿using GetandTake.Core.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace GetandTake.Models;
 
@@ -6,6 +7,7 @@ public class Category : BaseEntity
 {
     public int CategoryID { get; set; }
 
+    [Required]
     public string CategoryName { get; set; }
 
     public string? Description { get; set; }

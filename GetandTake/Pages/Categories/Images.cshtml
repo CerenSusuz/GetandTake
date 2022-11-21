@@ -1,6 +1,11 @@
 ﻿@page
 @model GetandTake.Pages.Categories.ImagesModel
-<h3>All Images</h3>
+
+@section Title
+    {
+    <h5 class="title">Images</h5>
+}
+
 @foreach (var category in Model.Categories)
 {
     @if (@category.ImagePath != null)

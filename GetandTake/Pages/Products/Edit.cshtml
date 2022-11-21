@@ -1,5 +1,17 @@
 ﻿@page
 @model GetandTake.Pages.Products.EditModel
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+@if (!ModelState.IsValid)
+{
+    <div class="col-md-offset-2 col-md-10">
+        <h3 class="text-danger">Validation Errors</h3>
+        <div asp-validation-summary="All"></div>
+    </div>
+}
+
 <div class="container">
     <div class="row">
         <div class="col-4">
@@ -99,7 +111,7 @@
                             }
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success">Edit</button>
+                    <button type="submit" asp-page-handler="Update" class="btn btn-success">Edit</button>
                 </div>
             </form>
         </div>

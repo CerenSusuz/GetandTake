@@ -9,14 +9,80 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <body>
-    @await Html.PartialAsync("_Header.cshtml")
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-    @await Html.PartialAsync("_Footer.cshtml")
-
+    <header>
+        @if (IsSectionDefined("Header"))
+        {
+            await RenderSectionAsync("Header", required: false);
+        }
+        else
+        {
+            <div class="container mb-4">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" asp-page="/Index">Get & Take</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarColor01">
+                            <ul class="navbar-nav me-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-page="/Categories/Category">Categories<i class="bi bi-diagram-2"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-page="/Products/Product">Products<i class="bi bi-file-plus-fill"></i></a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <form class="d-flex">
+                                <input class="form-control me-sm-2" type="text" placeholder="Search">
+                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        }
+    </header>
+    <section>
+        <div class="container">
+            <div class="row">
+                @if (IsSectionDefined("Title"))
+                {
+                    @RenderSection("Title", required:false)
+                }
+                else
+                {
+                    <h2 class="title">@ViewData["Title"]</h2>
+                }
+            </div>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </section>
+    <footer>
+        @if (IsSectionDefined("Footer"))
+        {
+            await RenderSectionAsync("Footer", required: false);
+        }
+        else
+        {
+            <div class="container">
+                &copy; 2022 - GetandTake - Ceren Susuz
+                <br />
+                <span class="text-muted">Last Rendered: @DateTime.Now</span>
+            </div>
+        }
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
