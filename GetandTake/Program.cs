@@ -13,10 +13,10 @@ builder.RegisterLogging();
 // Add services to the container.
 builder.Services
     .AddRazorPages()
-    //.AddMvcOptions(options =>
-    //{
-    //    options.Filters.Add(typeof(LogActionFilterAttribute));
-    //})
+    .AddMvcOptions(options =>
+    {
+        options.Filters.Add(typeof(LogActionFilterAttribute));
+    })
     .AddRazorRuntimeCompilation();
 
 builder.Services.AddDependencyResolvers(new ICoreModule[]{
