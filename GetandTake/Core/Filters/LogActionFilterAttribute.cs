@@ -1,5 +1,6 @@
 ﻿using GetandTake.Configuration.Settings;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GetandTake.Core.Filters;
 
@@ -32,7 +33,8 @@ public class LogActionFilterAttribute : Attribute, IAsyncPageFilter
 
     public async Task OnPageHandlerSelectionAsync(PageHandlerSelectedContext context)
     {
-        _logger.LogInformation(nameof(context));
+        var page = context.RouteData.Values["page"];
+        _logger.LogInformation($"The page is {page} {nameof(OnPageHandlerSelectionAsync)}");
         await Task.CompletedTask;
     }
 }

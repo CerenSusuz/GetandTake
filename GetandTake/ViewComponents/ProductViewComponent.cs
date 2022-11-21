@@ -1,4 +1,4 @@
-﻿using GetandTake.Services.Abstract;
+﻿using GetandTake.Business.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GetandTake.ViewComponents;
