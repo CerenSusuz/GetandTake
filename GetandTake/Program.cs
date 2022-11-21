@@ -1,6 +1,7 @@
 using AutoMapper;
 using GetandTake.Business.Services.AutoMapper;
-using GetandTake.Configuration;
+using GetandTake.Configuration.Extensions;
+using GetandTake.Configuration.Settings;
 using GetandTake.Core.DependencyResolvers;
 using GetandTake.Core.Extensions;
 using GetandTake.Core.Filters;
@@ -12,10 +13,10 @@ builder.RegisterLogging();
 // Add services to the container.
 builder.Services
     .AddRazorPages()
-    .AddMvcOptions(options =>
-    {
-        options.Filters.Add(typeof(LogActionFilterAttribute));
-    })
+    //.AddMvcOptions(options =>
+    //{
+    //    options.Filters.Add(typeof(LogActionFilterAttribute));
+    //})
     .AddRazorRuntimeCompilation();
 
 builder.Services.AddDependencyResolvers(new ICoreModule[]{
@@ -33,12 +34,14 @@ builder.Services.AddResponseCaching(options =>
 var databaseSettings = builder.Configuration.GetSection(nameof(AppSettings.Database)).Get<DatabaseSettings>();
 var productSettings = builder.Configuration.GetSection(nameof(AppSettings.Products)).Get<ProductsSettings>();
 var hostSettings = builder.Configuration.GetSection(nameof(AppSettings.Host)).Get<HostSettings>();
+var logFilterSettings = builder.Configuration.GetSection(nameof(AppSettings.LogFilter)).Get<LogFilterSettings>();
 
 var appSettings = new AppSettings
 {
     Database = databaseSettings,
     Products = productSettings,
-    Host = hostSettings
+    Host = hostSettings,
+    LogFilter = logFilterSettings
 };
 
 builder.Services.RegisterServices(appSettings);

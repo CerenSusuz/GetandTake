@@ -1,19 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using GetandTake.Core.Filters;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GetandTake.Pages
+namespace GetandTake.Pages;
+
+[LogActionFilter]
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    public void OnGet()
     {
-        private readonly ILogger<IndexModel> _logger;
-
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
-
-        public void OnGet()
-        {
-
-        }
     }
 }

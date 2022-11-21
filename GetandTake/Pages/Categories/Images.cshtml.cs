@@ -1,5 +1,5 @@
 using GetandTake.Business.Services.Abstract;
-using GetandTake.Configuration;
+using GetandTake.Configuration.Settings;
 using GetandTake.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

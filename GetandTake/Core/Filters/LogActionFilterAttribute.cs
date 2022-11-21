@@ -1,33 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using GetandTake.Configuration.Settings;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GetandTake.Core.Filters;
 
-public class LogActionFilterAttribute : ActionFilterAttribute
+public class LogActionFilterAttribute : ResultFilterAttribute, IAsyncPageFilter
 {
     private readonly ILogger<LogActionFilterAttribute> _logger;
+    private readonly AppSettings _appSettings;
 
-    public LogActionFilterAttribute(ILogger<LogActionFilterAttribute> logger)
+    public LogActionFilterAttribute(
+        ILogger<LogActionFilterAttribute> logger,
+        AppSettings appSettings)
     {
         _logger = logger;
+        _appSettings = appSettings;
     }
 
-    public override void OnActionExecuting(ActionExecutingContext filterContext)
+    public async Task OnPageHandlerExecutionAsync(
+        PageHandlerExecutingContext context,
+        PageHandlerExecutionDelegate next)
     {
-        _logger.LogInformation(nameof(OnActionExecuting), filterContext.RouteData.Values["page"]);
+        var page = context.RouteData.Values["page"];
+
+        if (_appSettings.LogFilter.IsLogFilterActive == true)
+        {
+            _logger.LogInformation(nameof(context), page);
+            await next.Invoke();
+        }
     }
 
-    public override void OnActionExecuted(ActionExecutedContext filterContext)
+    public async Task OnPageHandlerSelectionAsync(PageHandlerSelectedContext context)
     {
-        _logger.LogInformation(nameof(OnActionExecuted), filterContext.RouteData.Values["page"]);
-    }
-
-    public override void OnResultExecuting(ResultExecutingContext filterContext)
-    {
-        _logger.LogInformation(nameof(OnResultExecuting), filterContext.RouteData.Values["page"]);
-    }
-
-    public override void OnResultExecuted(ResultExecutedContext filterContext)
-    {
-        _logger.LogInformation(nameof(OnResultExecuted), filterContext.RouteData.Values["page"]);
+        _logger.LogInformation(nameof(context));
+        await Task.CompletedTask;
     }
 }
