@@ -50,4 +50,3 @@ public class EditModel : PageModel
         return RedirectToPage("Product");
     }
 }
-

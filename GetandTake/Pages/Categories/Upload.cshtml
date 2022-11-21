@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Upload Image";
 }
+
 @if (!ModelState.IsValid)
 {
     <div class="col-md-offset-2 col-md-10">
@@ -19,14 +20,17 @@
         <label asp-for="Category.Description">Description</label>
         <input type="text" disabled asp-for="Category.Description" />
         <hr />
+
         @if (Model.Category.ImagePath != null)
         {
             string imagePath = $"https://localhost:7005/" + Model.Category.ImagePath;
             <img src="@imagePath" />
         }
+
         <hr />
     </div>
 </div>
+
 @if (Model.Category.ImagePath == null)
 {
     <div>

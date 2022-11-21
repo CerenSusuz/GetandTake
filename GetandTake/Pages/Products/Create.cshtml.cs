@@ -46,4 +46,3 @@ public class CreateModel : PageModel
         return RedirectToPage("Product");
     }
 }
-

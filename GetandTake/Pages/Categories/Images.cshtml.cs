@@ -14,6 +14,7 @@ public class ImagesModel : PageModel
     {
         _categoryService = categoryService;
     }
+
     public async Task OnGet()
     {
         Categories = await _categoryService.GetAllAsync();

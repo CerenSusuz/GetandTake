@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create a Product";
 }
+
 @if (!ModelState.IsValid)
 {
     <div class="col-md-offset-2 col-md-10">
@@ -10,6 +11,7 @@
         <div asp-validation-summary="All"></div>
     </div>
 }
+
 <form method="post">
     <div class="border p-3 mt-4">
         <div asp-validation-summary="All"></div>
@@ -52,20 +54,24 @@
             <label asp-for="ProductDTO.CategoryId" class="col-sm-2 col-form-label">Category</label>
             <select asp-for="ProductDTO.CategoryId" class="form-select">
                 <option selected></option>
+
                 @foreach (var category in Model.Categories)
                 {
                     <option value="@category.CategoryID">@category.CategoryName</option>
                 }
+
             </select>
         </div>
         <div class="mb-2">
             <label asp-for="ProductDTO.SupplierId" class="col-sm-2 col-form-label">Supplier</label>
             <select asp-for="ProductDTO.SupplierId" class="form-select">
                 <option selected></option>
+
                 @foreach (var supplier in Model.Suppliers)
                 {
                     <option value="@supplier.SupplierID">@supplier.CompanyName</option>
                 }
+
             </select>
         </div>
         <button type="submit" asp-page-handler="Create" class="btn btn-success">Create</button>
