@@ -13,9 +13,8 @@
         <h5>@category.CategoryName</h5>
         string imagePath = Model.HostUrl + @category.ImagePath;
         <img src="@imagePath" class="img-thumbnail" width="250px;" />
-        <a asp-page="Image" asp-route-id="@category.CategoryID" class="btn btn-outline-success">
-            Show Image
-            <i class="bi bi-card-image"></i>
-        </a>
+        <getandtake-image-link category-image-id="@category.CategoryID">
+            <i class="bi bi-card-image"> Show Image </i>
+        </getandtake-image-link>
     }
 }
