@@ -1,10 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Html;
+using System.Web.Mvc;
 
 namespace GetandTake.Helpers;
 
 public static class ImageLinkHtmlHelperExtension
 {
-    public static MvcHtmlString ProduceImageLink(int categoryImageId, string linkText)
+    public static HtmlString ProduceImageLink(int categoryImageId, string linkText)
     {
         var anchorBuilder = new TagBuilder("a");
         anchorBuilder.MergeAttribute("src", "@imagePath");
@@ -12,6 +13,6 @@ public static class ImageLinkHtmlHelperExtension
         anchorBuilder.MergeAttribute("asp-page", "Image");
         anchorBuilder.MergeAttribute("asp-route-id", $"@category.{categoryImageId}");
 
-        return new MvcHtmlString(anchorBuilder.ToString());
+        return new HtmlString(anchorBuilder.ToString());
     }
 }
