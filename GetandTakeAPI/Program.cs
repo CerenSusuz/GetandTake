@@ -59,6 +59,14 @@ builder.Services.AddSwaggerGen(swaggerGen =>
     });
 });
 
+builder.Services.AddCors(policy => policy
+.AddPolicy("getandtakeapp", builder =>
+{
+    builder.WithOrigins("*")
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -72,6 +80,8 @@ if (app.Environment.IsDevelopment())
         swaggerUI.DocExpansion(DocExpansion.None);
     });
 }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 
