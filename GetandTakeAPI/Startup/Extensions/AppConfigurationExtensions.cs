@@ -7,14 +7,13 @@ public static class AppConfigurationExtensions
 {
     public static void Configure(this WebApplication app, AppSettings appSettings)
     {
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
 
-        app.UseCors(x => x
+        app.UseCors(policy => policy
             .SetIsOriginAllowed(_ => true)
             .AllowAnyHeader()
             .AllowAnyMethod()
@@ -22,8 +21,6 @@ public static class AppConfigurationExtensions
         );
 
         app.UseStaticFiles();
-
-        //app.RegisterExceptionHandler();
 
         app.UseHttpsRedirection();
 
