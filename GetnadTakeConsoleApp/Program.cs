@@ -26,9 +26,9 @@ static async Task RunAsync()
             Console.WriteLine($"Products : {products} / Categories {categories}");
         }      
     }
-    catch (Exception e)
+    catch (Exception exception)
     {
-        Console.WriteLine(e.Message);
+        Console.WriteLine(exception.Message);
     }
 
     Console.ReadLine();
