@@ -14,6 +14,4 @@ public class NorthwindDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
 
     public DbSet<Supplier> Suppliers { get; set; }
-
-    public DbSet<CategoryImage> CategoryImages { get; set; }
 }
