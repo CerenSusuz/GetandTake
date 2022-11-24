@@ -1,7 +1,9 @@
-using GetandTakeAPI.Configuration;
+using GetandTake.Configuration.Extensions;
+using GetandTakeAPI.Startup.Configuration;
 using GetandTakeAPI.Startup.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.RegisterLogging();
 
 var appSettings = builder.Configuration.ReadAppSettings();
 appSettings.Validate();

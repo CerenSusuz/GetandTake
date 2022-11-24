@@ -1,6 +1,6 @@
 ﻿using GetandTake.Configuration.Settings;
 
-namespace GetandTakeAPI.Startup.Configuration;
+namespace GetandTake.Startup.Configuration;
 
 public static class AppSettingsExtensions
 {
