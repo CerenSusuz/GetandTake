@@ -8,11 +8,11 @@
 <body>
     <script>
         const apiUrl = "https://localhost:7167/api";
-        fetch(apiUrl + '/products')
+        fetch(`${apiUrl}/products`)
             .then((productsResponse) => productsResponse.json())
             .then((products) => console.info(products));
 
-        fetch(apiUrl + '/categories')
+        fetch(`${apiUrl}/categories`)
             .then((categoriesResponse) => categoriesResponse.json())
             .then((categories) => console.info(categories));
     </script>

@@ -18,8 +18,8 @@ static async Task RunAsync()
 
     try
     {
-        var products = await client.GetAsync(client.BaseAddress + "/products");
-        var categories = await client.GetAsync(client.BaseAddress + "/categories");
+        var products = await client.GetAsync($"{client.BaseAddress}/products");
+        var categories = await client.GetAsync($"{client.BaseAddress}/categories");
 
         if (products.IsSuccessStatusCode && categories.IsSuccessStatusCode)
         {
