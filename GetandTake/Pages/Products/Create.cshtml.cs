@@ -19,7 +19,7 @@ public class CreateModel : PageModel
     public IEnumerable<Supplier> Suppliers { get; private set; }
 
     [BindProperty]
-    public ProductDTO ProductDTO { get; set; }
+    public ProductDetail ProductDTO { get; set; }
 
     public CreateModel(
         IProductService productService,

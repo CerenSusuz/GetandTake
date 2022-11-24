@@ -16,7 +16,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<ProductsDTO>>> GetAllProducts()
+    public async Task<ActionResult<List<ProductResponse>>> GetAllProducts()
     {
         var products = await _productService.GetAllAsync();
 
@@ -29,7 +29,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("id/{id:int}")]
-    public async Task<ActionResult<ProductsDTO>> GetProductByIdAsync(int id)
+    public async Task<ActionResult<ProductResponse>> GetProductByIdAsync(int id)
     {
         var product = await _productService.GetByIdAsync(id);
 

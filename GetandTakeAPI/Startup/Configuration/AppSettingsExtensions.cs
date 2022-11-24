@@ -1,5 +1,4 @@
 ﻿using GetandTake.Configuration.Settings;
-using GetandTakeAPI.ApplicationSettings;
 
 namespace GetandTakeAPI.Configuration;
 
