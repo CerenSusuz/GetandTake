@@ -1,5 +1,6 @@
 ﻿using GetandTake.Core.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace GetandTake.Models;
 
@@ -12,11 +13,11 @@ public class Category : BaseEntity
 
     public string? Description { get; set; }
 
+    [JsonIgnore]
     public byte[]? Picture { get; set; }
 
     public string? ImagePath { get; set; }
 
+    [JsonIgnore]
     public ICollection<Product> Products { get; set; }
-
-    public ICollection<CategoryImage> Images { get; set; }
 }
