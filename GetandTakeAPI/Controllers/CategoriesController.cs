@@ -25,6 +25,6 @@ public class CategoriesController : ControllerBase
             return BadRequest();
         }
 
-        return Ok(categories);
+        return categories;
     }
 }

@@ -20,16 +20,25 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]{
 
 builder.Services.AddSingleton(new MapperConfiguration(mapperConfig =>
                                                       mapperConfig.AddProfile(new AutoMapperProfile())).CreateMapper());
+const int MaximumBodySizeValue = 1024;
 builder.Services.AddResponseCaching(options =>
 {
-    options.MaximumBodySize = 1024;
+    options.MaximumBodySize = MaximumBodySizeValue;
     options.UseCaseSensitivePaths = true;
 });
 
-var databaseSettings = builder.Configuration.GetSection(nameof(AppSettings.Database)).Get<DatabaseSettings>();
-var productSettings = builder.Configuration.GetSection(nameof(AppSettings.Products)).Get<ProductsSettings>();
-var hostSettings = builder.Configuration.GetSection(nameof(AppSettings.Host)).Get<HostSettings>();
-var logFilterSettings = builder.Configuration.GetSection(nameof(AppSettings.LoggingParameters)).Get<LogFilterSettings>();
+var databaseSettings = builder.Configuration
+    .GetSection(nameof(AppSettings.Database))
+    .Get<DatabaseSettings>();
+var productSettings = builder.Configuration
+    .GetSection(nameof(AppSettings.Products))
+    .Get<ProductsSettings>();
+var hostSettings = builder.Configuration
+    .GetSection(nameof(AppSettings.Host))
+    .Get<HostSettings>();
+var logFilterSettings = builder.Configuration
+    .GetSection(nameof(AppSettings.LoggingParameters))
+    .Get<LogFilterSettings>();
 
 var appSettings = new AppSettings
 {
@@ -59,13 +68,12 @@ builder.Services.AddSwaggerGen(swaggerGen =>
     });
 });
 
-builder.Services.AddCors(policy => policy
-.AddPolicy("getandtakeapp", builder =>
-{
-    builder.WithOrigins("*")
-    .AllowAnyMethod()
-    .AllowAnyHeader();
-}));
+builder.Services.AddCors(policy =>
+     policy.AddDefaultPolicy(builder =>
+        builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()));
 
 var app = builder.Build();
 
@@ -73,15 +81,15 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(swaggerUI =>
-    {
-        swaggerUI.SwaggerEndpoint("/swagger/v1/swagger.json", "Api Service");
-        swaggerUI.DefaultModelsExpandDepth(-1);
-        swaggerUI.DocExpansion(DocExpansion.None);
-    });
+    app.UseSwaggerUI();
 }
 
-app.UseCors();
+app.UseCors(policy => policy
+    .SetIsOriginAllowed(_ => true)
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+);
 
 app.UseHttpsRedirection();
 

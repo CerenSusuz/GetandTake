@@ -20,12 +20,24 @@ public class ProductsController : ControllerBase
     {
         var products = await _productService.GetAllAsync();
 
-        return Ok(products);
+        if (products == null)
+        {
+            return BadRequest();
+        }
+
+        return products;
     }
 
     [HttpGet("id/{id:int}")]
-    public async Task<ProductsDTO> GetProductByIdAsync(int id)
+    public async Task<ActionResult<ProductsDTO>> GetProductByIdAsync(int id)
     {
-        return await _productService.GetByIdAsync(id);
+        var product = await _productService.GetByIdAsync(id);
+
+        if (product == null)
+        {
+            return BadRequest();
+        }
+
+        return product;
     }
 }
