@@ -1,6 +1,14 @@
-﻿namespace GetandTake.Configuration.Settings;
+﻿using NetEscapades.Configuration.Validation;
+using System.ComponentModel.DataAnnotations;
 
-public class LogFilterSettings
+namespace GetandTake.Configuration.Settings;
+
+public class LogFilterSettings : IValidatable
 {
     public bool IsLogFilterActive { get; set; }
+
+    public void Validate()
+    {
+        Validator.ValidateObject(this, new ValidationContext(this), true);
+    }
 }

@@ -19,14 +19,14 @@ public class ProductManager : IProductService
     }
 
     [CacheRemoveAspect(nameof(IProductService.GetAllAsync))]
-    public async Task CreateAsync(ProductDTO productDto)
+    public async Task CreateAsync(ProductDetail productDto)
     {
         var product = _mapper.Map<Product>(productDto);
         await _repository.CreateAsync(product);
     }
 
     [CacheRemoveAspect(nameof(IProductService.GetAllAsync))]
-    public async Task UpdateAsync(int productId, ProductDTO productDto)
+    public async Task UpdateAsync(int productId, ProductDetail productDto)
     {
         var findProduct = await _repository.GetAsync(
             product => product.ProductID == productId);
@@ -43,45 +43,45 @@ public class ProductManager : IProductService
         _repository.Delete(product => product.ProductID == productId);
 
     [CacheAspect]
-    public async Task<List<ProductsDTO>> GetAllAsync()
+    public async Task<List<ProductResponse>> GetAllAsync()
     {
         var products = await _repository.GetItemsAsync(include => include.Category, include => include.Supplier);
 
-        return _mapper.Map<List<ProductsDTO>>(products);
+        return _mapper.Map<List<ProductResponse>>(products);
     }
 
     [CacheAspect]
-    public async Task<List<ProductsDTO>> GetAllByCategoryIdAsync(int categoryId)
+    public async Task<List<ProductResponse>> GetAllByCategoryIdAsync(int categoryId)
     {
         var products = await _repository.GetItemsAsync(
             category => category.CategoryID == categoryId,
             include => include.Category,
             include => include.Supplier);
 
-        return _mapper.Map<List<ProductsDTO>>(products);
+        return _mapper.Map<List<ProductResponse>>(products);
     }
 
     [CacheAspect]
-    public async Task<List<ProductsDTO>> GetAllBySupplierIdAsync(int supplierId)
+    public async Task<List<ProductResponse>> GetAllBySupplierIdAsync(int supplierId)
     {
         var products = await _repository.GetItemsAsync(supplier => supplier.SupplierID == supplierId,
             include => include.Supplier);
 
-        return _mapper.Map<List<ProductsDTO>>(products);
+        return _mapper.Map<List<ProductResponse>>(products);
     }
 
     [CacheAspect]
-    public async Task<ProductsDTO> GetByIdAsync(int productId)
+    public async Task<ProductResponse> GetByIdAsync(int productId)
     {
         var findProduct = await _repository.GetAsync(product => product.ProductID == productId,
             include => include.Category,
             include => include.Supplier);
 
-        return _mapper.Map<ProductsDTO>(findProduct);
+        return _mapper.Map<ProductResponse>(findProduct);
     }
 
     [CacheAspect]
-    public async Task<List<ProductsDTO>> GetByMaxAmountOfAsync(int maximumAmount)
+    public async Task<List<ProductResponse>> GetByMaxAmountOfAsync(int maximumAmount)
     {
         if (maximumAmount == default)
         {
@@ -89,7 +89,7 @@ public class ProductManager : IProductService
         }
         var entities = await _repository.GetItemsAsync(maximumAmount);
 
-        return _mapper.Map<List<ProductsDTO>>(entities);
+        return _mapper.Map<List<ProductResponse>>(entities);
     }
 }
 

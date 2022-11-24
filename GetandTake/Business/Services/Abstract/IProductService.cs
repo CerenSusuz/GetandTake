@@ -5,19 +5,19 @@ namespace GetandTake.Business.Services.Abstract;
 
 public interface IProductService
 {
-    Task<List<ProductsDTO>> GetAllAsync();
+    Task<List<ProductResponse>> GetAllAsync();
 
-    Task<List<ProductsDTO>> GetAllByCategoryIdAsync(int categoryId);
+    Task<List<ProductResponse>> GetAllByCategoryIdAsync(int categoryId);
 
-    Task<List<ProductsDTO>> GetAllBySupplierIdAsync(int supplierId);
+    Task<List<ProductResponse>> GetAllBySupplierIdAsync(int supplierId);
 
-    Task<List<ProductsDTO>> GetByMaxAmountOfAsync(int maximumAmount);
+    Task<List<ProductResponse>> GetByMaxAmountOfAsync(int maximumAmount);
 
-    Task<ProductsDTO> GetByIdAsync(int productId);
+    Task<ProductResponse> GetByIdAsync(int productId);
 
-    Task UpdateAsync(int productId, ProductDTO productDto);
+    Task UpdateAsync(int productId, ProductDetail productDto);
 
-    Task CreateAsync(ProductDTO productDto);
+    Task CreateAsync(ProductDetail productDto);
 
     void Delete(int productId);
 }

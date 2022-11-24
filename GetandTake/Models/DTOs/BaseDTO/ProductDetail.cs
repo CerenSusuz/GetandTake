@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GetandTake.Models.DTOs.BaseDTO;
 
-public class ProductDTO 
+public class ProductDetail
 {
     [Required]
     [DisplayName("Product Name")]

@@ -15,10 +15,10 @@ public class EditModel : PageModel
     private readonly ICategoryService _categoryService;
     private readonly ISupplierService _supplierService;
 
-    public ProductsDTO ProductDTO { get; set; }
+    public ProductResponse ProductDTO { get; set; }
 
     [BindProperty]
-    public ProductDTO Product { get; set; }
+    public ProductDetail Product { get; set; }
 
     public IEnumerable<Category> Categories { get; private set; }
 

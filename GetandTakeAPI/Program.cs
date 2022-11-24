@@ -1,6 +1,6 @@
 using GetandTake.Configuration.Extensions;
-using GetandTake.Startup.Configuration;
-using GetandTake.Startup.Extensions;
+using GetandTakeAPI.Startup.Configuration;
+using GetandTakeAPI.Startup.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.RegisterLogging();

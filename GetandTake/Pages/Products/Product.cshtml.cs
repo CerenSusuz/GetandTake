@@ -13,7 +13,7 @@ public class ProductModel : PageModel
     private readonly AppSettings _appSettings;
     private readonly ILogger _logger;
 
-    public IEnumerable<ProductsDTO> Products { get; private set; }
+    public IEnumerable<ProductResponse> Products { get; private set; }
 
     public int AmountOfProduct { get; private set; }
 
