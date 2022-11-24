@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>getandtakehttpclients</title>
+</head>
+<body>
+    <script>
+        const apiUrl = "https://localhost:7167/api";
+        fetch(`${apiUrl}/products`)
+            .then((productsResponse) => productsResponse.json())
+            .then((products) => console.info(products));
+
+        fetch(`${apiUrl}/categories`)
+            .then((categoriesResponse) => categoriesResponse.json())
+            .then((categories) => console.info(categories));
+    </script>
+</body>
+</html>
