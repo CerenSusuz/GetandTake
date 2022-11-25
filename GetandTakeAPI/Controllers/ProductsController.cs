@@ -1,5 +1,6 @@
 ﻿using GetandTake.Business.Services.Abstract;
-using GetandTake.Models.DTOs.ListDTO;
+using GetandTake.Models.DTOs.DetailDTO;
+using GetandTake.Models.DTOs.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GetandTakeAPI.Controllers;
@@ -15,7 +16,7 @@ public class ProductsController : ControllerBase
         _productService = productService;
     }
 
-    [HttpGet]
+    [HttpGet(Name = nameof(GetAllProducts))]
     public async Task<ActionResult<List<ProductResponse>>> GetAllProducts()
     {
         var products = await _productService.GetAllAsync();
@@ -39,5 +40,29 @@ public class ProductsController : ControllerBase
         }
 
         return product;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<ProductDetail>> CreateAsync(ProductDetail product)
+    {
+        await _productService.CreateAsync(product);
+
+        return product;
+    }
+
+    [HttpPut("id/{id:int}")]
+    public async Task<ActionResult<ProductDetail>> UpdateAsync(int id, ProductDetail product)
+    {
+        await _productService.UpdateAsync(id, product);
+
+        return product;
+    }
+
+    [HttpDelete("id/{id:int}")]
+    public IActionResult Delete(int id)
+    {
+        _productService.Delete(id);
+
+        return Ok("deleted process success");
     }
 }
