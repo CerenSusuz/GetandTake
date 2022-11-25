@@ -2,7 +2,9 @@
 using GetandTake.Models;
 using GetandTake.Models.DTOs.DetailDTO;
 using GetandTake.Models.DTOs.ResponseDTO;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.XPath;
 
 namespace GetandTakeAPI.Controllers;
 
@@ -73,5 +75,17 @@ public class CategoriesController : ControllerBase
         var imageUrl = await _categoryService.GetImageByCategoryIdAsync(id);
 
         return imageUrl;       
+    }
+
+    [HttpPatch("id/{id:int}")]
+    public async Task<ActionResult<CategoryResponse>> PatchUpdateAsync(int id, 
+        [FromBody] JsonPatchDocument<CategoryDetail> categoryPatchDocument)
+    {
+        if (categoryPatchDocument == null)
+        {
+            return BadRequest();
+        }
+
+        return await _categoryService.PatchUpdateAsync(id, categoryPatchDocument);
     }
 }
