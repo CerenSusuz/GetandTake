@@ -1,5 +1,4 @@
-﻿using GetandTake.Configuration.Settings;
-using GetandTake.Models;
+﻿using GetandTake.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

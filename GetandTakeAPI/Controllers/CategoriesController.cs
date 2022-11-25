@@ -1,10 +1,8 @@
 ﻿using GetandTake.Business.Services.Abstract;
-using GetandTake.Models;
 using GetandTake.Models.DTOs.DetailDTO;
 using GetandTake.Models.DTOs.ResponseDTO;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.XPath;
 
 namespace GetandTakeAPI.Controllers;
 

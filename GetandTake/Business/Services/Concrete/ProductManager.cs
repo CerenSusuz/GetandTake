@@ -92,4 +92,3 @@ public class ProductManager : IProductService
         return _mapper.Map<List<ProductResponse>>(entities);
     }
 }
-

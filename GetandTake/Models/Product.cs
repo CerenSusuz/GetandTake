@@ -1,5 +1,4 @@
 ﻿using GetandTake.Core.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace GetandTake.Models;
 

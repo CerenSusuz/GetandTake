@@ -1,7 +1,6 @@
 ﻿using GetandTake.Core.Filters;
 using SmartBreadcrumbs.Extensions;
 using System.Reflection;
-using System.Text.Json.Serialization;
 
 namespace GetandTake.Startup.Configuration;
 

@@ -77,6 +77,7 @@ public class CategoryManager : ICategoryService
         _repository.Update(categoryResult);
     }
 
+    [CacheAspect]
     public async Task<string> GetImageByCategoryIdAsync(int categoryId)
     {
         var findCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
@@ -86,6 +87,7 @@ public class CategoryManager : ICategoryService
         return imageUrl;
     }
 
+    [CacheRemoveAspect(nameof(ICategoryService.GetAllAsync))]
     public async Task<CategoryResponse> PatchUpdateAsync(int categoryId, JsonPatchDocument<CategoryDetail> categoryDetailPatchDocument)
     {
         var categoryFromDb = await _repository.GetAsync(category => category.CategoryID == categoryId);

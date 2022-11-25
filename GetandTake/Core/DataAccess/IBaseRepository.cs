@@ -26,4 +26,3 @@ public interface IBaseRepository<TEntity>
 
     void Delete(Expression<Func<TEntity, bool>> expression);
 }
-

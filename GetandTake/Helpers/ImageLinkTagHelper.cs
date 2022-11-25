@@ -4,7 +4,7 @@ using System.Text.Encodings.Web;
 
 namespace GetandTake.Helpers;
 
-[HtmlTargetElement("getandtake-image-link", Attributes = CustomAttributeName)]
+[HtmlTargetElement("getandtake-image-link", Attributes = CustomAttributeName )]
 public class ImageLinkTagHelper : TagHelper
 {
     private const string CustomAttributeName = "category-image-id";

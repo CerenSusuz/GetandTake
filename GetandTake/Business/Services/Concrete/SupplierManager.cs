@@ -24,6 +24,7 @@ public class SupplierManager : ISupplierService
     public async Task UpdateAsync(int supplierId, Supplier supplier)
     {
         var findSupplier = await _repository.GetAsync(category => category.SupplierID == supplierId);
+        
         if (findSupplier != null)
         {
             supplier.SupplierID = supplierId;

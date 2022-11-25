@@ -1,6 +1,5 @@
 using AutoMapper;
 using GetandTake.Business.Services.Abstract;
-using GetandTake.Models;
 using GetandTake.Models.DTOs.DetailDTO;
 using GetandTake.Models.DTOs.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
@@ -44,4 +43,3 @@ public class EditModel : PageModel
         return RedirectToPage("Category");
     }
 }
-
