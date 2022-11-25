@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GetandTake.Models;
-using GetandTake.Models.DTOs.BaseDTO;
-using GetandTake.Models.DTOs.ListDTO;
+using GetandTake.Models.DTOs.DetailDTO;
+using GetandTake.Models.DTOs.ResponseDTO;
 
 namespace GetandTake.Business.Services.AutoMapper;
 
@@ -17,5 +17,8 @@ public class AutoMapperProfile : Profile
             .ForMember(dto => dto.Supplier,
                                entity => entity.MapFrom(entity =>
      entity.Supplier.CompanyName));
+
+        CreateMap<Category, CategoryDetail>().ReverseMap();
+        CreateMap<Category, CategoryResponse>().ReverseMap();
     }
 }
