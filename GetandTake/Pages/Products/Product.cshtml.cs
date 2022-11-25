@@ -1,6 +1,6 @@
 using GetandTake.Business.Services.Abstract;
 using GetandTake.Configuration.Settings;
-using GetandTake.Models.DTOs.ListDTO;
+using GetandTake.Models.DTOs.ResponseDTO;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartBreadcrumbs.Attributes;
 

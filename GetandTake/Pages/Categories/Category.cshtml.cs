@@ -1,5 +1,6 @@
 using GetandTake.Business.Services.Abstract;
 using GetandTake.Models;
+using GetandTake.Models.DTOs.ResponseDTO;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartBreadcrumbs.Attributes;
 
@@ -11,7 +12,7 @@ public class CategoryModel : PageModel
     private readonly ICategoryService _categoryService;
     private readonly ILogger _logger;
 
-    public IEnumerable<Category> Categories { get; private set; }
+    public IEnumerable<CategoryResponse> Categories { get; private set; }
 
     public CategoryModel(
         ICategoryService categoryService,

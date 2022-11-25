@@ -1,4 +1,5 @@
-﻿using GetandTake.Models;
+﻿using GetandTake.Configuration.Settings;
+using GetandTake.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,5 +11,11 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         builder.ToTable("Categories");
         builder.Property(prop => prop.CategoryName).IsRequired();
+
+        builder
+            .HasMany(category => category.Products)
+            .WithOne(product => product.Category)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

@@ -3,8 +3,8 @@ using GetandTake.Business.Services.Abstract;
 using GetandTake.Core.Aspects.Caching;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.Models;
-using GetandTake.Models.DTOs.BaseDTO;
-using GetandTake.Models.DTOs.ListDTO;
+using GetandTake.Models.DTOs.DetailDTO;
+using GetandTake.Models.DTOs.ResponseDTO;
 
 namespace GetandTake.Business.Services.Concrete;
 

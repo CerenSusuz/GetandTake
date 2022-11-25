@@ -1,7 +1,7 @@
 using GetandTake.Business.Services.Abstract;
 using GetandTake.Models;
-using GetandTake.Models.DTOs.BaseDTO;
-using GetandTake.Models.DTOs.ListDTO;
+using GetandTake.Models.DTOs.DetailDTO;
+using GetandTake.Models.DTOs.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartBreadcrumbs.Attributes;
@@ -20,7 +20,7 @@ public class EditModel : PageModel
     [BindProperty]
     public ProductDetail Product { get; set; }
 
-    public IEnumerable<Category> Categories { get; private set; }
+    public IEnumerable<CategoryResponse> Categories { get; private set; }
 
     public IEnumerable<Supplier> Suppliers { get; private set; }
 

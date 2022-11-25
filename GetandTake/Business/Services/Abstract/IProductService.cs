@@ -1,5 +1,5 @@
-﻿using GetandTake.Models.DTOs.BaseDTO;
-using GetandTake.Models.DTOs.ListDTO;
+﻿using GetandTake.Models.DTOs.DetailDTO;
+using GetandTake.Models.DTOs.ResponseDTO;
 
 namespace GetandTake.Business.Services.Abstract;
 

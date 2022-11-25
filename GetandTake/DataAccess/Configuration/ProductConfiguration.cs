@@ -10,18 +10,17 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         builder.ToTable("Products");
         builder.Property(property => property.ProductName).IsRequired();
+        
         builder
-            .HasOne<Category>()
+            .HasOne(product => product.Category)
             .WithMany(category => category.Products)
-            .HasForeignKey(product => product.CategoryID)
-            .OnDelete(DeleteBehavior.SetNull)
+            .HasForeignKey(category => category.CategoryID)
             .IsRequired(required: false);
 
         builder
-            .HasOne<Supplier>()
-            .WithMany(supplier => supplier.Products)
-            .HasForeignKey(product => product.SupplierID)
-            .OnDelete(DeleteBehavior.SetNull)
-            .IsRequired(required: false);
+           .HasOne(product => product.Supplier)
+           .WithMany(suplier => suplier.Products)
+           .HasForeignKey(suplier => suplier.SupplierID)
+           .IsRequired(required: false);
     }
 }

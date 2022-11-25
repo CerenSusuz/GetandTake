@@ -1,18 +1,20 @@
 ﻿using GetandTake.Models;
+using GetandTake.Models.DTOs.DetailDTO;
+using GetandTake.Models.DTOs.ResponseDTO;
 
 namespace GetandTake.Business.Services.Abstract;
 
 public interface ICategoryService
 {
-    Task<List<Category>> GetAllAsync();
+    Task<List<CategoryResponse>> GetAllAsync();
 
-    Task<Category> GetByIdAsync(int categoryId);
+    Task<CategoryResponse> GetByIdAsync(int categoryId);
 
-    Task UpdateAsync(int categoryId, Category category);
+    Task UpdateAsync(int categoryId, CategoryDetail categoryDetail);
 
-    Task CreateAsync(Category category);
+    Task CreateAsync(CategoryDetail categoryDetail);
 
     void Delete(int categoryId);
 
-    Task UploadImage(IFormFile file, int id);
+    Task UploadImageAsync(IFormFile file, int id);
 }

@@ -10,5 +10,11 @@ public class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
     {
         builder.ToTable("Suppliers");
         builder.Property(prop => prop.CompanyName).IsRequired();
+
+        builder
+           .HasMany(supplier => supplier.Products)
+           .WithOne(product => product.Supplier)
+           .IsRequired()
+           .OnDelete(DeleteBehavior.SetNull);
     }
 }

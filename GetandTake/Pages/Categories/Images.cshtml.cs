@@ -1,6 +1,7 @@
 using GetandTake.Business.Services.Abstract;
 using GetandTake.Configuration.Settings;
 using GetandTake.Models;
+using GetandTake.Models.DTOs.ResponseDTO;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartBreadcrumbs.Attributes;
 
@@ -12,7 +13,7 @@ public class ImagesModel : PageModel
     private readonly ICategoryService _categoryService;
     private readonly AppSettings _appSettings;
 
-    public IEnumerable<Category> Categories { get; private set; }
+    public IEnumerable<CategoryResponse> Categories { get; private set; }
 
     public string HostUrl { get; private set; }
 
