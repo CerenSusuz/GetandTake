@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GetandTake.Business.Services.Abstract;
+using GetandTake.Configuration.Settings;
 using GetandTake.Core.Aspects.Caching;
 using GetandTake.Core.Utilities.Helper;
 using GetandTake.DataAccess.Repositories.Abstract;
@@ -14,11 +15,16 @@ public class CategoryManager : ICategoryService
 {
     private readonly ICategoryRepository _repository;
     private readonly IMapper _mapper;
+    private readonly AppSettings _appSettings;
 
-    public CategoryManager(ICategoryRepository repository, IMapper mapper)
+    public CategoryManager(
+        ICategoryRepository repository,
+        IMapper mapper,
+        AppSettings appSettings)
     {
         _repository = repository;
         _mapper = mapper;
+        _appSettings = appSettings;
     }       
 
     [CacheRemoveAspect(nameof(ICategoryService.GetAllAsync))]
@@ -70,5 +76,14 @@ public class CategoryManager : ICategoryService
         category.ImagePath = FileHelper.Upload(file);
         var categoryResult = _mapper.Map<Category>(category);
         _repository.Update(categoryResult);
+    }
+
+    public async Task<string> GetImageByCategoryIdAsync(int categoryId)
+    {
+        var findCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
+
+        var imageUrl = $"{_appSettings.Host.HostUrl}{findCategory.ImagePath}";
+
+        return imageUrl;
     }
 }

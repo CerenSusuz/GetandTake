@@ -10,6 +10,8 @@ public interface ICategoryService
 
     Task<CategoryResponse> GetByIdAsync(int categoryId);
 
+    Task<string> GetImageByCategoryIdAsync(int categoryId);
+
     Task UpdateAsync(int categoryId, CategoryDetail categoryDetail);
 
     Task CreateAsync(CategoryDetail categoryDetail);
