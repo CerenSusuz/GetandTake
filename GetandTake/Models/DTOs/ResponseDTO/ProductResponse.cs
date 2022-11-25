@@ -1,6 +1,6 @@
-﻿namespace GetandTake.Models.DTOs.ListDTO;
+﻿namespace GetandTake.Models.DTOs.ResponseDTO;
 
-public class ProductResponse 
+public class ProductResponse
 {
     public int ProductID { get; set; }
 

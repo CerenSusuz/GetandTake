@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace GetandTake.Models.DTOs.BaseDTO;
+namespace GetandTake.Models.DTOs.DetailDTO;
 
 public class ProductDetail
 {
