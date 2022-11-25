@@ -66,4 +66,12 @@ public class CategoriesController : ControllerBase
 
         return Ok("deleted process success");
     }
+
+    [HttpGet("image/id/{id:int}")]
+    public async Task<ActionResult<string>> GetImageByCategoryId(int id)
+    {
+        var imageUrl = await _categoryService.GetImageByCategoryIdAsync(id);
+
+        return imageUrl;       
+    }
 }
