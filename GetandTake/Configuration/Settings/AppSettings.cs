@@ -1,5 +1,4 @@
 ﻿using NetEscapades.Configuration.Validation;
-using System.ComponentModel.DataAnnotations;
 
 namespace GetandTake.Configuration.Settings;
 
@@ -17,7 +16,7 @@ public class AppSettings : IValidatable
     {
         Database.Validate();
         Products.Validate();
-        Products.Validate();
-        Products.Validate();
+        Host.Validate();
+        LoggingParameters.Validate();
     }
 }
