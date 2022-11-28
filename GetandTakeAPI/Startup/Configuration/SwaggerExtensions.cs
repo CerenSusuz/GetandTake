@@ -13,17 +13,22 @@ public static class SwaggerExtensions
             {
                 Title = "GetandTake.API",
                 Version = "v1",
-                Description = "NET 6 Web API",
+                Description = "NET 6 Web API for managing GetandTake project",
                 Contact = new OpenApiContact
                 {
                     Name = "gerund",
                     Email = "ceren199704@gmail.com"
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "Example License",
+                    Url = new Uri("https://getandtake.com/license")
                 }
             });
 
 
-            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
 
             swaggerGen.IncludeXmlComments(xmlPath);
         });
