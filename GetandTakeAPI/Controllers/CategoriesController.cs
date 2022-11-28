@@ -30,7 +30,9 @@ public class CategoriesController : ControllerBase
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation with List of <see cref="CategoryResponse"/>
     /// </returns>
+    /// <response code="200"> Category List has been found.</response>
     [HttpGet(Name = nameof(GetAllCategoriesAsync))]
+    [ProducesResponseType(typeof(CategoryResponse), StatusCodes.Status200OK)]
     public async Task<ActionResult<List<CategoryResponse>>> GetAllCategoriesAsync()
     {
         var categories = await _categoryService.GetAllAsync();
@@ -50,9 +52,9 @@ public class CategoriesController : ControllerBase
     /// Sample request:
     ///
     ///     POST / Categories/id/{id}
-    /// {
+    ///     {
     ///       "id":0
-    /// }
+    ///     }
     ///
     /// </remarks>
     /// <param name="id">to take selected category by Category identifier</param>
@@ -116,12 +118,12 @@ public class CategoriesController : ControllerBase
     ///
     ///     PUT / Categories/id/{id}
     ///     
-    /// {
-    ///     "id":0,
-    ///     "categoryName": "string",
-    ///     "description": "string",
-    ///     "imagePath": "string"
-    /// }
+    ///     {
+    ///         "id":0,
+    ///         "categoryName": "string",
+    ///         "description": "string",
+    ///         "imagePath": "string"
+    ///     }
     ///
     /// </remarks>
     /// <param name="id">to find selected category by category identifier</param>
@@ -147,14 +149,13 @@ public class CategoriesController : ControllerBase
     /// Deletes specific Category from database
     /// </summary>
     /// <remarks>
-    /// 
-    ///  Sample request:
+    /// Sample request:
     ///
-    ///     Delete /Categories/id/{id}
+    ///     DELETE / Categories/id/{id}
     ///     {
-    ///        "id": 0
+    ///         "id": 0,
     ///     }
-    ///     
+    ///
     /// </remarks>
     /// <param name="id">to delete selected category by category identifier</param>
     /// <response code="204">Category has been removed from database.</response>

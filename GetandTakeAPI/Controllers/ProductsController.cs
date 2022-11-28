@@ -45,6 +45,15 @@ public class ProductsController : ControllerBase
     /// <summary>
     /// Returns information about Product by id.
     /// </summary>
+    ///     /// <remarks>
+    /// Sample request:
+    ///
+    ///     GET / Products/id/{id}
+    ///     {
+    ///         "id": 0
+    ///     }
+    ///
+    /// </remarks>
     /// <param name="id">to find selected product by Product identifier</param>
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation with <see cref="ProductResponse"/>
@@ -77,17 +86,17 @@ public class ProductsController : ControllerBase
     /// Sample request:
     ///
     ///     POST / Products
-    /// {
-    ///     "productName": "string",
-    ///     "quantityPerUnit": "string",
-    ///     "unitPrice": 0,
-    ///     "unitsInStock": 0,
-    ///     "unitsOnOrder": 0,
-    ///     "reorderLevel": 0,
-    ///     "discontinued": true,
-    ///     "categoryId": 0,
-    ///     "supplierId": 0
-    /// }
+    ///     {
+    ///         "productName": "string",
+    ///         "quantityPerUnit": "string",
+    ///         "unitPrice": 0,
+    ///         "unitsInStock": 0,
+    ///         "unitsOnOrder": 0,
+    ///         "reorderLevel": 0,
+    ///         "discontinued": true,
+    ///         "categoryId": 0,
+    ///         "supplierId": 0
+    ///     }
     ///
     /// </remarks>
     /// <response code="201">Returns the newly created ProductDetail</response>
@@ -116,19 +125,18 @@ public class ProductsController : ControllerBase
     /// Sample request:
     ///
     ///     PUT / Products/id/{id}
-    ///     
-    /// {
-    ///     "id": 0,
-    ///     "productName": "string",
-    ///     "quantityPerUnit": "string",
-    ///     "unitPrice": 0,
-    ///     "unitsInStock": 0,
-    ///     "unitsOnOrder": 0,
-    ///     "reorderLevel": 0,
-    ///     "discontinued": true,
-    ///     "categoryId": 0,
-    ///     "supplierId": 0
-    /// }
+    ///     {
+    ///         "id": 0,
+    ///         "productName": "string",
+    ///         "quantityPerUnit": "string",
+    ///         "unitPrice": 0,
+    ///         "unitsInStock": 0,
+    ///         "unitsOnOrder": 0,
+    ///         "reorderLevel": 0,
+    ///         "discontinued": true,
+    ///         "categoryId": 0,
+    ///         "supplierId": 0
+    ///      }
     ///
     /// </remarks>
     /// <response code="201">Returns the newly updated Product.</response>
@@ -156,14 +164,13 @@ public class ProductsController : ControllerBase
     /// </summary>
     /// <param name="id">to find selected product by Product identifier</param>
     /// <remarks>
-    /// 
-    ///  Sample request:
+    /// Sample request:
     ///
-    ///     Delete /Products/id/{id}
+    ///     DELETE / Products/id/{id}
     ///     {
-    ///        "id": 0
+    ///         "id": 0,
     ///     }
-    ///     
+    ///
     /// </remarks>
     /// <response code="204">Product has been removed from database.</response>
     /// <response code="404">Unable to find product.</response>
