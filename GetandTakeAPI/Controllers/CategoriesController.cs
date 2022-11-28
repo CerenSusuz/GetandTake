@@ -83,11 +83,11 @@ public class CategoriesController : ControllerBase
     /// Sample request:
     ///
     ///     POST / Categories
-    /// {
-    ///     "categoryName": "string",
-    ///     "description": "string",
-    ///     "imagePath": "string"
-    /// }
+    ///     {
+    ///         "categoryName": "string",
+    ///         "description": "string",
+    ///         "imagePath": "string"
+    ///     }
     ///
     /// </remarks>
     /// <param name="category"><see cref="CategoryDetail"/></param>
@@ -133,6 +133,9 @@ public class CategoriesController : ControllerBase
     /// <response code="404">Unable to find Category.</response>
     /// <response code="500">Unable to update Category due to internal issues.</response>
     [HttpPut("id/{id:int}")]
+    [ProducesResponseType(typeof(CategoryDetail), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<CategoryDetail>> UpdateAsync(int id, CategoryDetail category)
     {
         await _categoryService.UpdateAsync(id, category);
@@ -158,6 +161,8 @@ public class CategoriesController : ControllerBase
     /// <response code="404">Unable to find Category.</response>
     /// <returns>status ok message</returns>
     [HttpDelete("id/{id:int}")]
+    [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     public IActionResult Delete(int id)
     {
         _categoryService.Delete(id);
@@ -185,6 +190,8 @@ public class CategoriesController : ControllerBase
     /// <response code="200"> Image has been found.</response>
     /// <response code="404"> Unable to find Image.</response>
     [HttpGet("image/id/{id:int}")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<string>> GetImageByCategoryId(int id)
     {
         var imageUrl = await _categoryService.GetImageByCategoryIdAsync(id);
@@ -215,7 +222,13 @@ public class CategoriesController : ControllerBase
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation with <see cref="CategoryResponse"/>
     /// </returns>
+    /// <response code="201">Returns the newly updated Category</response>
+    /// <response code="404">Unable to find Category.</response>
+    /// <response code="500">Unable to update Category due to internal issues.</response>
     [HttpPatch("id/{id:int}")]
+    [ProducesResponseType(typeof(CategoryResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<CategoryResponse>> PatchUpdateAsync(int id,
         [FromBody] JsonPatchDocument<CategoryDetail> categoryPatchDocument)
     {
