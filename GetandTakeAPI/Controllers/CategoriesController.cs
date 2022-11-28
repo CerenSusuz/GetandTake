@@ -16,79 +16,90 @@ public class CategoriesController : ControllerBase
     private readonly ICategoryService _categoryService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CategoriesController"/> class
+    /// Initializes a new instance of the <see cref="CategoriesController"/> class.
     /// </summary>
     /// <param name="categoryService">to coneection with Category application logic</param>
-    public CategoriesController(ICategoryService categoryService)
-    {
-        _categoryService = categoryService;
-    }
+    public CategoriesController(ICategoryService categoryService) => _categoryService = categoryService;
 
     /// <summary>
-    /// Gets All Categories
+    /// Gets all categories.
     /// </summary>
+    /// <remarks>
+    /// Sample response:
+    ///
+    ///     GET / categories
+    ///     {
+    ///       "categoryID": 1,
+    ///       "categoryName": "Beverages",
+    ///       "description": "Soft drinks, coffees, teas, beers, and ales",
+    ///       "imagePath": "\\uploads\\beverages.png"  
+    ///     }
+    ///
+    /// </remarks>
     /// <returns>
-    /// A <see cref="Task"/> representing the asynchronous operation with List of <see cref="CategoryResponse"/>
+    /// A <see cref="Task"/> representing the asynchronous operation with list of <see cref="CategoryResponse"/>
     /// </returns>
     /// <response code="200"> Category List has been found.</response>
+    /// <response code="404"> Unable to find product.</response>
     [HttpGet(Name = nameof(GetAllCategoriesAsync))]
     [ProducesResponseType(typeof(CategoryResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<List<CategoryResponse>>> GetAllCategoriesAsync()
     {
         var categories = await _categoryService.GetAllAsync();
 
         if (categories == null)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         return categories;
     }
 
     /// <summary>
-    /// Returns information about Category by id.
+    /// Returns information about category by id.
     /// </summary>
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST / Categories/id/{id}
+    ///     GET / categories/id/{id}
     ///     {
-    ///       "id":0
+    ///       "id": 10
     ///     }
     ///
     /// </remarks>
-    /// <param name="id">to take selected category by Category identifier</param>
+    /// <param name="id">Category identifier</param>
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation with <see cref="CategoryResponse"/>
     /// </returns>
     /// <response code="200"> Category has been found.</response>
-    /// <response code="404"> Unable to find Category.</response>
+    /// <response code="404"> Unable to find category.</response>
     [HttpGet("id/{id:int}")]
     [ProducesResponseType(typeof(CategoryResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<CategoryResponse>> GetCategoryByIdAsync(int id)
+    public async Task<ActionResult<CategoryResponse>> GetByIdAsync(int id)
     {
         var category = await _categoryService.GetByIdAsync(id);
 
         if (category == null)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         return category;
     }
 
     /// <summary>
-    /// Creates a Category
+    /// Creates a category.
     /// </summary>
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST / Categories
+    ///     POST / categories
     ///     {
-    ///         "categoryName": "string",
-    ///         "description": "string",
-    ///         "imagePath": "string"
+    ///         "categoryName": "Beverages",
+    ///         "description": "Soft drinks, coffees, teas, beers, and ales",
+    ///         "imagePath": "\\uploads\\beverages.png"
     ///     }
     ///
     /// </remarks>
@@ -96,12 +107,12 @@ public class CategoriesController : ControllerBase
     /// <returns>    
     /// A <see cref="Task"/> representing the asynchronous operation with <see cref="CategoryDetail"/>
     /// </returns>
-    /// <response code="201">Returns the newly created CategoryDetail</response>
-    /// <response code="500">Unable to create Category due to internal issues.</response>
-    /// <response code="400">If the item is null</response>
+    /// <response code="201">Returns the newly created category detail</response>
+    /// <response code="404">Unable to find category.</response>
+    /// <response code="500">Unable to create category due to internal issues.</response>
     [HttpPost]
     [ProducesResponseType(typeof(CategoryDetail), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<CategoryDetail>> CreateAsync(CategoryDetail category)
     {
@@ -111,80 +122,94 @@ public class CategoriesController : ControllerBase
     }
 
     /// <summary>
-    /// Updates a Category
+    /// Updates a category.
     /// </summary>
     /// <remarks>
     /// Sample request:
     ///
-    ///     PUT / Categories/id/{id}
+    ///     PUT / categories/id/{id}
     ///     
     ///     {
-    ///         "id":0,
-    ///         "categoryName": "string",
-    ///         "description": "string",
-    ///         "imagePath": "string"
+    ///         "id": 1,
+    ///         "categoryName": "Beverages",
+    ///         "description": "Soft drinks, coffees, teas, beers, and ales",
+    ///         "imagePath": "\\uploads\\beverages.png"
     ///     }
     ///
     /// </remarks>
-    /// <param name="id">to find selected category by category identifier</param>
+    /// <param name="id">Category identifier</param>
     /// <param name="category"> <see cref="CategoryDetail"/> </param>
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation with <see cref="CategoryDetail"/>
     /// </returns>
-    /// <response code="201">Returns the newly updated Category.</response>
-    /// <response code="404">Unable to find Category.</response>
-    /// <response code="500">Unable to update Category due to internal issues.</response>
+    /// <response code="201">Returns the newly updated category detail.</response>
+    /// <response code="404">Unable to find category.</response>
+    /// <response code="500">Unable to update category due to internal issues.</response>
     [HttpPut("id/{id:int}")]
     [ProducesResponseType(typeof(CategoryDetail), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<CategoryDetail>> UpdateAsync(int id, CategoryDetail category)
     {
+        var foundCategory = _categoryService.GetByIdAsync(id);
+
+        if (foundCategory.Result == null)
+        {
+            return NotFound();
+        }
+
         await _categoryService.UpdateAsync(id, category);
 
         return category;
     }
 
     /// <summary>
-    /// Deletes specific Category from database
+    /// Deletes specific category from database.
     /// </summary>
     /// <remarks>
     /// Sample request:
     ///
-    ///     DELETE / Categories/id/{id}
+    ///     DELETE / categories/id/{id}
     ///     {
-    ///         "id": 0,
+    ///         "id": 1,
     ///     }
     ///
     /// </remarks>
-    /// <param name="id">to delete selected category by category identifier</param>
+    /// <param name="id">Category identifier</param>
     /// <response code="204">Category has been removed from database.</response>
-    /// <response code="404">Unable to find Category.</response>
+    /// <response code="404">Unable to find category.</response>
     /// <returns>status ok message</returns>
     [HttpDelete("id/{id:int}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     public IActionResult Delete(int id)
     {
+        var foundCategory = _categoryService.GetByIdAsync(id);
+
+        if (foundCategory.Result == null)
+        {
+            return NotFound();
+        }
+
         _categoryService.Delete(id);
 
         return Ok("deleted process success");
     }
 
     /// <summary>
-    /// Returns information about Image by Category Id.
+    /// Returns information about image by category id.
     /// </summary>
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST / Categories/Image/id/{id}
+    ///     GET / categories/image/id/{id}
     ///     
     ///     {
-    ///         "id":0
+    ///         "id": 1
     ///     }
     ///
     /// </remarks>
-    /// <param name="id">to find Image by Category Identifier</param>
+    /// <param name="id">Category identifier</param>
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation with <see cref="CategoryDetail.ImagePath"/>
     /// </returns>
@@ -195,30 +220,35 @@ public class CategoriesController : ControllerBase
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<string>> GetImageByCategoryId(int id)
     {
-        var imageUrl = await _categoryService.GetImageByCategoryIdAsync(id);
+        var foundCategory = _categoryService.GetByIdAsync(id);
 
-        return imageUrl;
+        if (foundCategory.Result == null)
+        {
+            return NotFound();
+        }
+
+        return await _categoryService.GetImageByCategoryIdAsync(id);
     }
 
     /// <summary>
-    /// Partial Updates a Category
+    /// Partial updates a category.
     /// </summary>
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST / Categories/id/{id}
+    ///     PATCH / categories/id/{id}
     ///     
     ///     {
-    ///         "id":0,
-    ///         "operationType": 0,
-    ///         "path": "string",
-    ///         "op": "string",
-    ///         "from": "string",
-    ///         "value": "string"
+    ///         "id": 1,
+    ///         "operationType": replace,
+    ///         "path": "/imagePath",
+    ///         "op": "replace",
+    ///         "from": "\\uploads\\beverages.png",
+    ///         "value": "\\uploads\\condiments.png"
     ///     }
     ///
     /// </remarks>
-    /// <param name="id">to find selected category by category identifier</param>
+    /// <param name="id">Category identifier</param>
     /// <param name="categoryPatchDocument">to partial update category<see cref="CategoryDetail"/></param>
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation with <see cref="CategoryResponse"/>
@@ -235,7 +265,7 @@ public class CategoriesController : ControllerBase
     {
         if (categoryPatchDocument == null)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         return await _categoryService.PatchUpdateAsync(id, categoryPatchDocument);

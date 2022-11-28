@@ -18,43 +18,62 @@ public class ProductsController : ControllerBase
     /// Initializes a new instance of the <see cref="ProductsController"/> class
     /// </summary>
     /// <param name="productService">to connection with Product application logic</param>
-    public ProductsController(IProductService productService)
-    {
-        _productService = productService;
-    }
+    public ProductsController(IProductService productService) => _productService = productService;
 
     /// <summary>
-    /// Gets All Products.
+    /// Gets all products.
     /// </summary>
+    /// <remarks>
+    /// Sample response:
+    ///
+    ///     GET / products/id/{id}
+    ///     {
+    ///       "productID": 1,
+    ///       "productName": "Chai",
+    ///       "quantityPerUnit": "10 boxes x 20 bags",
+    ///       "unitPrice": 18,  
+    ///       "unitsInStock": 39,  
+    ///       "unitsOnOrder": 0,  
+    ///       "reorderLevel": 10,  
+    ///       "discontinued": false,  
+    ///       "category": "Beverages",  
+    ///       "supplier": "Exotic Liquids",  
+    ///     }
+    ///
+    /// </remarks>
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation with List of <see cref="ProductResponse"/>
     /// </returns>
+    /// <response code="200"> Product List has been found.</response>
+    /// <response code="404"> Unable to find product.</response>
     [HttpGet(Name = nameof(GetAllProductsAsync))]
+    [ProducesResponseType(typeof(CategoryResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<List<ProductResponse>>> GetAllProductsAsync()
     {
         var products = await _productService.GetAllAsync();
 
         if (products == null)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         return products;
     }
 
     /// <summary>
-    /// Returns information about Product by id.
+    /// Returns information about product by id.
     /// </summary>
     ///     /// <remarks>
     /// Sample request:
     ///
-    ///     GET / Products/id/{id}
+    ///     GET / products/id/{id}
     ///     {
-    ///         "id": 0
+    ///         "id": 1
     ///     }
     ///
     /// </remarks>
-    /// <param name="id">to find selected product by Product identifier</param>
+    /// <param name="id">Product identifier</param>
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation with <see cref="ProductResponse"/>
     /// </returns>
@@ -63,20 +82,20 @@ public class ProductsController : ControllerBase
     [HttpGet("id/{id:int}")]
     [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ProductResponse>> GetProductByIdAsync(int id)
+    public async Task<ActionResult<ProductResponse>> GetByIdAsync(int id)
     {
         var product = await _productService.GetByIdAsync(id);
 
         if (product == null)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         return product;
     }
 
     /// <summary>
-    /// Creates a Product.
+    /// Creates a product.
     /// </summary>
     /// <param name="product"><see cref="ProductDetail"/></param>
     /// <returns>    
@@ -85,23 +104,24 @@ public class ProductsController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST / Products
+    ///     POST / products/id/{id}
     ///     {
-    ///         "productName": "string",
-    ///         "quantityPerUnit": "string",
-    ///         "unitPrice": 0,
-    ///         "unitsInStock": 0,
-    ///         "unitsOnOrder": 0,
-    ///         "reorderLevel": 0,
-    ///         "discontinued": true,
-    ///         "categoryId": 0,
-    ///         "supplierId": 0
+    ///       "productID": 1,
+    ///       "productName": "Chai",
+    ///       "quantityPerUnit": "10 boxes x 20 bags",
+    ///       "unitPrice": 18,  
+    ///       "unitsInStock": 39,  
+    ///       "unitsOnOrder": 0,  
+    ///       "reorderLevel": 10,  
+    ///       "discontinued": false,  
+    ///       "categoryId": 1,  
+    ///       "supplierId": 1,  
     ///     }
     ///
     /// </remarks>
-    /// <response code="201">Returns the newly created ProductDetail</response>
+    /// <response code="201">Returns the newly created product detail</response>
+    /// <response code="404">Unable to find product.</response>
     /// <response code="500">Unable to create product due to internal issues.</response>
-    /// <response code="400">If the item is null</response>
     [HttpPost]
     [ProducesResponseType(typeof(ProductDetail), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -114,9 +134,9 @@ public class ProductsController : ControllerBase
     }
 
     /// <summary>
-    /// Updates Product.
+    /// Updates a product.
     /// </summary>    
-    /// <param name="id">to find selected product by Product identifier</param>
+    /// <param name="id">Product identifier</param>
     /// <param name="product"><see cref="ProductDetail"/></param>
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation with <see cref="ProductDetail"/>
@@ -124,22 +144,22 @@ public class ProductsController : ControllerBase
     /// <remarks>
     /// Sample request:
     ///
-    ///     PUT / Products/id/{id}
+    ///     PUT / products/id/{id}
     ///     {
-    ///         "id": 0,
-    ///         "productName": "string",
-    ///         "quantityPerUnit": "string",
-    ///         "unitPrice": 0,
-    ///         "unitsInStock": 0,
-    ///         "unitsOnOrder": 0,
-    ///         "reorderLevel": 0,
-    ///         "discontinued": true,
-    ///         "categoryId": 0,
-    ///         "supplierId": 0
-    ///      }
+    ///       "productID": 1,
+    ///       "productName": "Chai",
+    ///       "quantityPerUnit": "10 boxes x 20 bags",
+    ///       "unitPrice": 18,  
+    ///       "unitsInStock": 39,  
+    ///       "unitsOnOrder": 0,  
+    ///       "reorderLevel": 10,  
+    ///       "discontinued": false,  
+    ///       "categoryId": 1,  
+    ///       "supplierId": 1,  
+    ///     }
     ///
     /// </remarks>
-    /// <response code="201">Returns the newly updated Product.</response>
+    /// <response code="201">Returns the newly updated product.</response>
     /// <response code="404">Unable to find product.</response>
     /// <response code="500">Unable to update product due to internal issues.</response>
     [HttpPut("id/{id:int}")]
@@ -148,12 +168,13 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<ProductDetail>> UpdateAsync(int id, ProductDetail product)
     {
-        var findProduct = _productService.GetByIdAsync(id);
+        var foundProduct = _productService.GetByIdAsync(id);
 
-        if (findProduct.Result == null)
+        if (foundProduct.Result == null)
         {
-            return BadRequest(findProduct);
+            return NotFound();
         }
+
         await _productService.UpdateAsync(id, product);
 
         return product;
@@ -162,13 +183,13 @@ public class ProductsController : ControllerBase
     /// <summary>
     /// Deletes specific product from database.
     /// </summary>
-    /// <param name="id">to find selected product by Product identifier</param>
+    /// <param name="id">Product identifier</param>
     /// <remarks>
     /// Sample request:
     ///
-    ///     DELETE / Products/id/{id}
+    ///     DELETE / products/id/{id}
     ///     {
-    ///         "id": 0,
+    ///         "id": 1,
     ///     }
     ///
     /// </remarks>
@@ -180,15 +201,15 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     public IActionResult Delete(int id)
     {
-        var findProduct = _productService.GetByIdAsync(id);
+        var foundProduct = _productService.GetByIdAsync(id);
 
-        if (findProduct.Result == null)
+        if (foundProduct.Result == null)
         {
-            return BadRequest(findProduct);
+            return NotFound();
         }
 
         _productService.Delete(id);
 
-        return Ok(findProduct.Result);
+        return Ok(foundProduct.Result);
     }
 }

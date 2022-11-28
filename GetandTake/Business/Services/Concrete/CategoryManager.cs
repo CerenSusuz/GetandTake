@@ -82,9 +82,7 @@ public class CategoryManager : ICategoryService
     {
         var foundCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
 
-        var imageUrl = $"{_appSettings.Host.HostUrl}{foundCategory.ImagePath}";
-
-        return imageUrl;
+        return $"{_appSettings.Host.HostUrl}{foundCategory.ImagePath}";
     }
 
     [CacheRemoveAspect(nameof(ICategoryService.GetAllAsync))]
