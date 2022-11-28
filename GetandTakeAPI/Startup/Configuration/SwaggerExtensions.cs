@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace GetandTakeAPI.Startup.Configuration;
 
@@ -19,6 +20,12 @@ public static class SwaggerExtensions
                     Email = "ceren199704@gmail.com"
                 }
             });
+
+
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+            swaggerGen.IncludeXmlComments(xmlPath);
         });
     }
 }
