@@ -42,9 +42,9 @@ public class CategoryManager : ICategoryService
     [CacheRemoveAspect(nameof(ICategoryService.GetAllAsync))]
     public async Task UpdateAsync(int categoryId, CategoryDetail categoryDetail)
     {
-        var findCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
+        var foundCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
 
-        if (findCategory != null)
+        if (foundCategory != null)
         {
             var category = _mapper.Map<Category>(categoryDetail);
             category.CategoryID = categoryId;
@@ -63,9 +63,9 @@ public class CategoryManager : ICategoryService
     [CacheAspect]
     public async Task<CategoryResponse> GetByIdAsync(int categoryId)
     {
-        var findCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
+        var foundCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
 
-        return _mapper.Map<CategoryResponse>(findCategory);
+        return _mapper.Map<CategoryResponse>(foundCategory);
     }
 
     [ResponseCache(NoStore = false, Duration = 10, Location = ResponseCacheLocation.Any)]
@@ -80,9 +80,9 @@ public class CategoryManager : ICategoryService
     [CacheAspect]
     public async Task<string> GetImageByCategoryIdAsync(int categoryId)
     {
-        var findCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
+        var foundCategory = await _repository.GetAsync(category => category.CategoryID == categoryId);
 
-        var imageUrl = $"{_appSettings.Host.HostUrl}{findCategory.ImagePath}";
+        var imageUrl = $"{_appSettings.Host.HostUrl}{foundCategory.ImagePath}";
 
         return imageUrl;
     }

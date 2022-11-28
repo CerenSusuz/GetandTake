@@ -28,9 +28,9 @@ public class ProductManager : IProductService
     [CacheRemoveAspect(nameof(IProductService.GetAllAsync))]
     public async Task UpdateAsync(int productId, ProductDetail productDto)
     {
-        var findProduct = await _repository.GetAsync(
+        var foundProduct = await _repository.GetAsync(
             product => product.ProductID == productId);
-        if (findProduct != null)
+        if (foundProduct != null)
         {
             var product = _mapper.Map<Product>(productDto);
             product.ProductID = productId;
@@ -73,11 +73,11 @@ public class ProductManager : IProductService
     [CacheAspect]
     public async Task<ProductResponse> GetByIdAsync(int productId)
     {
-        var findProduct = await _repository.GetAsync(product => product.ProductID == productId,
+        var foundProduct = await _repository.GetAsync(product => product.ProductID == productId,
             include => include.Category,
             include => include.Supplier);
 
-        return _mapper.Map<ProductResponse>(findProduct);
+        return _mapper.Map<ProductResponse>(foundProduct);
     }
 
     [CacheAspect]
