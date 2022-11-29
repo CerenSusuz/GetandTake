@@ -178,7 +178,7 @@ public class CategoriesController : ControllerBase
     /// <param name="id">Category identifier</param>
     /// <response code="204">Category has been removed from database.</response>
     /// <response code="404">Unable to find category.</response>
-    /// <returns>status ok message</returns>
+    /// <returns>NoContent Status code</returns>
     [HttpDelete("id/{id:int}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -193,7 +193,7 @@ public class CategoriesController : ControllerBase
 
         _categoryService.Delete(id);
 
-        return Ok("deleted process success");
+        return NoContent();
     }
 
     /// <summary>

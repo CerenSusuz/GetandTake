@@ -64,7 +64,7 @@ public class ProductsController : ControllerBase
     /// <summary>
     /// Returns information about product by id.
     /// </summary>
-    ///     /// <remarks>
+    /// <remarks>
     /// Sample request:
     ///
     ///     GET / products/id/{id}
@@ -195,7 +195,7 @@ public class ProductsController : ControllerBase
     /// </remarks>
     /// <response code="204">Product has been removed from database.</response>
     /// <response code="404">Unable to find product.</response>
-    /// <returns>status ok message</returns>
+    /// <returns>NoContent status code</returns>
     [HttpDelete("id/{id:int}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -210,6 +210,6 @@ public class ProductsController : ControllerBase
 
         _productService.Delete(id);
 
-        return Ok(foundProduct.Result);
+        return NoContent();
     }
 }
