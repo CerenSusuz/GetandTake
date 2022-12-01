@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GetandTake.Migrations
 {
     [DbContext(typeof(NorthwindDbContext))]
-    [Migration("20221201110037_createdb")]
+    [Migration("20221201120735_createdb")]
     partial class createdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

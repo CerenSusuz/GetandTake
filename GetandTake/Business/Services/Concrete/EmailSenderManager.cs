@@ -17,8 +17,8 @@ public class EmailSenderManager : IEmailSender
         {
             var mimeMessage = new MimeMessage();
             mimeMessage.From.Add(new MailboxAddress(
-                _appSettings.EmailConfiguration.From,
-                _appSettings.EmailConfiguration.UserName));
+                _appSettings.EmailConfiguration.UserName,
+                _appSettings.EmailConfiguration.From));
 
             mimeMessage.To.Add(new MailboxAddress(_appSettings.EmailConfiguration.UserName, email));
             mimeMessage.Subject = subject;
