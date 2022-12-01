@@ -25,6 +25,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-page="/Products/Product">Products<i class="bi bi-file-plus-fill"></i></a>
                             </li>
+                            <li>
+                                <partial name="_LoginPartial" />
+                            </li>
                         </ul>
                         <form class="d-flex">
                             <input class="form-control me-sm-2" type="text" placeholder="Search">
@@ -35,6 +38,10 @@
             </nav>
         </div>
     </header>
+    <div class="container">
+        @RenderBody()
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
@@ -67,7 +74,6 @@
                      alt="Yosemite National Park" />
             </div>
         </div>
-        @RenderBody()
     </div>
     <footer>
         <div class="container">

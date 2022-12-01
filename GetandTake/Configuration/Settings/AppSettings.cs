@@ -12,11 +12,17 @@ public class AppSettings : IValidatable
 
     public LogFilterSettings LoggingParameters { get; set; }
 
+    public GithubSettings GithubParameters { get; set; }
+
+    public EmailSettings EmailConfiguration { get; set; }
+
     public void Validate()
     {
         Database.Validate();
         Products.Validate();
         Host.Validate();
         LoggingParameters.Validate();
+        GithubParameters.Validate();
+        EmailConfiguration.Validate();
     }
 }

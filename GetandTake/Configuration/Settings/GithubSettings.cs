@@ -3,10 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GetandTake.Configuration.Settings;
 
-public class DatabaseSettings : IValidatable
+public class GithubSettings : IValidatable
 {
-    [Required]
-    public string DefaultConnection { get; set; }
+    public string ClientId { get; set; }
+
+    public string ClientSecret { get; set; }
+
+    public string CallbackPath { get; set; }
 
     public void Validate()
     {

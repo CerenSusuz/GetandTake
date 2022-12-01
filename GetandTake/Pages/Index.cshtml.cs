@@ -1,21 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartBreadcrumbs.Attributes;
 
-namespace GetandTake.Pages
+namespace GetandTake.Pages;
+
+[DefaultBreadcrumb("Home Page")]
+public class IndexModel : PageModel
 {
-    [DefaultBreadcrumb("Home Page")]
-    public class IndexModel : PageModel
+    private readonly ILogger<IndexModel> _logger;
+
+    public IndexModel(ILogger<IndexModel> logger)
     {
-        private readonly ILogger<IndexModel> _logger;
+        _logger = logger;
+    }
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+    public void OnGet()
+    {
 
-        public void OnGet()
-        {
-
-        }
     }
 }
