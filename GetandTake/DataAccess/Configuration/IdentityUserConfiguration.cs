@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-
 namespace GetandTake.DataAccess.Configuration;
 
 public class IdentityUserConfiguration : IEntityTypeConfiguration<IdentityUser>

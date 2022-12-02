@@ -8,25 +8,15 @@ namespace GetandTake.Areas.Identity.Pages.Account;
 public class LoginWith2faModel : PageModel
 {
     private readonly SignInManager<IdentityUser> _signInManager;
-    private readonly UserManager<IdentityUser> _userManager;
     private readonly ILogger<LoginWith2faModel> _logger;
 
     public LoginWith2faModel(
         SignInManager<IdentityUser> signInManager,
-        UserManager<IdentityUser> userManager,
         ILogger<LoginWith2faModel> logger)
     {
         _signInManager = signInManager;
-        _userManager = userManager;
         _logger = logger;
     }
-
-    [BindProperty]
-    public InputModel Input { get; set; }
-
-    public bool RememberMe { get; set; }
-
-    public string ReturnUrl { get; set; }
 
     public class InputModel
     {
@@ -39,6 +29,13 @@ public class LoginWith2faModel : PageModel
         [Display(Name = "Remember this machine")]
         public bool RememberMachine { get; set; }
     }
+
+    [BindProperty]
+    public InputModel Input { get; set; }
+
+    public bool RememberMe { get; set; }
+
+    public string ReturnUrl { get; set; }
 
     public async Task<IActionResult> OnGetAsync(bool rememberMe, string returnUrl = null)
     {
@@ -62,7 +59,7 @@ public class LoginWith2faModel : PageModel
             return Page();
         }
 
-        returnUrl = returnUrl ?? Url.Content("~/");
+        returnUrl ??= Url.Content("~/");
 
         var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
         
@@ -74,8 +71,6 @@ public class LoginWith2faModel : PageModel
         var authenticatorCode = Input.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
 
         var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, Input.RememberMachine);
-
-        var userId = await _userManager.GetUserIdAsync(user);
 
         if (result.Succeeded)
         {

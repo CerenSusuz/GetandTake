@@ -11,7 +11,9 @@ public class ConfirmEmailChangeModel : PageModel
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
 
-    public ConfirmEmailChangeModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public ConfirmEmailChangeModel(
+        UserManager<IdentityUser> userManager, 
+        SignInManager<IdentityUser> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -22,7 +24,7 @@ public class ConfirmEmailChangeModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(string userId, string email, string code)
     {
-        if (userId == null || email == null || code == null)
+        if (string.IsNullOrWhiteSpace(userId)|| string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(code))
         {
             return RedirectToPage("/Index");
         }

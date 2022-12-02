@@ -21,12 +21,6 @@ public class ChangePasswordModel : PageModel
         _logger = logger;
     }
 
-    [BindProperty]
-    public InputModel Input { get; set; }
-
-    [TempData]
-    public string StatusMessage { get; set; }
-
     public class InputModel
     {
         [Required]
@@ -46,9 +40,16 @@ public class ChangePasswordModel : PageModel
         public string ConfirmPassword { get; set; }
     }
 
+    [BindProperty]
+    public InputModel Input { get; set; }
+
+    [TempData]
+    public string StatusMessage { get; set; }
+
     public async Task<IActionResult> OnGetAsync()
     {
         var user = await _userManager.GetUserAsync(User);
+        
         if (user == null)
         {
             return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");

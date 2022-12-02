@@ -10,16 +10,14 @@ public class ConfirmEmailModel : PageModel
 {
     private readonly UserManager<IdentityUser> _userManager;
 
-    public ConfirmEmailModel(UserManager<IdentityUser> userManager)
-    {
-        _userManager = userManager;
-    }
+    public ConfirmEmailModel(UserManager<IdentityUser> userManager) => _userManager = userManager;
 
     [TempData]
     public string StatusMessage { get; set; }
+
     public async Task<IActionResult> OnGetAsync(string userId, string code)
     {
-        if (userId == null || code == null)
+        if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
         {
             return RedirectToPage("/Index");
         }

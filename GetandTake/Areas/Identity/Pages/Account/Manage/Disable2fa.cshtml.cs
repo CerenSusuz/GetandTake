@@ -46,7 +46,7 @@ public class Disable2faModel : PageModel
             return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
         }
 
-        var disable2faResult = await _userManager.SetTwoFactorEnabledAsync(user, false);
+        var disable2faResult = await _userManager.SetTwoFactorEnabledAsync(user, enabled: false);
         
         if (!disable2faResult.Succeeded)
         {

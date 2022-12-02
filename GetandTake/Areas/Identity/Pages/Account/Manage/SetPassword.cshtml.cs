@@ -18,12 +18,6 @@ public class SetPasswordModel : PageModel
         _signInManager = signInManager;
     }
 
-    [BindProperty]
-    public InputModel Input { get; set; }
-
-    [TempData]
-    public string StatusMessage { get; set; }
-
     public class InputModel
     {
         [Required]
@@ -37,6 +31,12 @@ public class SetPasswordModel : PageModel
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    [BindProperty]
+    public InputModel Input { get; set; }
+
+    [TempData]
+    public string StatusMessage { get; set; }
 
     public async Task<IActionResult> OnGetAsync()
     {

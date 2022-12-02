@@ -18,6 +18,13 @@ public class IndexModel : PageModel
         _signInManager = signInManager;
     }
 
+    public class InputModel
+    {
+        [Phone]
+        [Display(Name = "Phone number")]
+        public string PhoneNumber { get; set; }
+    }
+
     public string Username { get; set; }
 
     [TempData]
@@ -26,12 +33,6 @@ public class IndexModel : PageModel
     [BindProperty]
     public InputModel Input { get; set; }
 
-    public class InputModel
-    {
-        [Phone]
-        [Display(Name = "Phone number")]
-        public string PhoneNumber { get; set; }
-    }
 
     private async Task LoadAsync(IdentityUser user)
     {
@@ -81,6 +82,7 @@ public class IndexModel : PageModel
         if (Input.PhoneNumber != phoneNumber)
         {
             var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+            
             if (!setPhoneResult.Succeeded)
             {
                 StatusMessage = "Unexpected error when trying to set phone number.";

@@ -21,15 +21,15 @@ public class DeletePersonalDataModel : PageModel
         _logger = logger;
     }
 
-    [BindProperty]
-    public InputModel Input { get; set; }
-
     public class InputModel
     {
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
+
+    [BindProperty]
+    public InputModel Input { get; set; }
 
     public bool RequirePassword { get; set; }
 

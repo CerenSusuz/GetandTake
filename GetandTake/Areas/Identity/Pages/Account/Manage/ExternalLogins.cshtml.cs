@@ -51,7 +51,7 @@ public class ExternalLoginsModel : PageModel
             passwordHash = await userPasswordStore.GetPasswordHashAsync(user, HttpContext.RequestAborted);
         }
 
-        ShowRemoveButton = passwordHash != null || CurrentLogins.Count > 1;
+        ShowRemoveButton = !string.IsNullOrEmpty(passwordHash) || CurrentLogins.Count > 1;
         
         return Page();
     }

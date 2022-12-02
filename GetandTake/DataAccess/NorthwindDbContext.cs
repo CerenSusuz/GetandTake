@@ -7,15 +7,15 @@ namespace GetandTake.DataAccess;
 
 public class NorthwindDbContext : IdentityDbContext<IdentityUser>
 {
-    public NorthwindDbContext(
-        DbContextOptions<NorthwindDbContext> options) : base(options)
+    public NorthwindDbContext(DbContextOptions<NorthwindDbContext> options) : base(options)
     {
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(NorthwindDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(NorthwindDbContext).Assembly);        
     }
 
     public DbSet<Product> Products { get; set; }

@@ -38,16 +38,16 @@ public class DownloadPersonalDataModel : PageModel
         var personalDataProps = typeof(IdentityUser).GetProperties().Where(
                         prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
         
-        foreach (var p in personalDataProps)
+        foreach (var property in personalDataProps)
         {
-            personalData.Add(p.Name, p.GetValue(user)?.ToString() ?? "null");
+            personalData.Add(property.Name, property.GetValue(user)?.ToString() ?? "null");
         }
 
         var logins = await _userManager.GetLoginsAsync(user);
         
-        foreach (var l in logins)
+        foreach (var loginProp in logins)
         {
-            personalData.Add($"{l.LoginProvider} external login provider key", l.ProviderKey);
+            personalData.Add($"{loginProp.LoginProvider} external login provider key", loginProp.ProviderKey);
         }
 
         personalData.Add($"Authenticator Key", await _userManager.GetAuthenticatorKeyAsync(user));

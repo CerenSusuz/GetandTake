@@ -33,14 +33,14 @@ public class EmailSenderManager : IEmailSender
                 await client.ConnectAsync(
                         _appSettings.EmailConfiguration.SmtpServer, 
                         _appSettings.EmailConfiguration.Port,
-                        true);
+                        useSsl: true);
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
                 await client.AuthenticateAsync(
                     _appSettings.EmailConfiguration.From,
                     _appSettings.EmailConfiguration.Password);
 
                 await client.SendAsync(mimeMessage);
-                await client.DisconnectAsync(true);
+                await client.DisconnectAsync(quit: true);
             }
 
         }

@@ -17,16 +17,6 @@ public class LoginModel : PageModel
         _logger = logger;
     }
 
-    [BindProperty]
-    public InputModel Input { get; set; }
-
-    public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
-    public string ReturnUrl { get; set; }
-
-    [TempData]
-    public string ErrorMessage { get; set; }
-
     public class InputModel
     {
         [Required]
@@ -40,6 +30,16 @@ public class LoginModel : PageModel
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
+
+    [BindProperty]
+    public InputModel Input { get; set; }
+
+    public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
+    public string ReturnUrl { get; set; }
+
+    [TempData]
+    public string ErrorMessage { get; set; }
 
     public async Task OnGetAsync(string returnUrl = null)
     {
@@ -63,31 +63,34 @@ public class LoginModel : PageModel
 
         ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-            
-            if (result.Succeeded)
-            {
-                _logger.LogInformation("User logged in.");
-                return LocalRedirect(returnUrl);
-            }
-            if (result.RequiresTwoFactor)
-            {
-                return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-            }
-            if (result.IsLockedOut)
-            {
-                _logger.LogWarning("User account locked out.");
-                return RedirectToPage("./Lockout");
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                return Page();
-            }
+            return Page();
         }
 
-        return Page();
+        var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+        if (result.Succeeded)
+        {
+            _logger.LogInformation("User logged in.");
+
+            return LocalRedirect(returnUrl);
+        }
+        if (result.RequiresTwoFactor)
+        {
+            return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, Input.RememberMe });
+        }
+        if (result.IsLockedOut)
+        {
+            _logger.LogWarning("User account locked out.");
+
+            return RedirectToPage("./Lockout");
+        }
+        else
+        {
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+
+            return Page();
+        }
     }
 }

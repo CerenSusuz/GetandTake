@@ -11,14 +11,8 @@ public class ResetPasswordModel : PageModel
 {
     private readonly UserManager<IdentityUser> _userManager;
 
-    public ResetPasswordModel(UserManager<IdentityUser> userManager)
-    {
-        _userManager = userManager;
-    }
-
-    [BindProperty]
-    public InputModel Input { get; set; }
-
+    public ResetPasswordModel(UserManager<IdentityUser> userManager) => _userManager = userManager;
+ 
     public class InputModel
     {
         [Required]
@@ -37,12 +31,14 @@ public class ResetPasswordModel : PageModel
 
         [Required]
         public string Code { get; set; }
-
     }
+
+    [BindProperty]
+    public InputModel Input { get; set; }
 
     public IActionResult OnGet(string code = null)
     {
-        if (code == null)
+        if (string.IsNullOrWhiteSpace(code))
         {
             return BadRequest("A code must be supplied for password reset.");
         }

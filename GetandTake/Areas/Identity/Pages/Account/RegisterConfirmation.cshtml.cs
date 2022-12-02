@@ -12,13 +12,8 @@ namespace GetandTake.Areas.Identity.Pages.Account;
 public class RegisterConfirmationModel : PageModel
 {
     private readonly UserManager<IdentityUser> _userManager;
-    private readonly IEmailSender _sender;
 
-    public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender sender)
-    {
-        _userManager = userManager;
-        _sender = sender;
-    }
+    public RegisterConfirmationModel(UserManager<IdentityUser> userManager) => _userManager = userManager;
 
     public string Email { get; set; }
 
@@ -28,11 +23,12 @@ public class RegisterConfirmationModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(string email, string returnUrl = null)
     {
-        if (email == null)
+        if (string.IsNullOrWhiteSpace(email))
         {
             return RedirectToPage("/Index");
         }
-        returnUrl = returnUrl ?? Url.Content("~/");
+
+        returnUrl ??= Url.Content("~/");
 
         var user = await _userManager.FindByEmailAsync(email);
         
