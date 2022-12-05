@@ -24,7 +24,12 @@ public class ConfirmEmailChangeModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(string userId, string email, string code)
     {
-        if (string.IsNullOrWhiteSpace(userId)|| string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(code))
+        var isAnyRequiredParamMissing =
+            string.IsNullOrWhiteSpace(userId) ||
+            string.IsNullOrWhiteSpace(email) ||
+            string.IsNullOrWhiteSpace(code);
+
+        if (isAnyRequiredParamMissing)
         {
             return RedirectToPage("/Index");
         }

@@ -68,7 +68,11 @@ public class LoginModel : PageModel
             return Page();
         }
 
-        var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        var result = await _signInManager.PasswordSignInAsync(
+            Input.Email, 
+            Input.Password,
+            Input.RememberMe,
+            lockoutOnFailure: false);
 
         if (result.Succeeded)
         {

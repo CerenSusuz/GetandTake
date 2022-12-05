@@ -57,7 +57,10 @@ public class ExternalLoginModel : PageModel
 
     public IActionResult OnPost(string provider, string returnUrl = null)
     {
-        var redirectUrl = Url.Page("./ExternalLogin", pageHandler: "Callback", values: new { returnUrl });
+        var redirectUrl = Url.Page(
+            "./ExternalLogin",
+            pageHandler: "Callback",
+            values: new { returnUrl });
         var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
         
         return new ChallengeResult(provider, properties);
@@ -82,7 +85,11 @@ public class ExternalLoginModel : PageModel
             return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
         }
 
-        var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+        var result = await _signInManager.ExternalLoginSignInAsync(
+            info.LoginProvider, 
+            info.ProviderKey, 
+            isPersistent: false, 
+            bypassTwoFactor: true);
         
         if (result.Succeeded)
         {
