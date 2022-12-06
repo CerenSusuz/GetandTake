@@ -23,11 +23,11 @@ public static class AppSettingsExtensions
             .Get<LogFilterSettings>();  
         
         var githubSettings = configuration
-            .GetSection(nameof(AppSettings.GithubParameters))
+            .GetSection(nameof(AppSettings.GithubSettings))
             .Get<GithubSettings>();
 
         var emailConfiguration = configuration
-            .GetSection(nameof(AppSettings.EmailConfiguration))
+            .GetSection(nameof(AppSettings.EmailSettings))
             .Get<EmailSettings>();
 
         var appSettings = new AppSettings
@@ -36,8 +36,8 @@ public static class AppSettingsExtensions
             Products = productSettings,
             Host = hostSettings,
             LoggingParameters = logFilterSettings,
-            GithubParameters = githubSettings,
-            EmailConfiguration = emailConfiguration
+            GithubSettings = githubSettings,
+            EmailSettings = emailConfiguration
         };
 
         return appSettings;

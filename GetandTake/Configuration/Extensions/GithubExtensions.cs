@@ -11,9 +11,9 @@ public static class GithubExtensions
         services.AddAuthentication()
             .AddGitHub(options =>
             {
-                options.ClientId = appSettings.GithubParameters.ClientId;
-                options.ClientSecret = appSettings.GithubParameters.ClientSecret;
-                options.CallbackPath = appSettings.GithubParameters.CallbackPath;
+                options.ClientId = appSettings.GithubSettings.ClientId;
+                options.ClientSecret = appSettings.GithubSettings.ClientSecret;
+                options.CallbackPath = appSettings.GithubSettings.CallbackPath;
             });
     }
 }

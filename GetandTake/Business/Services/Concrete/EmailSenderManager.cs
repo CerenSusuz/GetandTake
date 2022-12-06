@@ -17,10 +17,10 @@ public class EmailSenderManager : IEmailSender
         {
             var mimeMessage = new MimeMessage();
             mimeMessage.From.Add(new MailboxAddress(
-                _appSettings.EmailConfiguration.UserName,
-                _appSettings.EmailConfiguration.From));
+                _appSettings.EmailSettings.UserName,
+                _appSettings.EmailSettings.From));
 
-            mimeMessage.To.Add(new MailboxAddress(_appSettings.EmailConfiguration.UserName, email));
+            mimeMessage.To.Add(new MailboxAddress(_appSettings.EmailSettings.UserName, email));
             mimeMessage.Subject = subject;
             mimeMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -31,13 +31,13 @@ public class EmailSenderManager : IEmailSender
             {
                 
                 await client.ConnectAsync(
-                        _appSettings.EmailConfiguration.SmtpServer, 
-                        _appSettings.EmailConfiguration.Port,
+                        _appSettings.EmailSettings.SmtpServer, 
+                        _appSettings.EmailSettings.Port,
                         useSsl: true);
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
                 await client.AuthenticateAsync(
-                    _appSettings.EmailConfiguration.From,
-                    _appSettings.EmailConfiguration.Password);
+                    _appSettings.EmailSettings.From,
+                    _appSettings.EmailSettings.Password);
 
                 await client.SendAsync(mimeMessage);
                 await client.DisconnectAsync(quit: true);

@@ -12,9 +12,9 @@ public class AppSettings : IValidatable
 
     public LogFilterSettings LoggingParameters { get; set; }
 
-    public GithubSettings GithubParameters { get; set; }
+    public GithubSettings GithubSettings { get; set; }
 
-    public EmailSettings EmailConfiguration { get; set; }
+    public EmailSettings EmailSettings { get; set; }
 
     public void Validate()
     {
@@ -22,7 +22,7 @@ public class AppSettings : IValidatable
         Products.Validate();
         Host.Validate();
         LoggingParameters.Validate();
-        GithubParameters.Validate();
-        EmailConfiguration.Validate();
+        GithubSettings.Validate();
+        EmailSettings.Validate();
     }
 }
