@@ -3,6 +3,8 @@ using GetandTake.Configuration.Settings;
 using GetandTake.Models.DTOs.ResponseDTO;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartBreadcrumbs.Attributes;
+using System.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GetandTake.Pages.Categories;
 

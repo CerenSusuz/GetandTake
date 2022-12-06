@@ -5,6 +5,7 @@ using GetandTake.Core.Extensions;
 using GetandTake.Core.Utilities.IoC;
 using GetandTake.DataAccess;
 using GetandTake.Startup.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
 namespace GetandTake.Startup.Extensions;
@@ -13,6 +14,13 @@ public static class ServicesConfigurationExtensions
 {
     public static void Configure(this IServiceCollection services, AppSettings appSettings)
     {
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+            });
+
         services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
@@ -34,7 +42,8 @@ public static class ServicesConfigurationExtensions
                 options.Lockout.AllowedForNewUsers = true;
             })
             .AddEntityFrameworkStores<NorthwindDbContext>()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders()
+            .AddRoles<IdentityRole>();
 
         services.AddDependencyResolvers(new ICoreModule[]
         {
