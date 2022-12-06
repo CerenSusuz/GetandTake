@@ -20,8 +20,8 @@ public static class AppSettingsExtensions
 
         var logFilterSettings = configuration
             .GetSection(nameof(AppSettings.LoggingParameters))
-            .Get<LogFilterSettings>();  
-        
+            .Get<LogFilterSettings>();
+
         var githubSettings = configuration
             .GetSection(nameof(AppSettings.GithubSettings))
             .Get<GithubSettings>();
@@ -30,6 +30,10 @@ public static class AppSettingsExtensions
             .GetSection(nameof(AppSettings.EmailSettings))
             .Get<EmailSettings>();
 
+         var azureAdSettings = configuration
+            .GetSection(nameof(AzureAdSettings))
+            .Get<AzureAdSettings>();
+
         var appSettings = new AppSettings
         {
             Database = databaseSettings,
@@ -37,7 +41,8 @@ public static class AppSettingsExtensions
             Host = hostSettings,
             LoggingParameters = logFilterSettings,
             GithubSettings = githubSettings,
-            EmailSettings = emailConfiguration
+            EmailSettings = emailConfiguration,
+            AzureAdSettings= azureAdSettings,
         };
 
         return appSettings;

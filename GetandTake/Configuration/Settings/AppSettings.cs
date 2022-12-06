@@ -16,6 +16,8 @@ public class AppSettings : IValidatable
 
     public EmailSettings EmailSettings { get; set; }
 
+    public AzureAdSettings AzureAdSettings { get; set; }
+
     public void Validate()
     {
         Database.Validate();
@@ -24,5 +26,6 @@ public class AppSettings : IValidatable
         LoggingParameters.Validate();
         GithubSettings.Validate();
         EmailSettings.Validate();
+        AzureAdSettings.Validate();
     }
 }
