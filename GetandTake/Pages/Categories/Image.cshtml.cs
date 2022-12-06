@@ -2,8 +2,6 @@ using GetandTake.Business.Services.Abstract;
 using GetandTake.Configuration.Settings;
 using GetandTake.Models.DTOs.ResponseDTO;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Data;
-using Microsoft.AspNetCore.Authorization;
 
 namespace GetandTake.Pages.Categories;
 

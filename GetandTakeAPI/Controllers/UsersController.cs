@@ -9,7 +9,7 @@ namespace GetandTakeAPI.Controllers;
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "Admin")]
 public class UsersController : Controller
 {
     private readonly UserManager<IdentityUser> _userManager;
