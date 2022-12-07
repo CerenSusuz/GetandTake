@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
+using GetandTake.Core.Models.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -14,6 +15,7 @@ public class RegisterModel : PageModel
 {
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IUserStore<IdentityUser> _userStore;
     private readonly IUserEmailStore<IdentityUser> _emailStore;
     private readonly ILogger<RegisterModel> _logger;
@@ -21,6 +23,7 @@ public class RegisterModel : PageModel
 
     public RegisterModel(
         UserManager<IdentityUser> userManager,
+        RoleManager<IdentityRole> roleManager,
         IUserStore<IdentityUser> userStore,
         SignInManager<IdentityUser> signInManager,
         ILogger<RegisterModel> logger,
@@ -31,6 +34,7 @@ public class RegisterModel : PageModel
         _emailStore = GetEmailStore();
         _signInManager = signInManager;
         _logger = logger;
+        _roleManager = roleManager;
         _emailSender = emailSender;
     }
 
@@ -84,6 +88,18 @@ public class RegisterModel : PageModel
                 ModelState.AddModelError(string.Empty, error.Description);
             }
         }
+
+        if (!await _roleManager.RoleExistsAsync(Role.Admin))
+        {
+            await _roleManager.CreateAsync(new IdentityRole(Role.Admin));
+        }
+
+        if (!await _roleManager.RoleExistsAsync(Role.User))
+        {
+            await _roleManager.CreateAsync(new IdentityRole(Role.User));
+        }
+
+        await _userManager.AddToRoleAsync(user, Role.User);
 
         _logger.LogInformation("User created a new account with password.");
 

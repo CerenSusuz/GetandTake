@@ -1,3 +1,4 @@
+using GetandTake.Core.Models.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -5,7 +6,7 @@ using SmartBreadcrumbs.Attributes;
 
 namespace GetandTake.Pages.Users;
 
-[Authorize(Roles = "Admin, User")]
+[Authorize(Roles = Role.Admin)]
 [Breadcrumb("Users", FromPage = typeof(IndexModel))]
 public class UserModel : PageModel
 {
