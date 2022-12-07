@@ -9,6 +9,8 @@ public class HostSettings : IValidatable
 
     public void Validate()
     {
-        Validator.ValidateObject(this, new ValidationContext(this), true);
+        Validator.ValidateObject(instance: this,
+            new ValidationContext(this),
+            validateAllProperties: true);
     }
 }

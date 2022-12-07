@@ -9,9 +9,10 @@ var appSettings = builder.Configuration.ReadAppSettings();
 appSettings.Validate();
 
 builder.Services.Configure(appSettings);
+builder.Services.RegisterAzure(builder.Configuration, appSettings);
 
 var app = builder.Build();
 
-app.Configure(appSettings);
+app.Configure();
 
 app.Run();

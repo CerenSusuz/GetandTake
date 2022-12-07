@@ -5,10 +5,13 @@ namespace GetandTake.Configuration.Settings;
 
 public class DatabaseSettings : IValidatable
 {
+    [Required]
     public string DefaultConnection { get; set; }
 
     public void Validate()
     {
-        Validator.ValidateObject(this, new ValidationContext(this), true);
+        Validator.ValidateObject(instance: this,
+            new ValidationContext(this),
+            validateAllProperties: true);
     }
 }

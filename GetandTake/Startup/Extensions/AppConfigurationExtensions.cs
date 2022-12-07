@@ -1,12 +1,11 @@
 ﻿using GetandTake.Configuration.Extensions;
-using GetandTake.Configuration.Settings;
 using GetandTake.Middlewares;
 
 namespace GetandTake.Startup.Extensions;
 
 public static class AppConfigurationExtensions
 {
-    public static void Configure(this WebApplication app, AppSettings appSettings)
+    public static void Configure(this WebApplication app)
     {
         if (!app.Environment.IsDevelopment())
         {

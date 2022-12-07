@@ -1,0 +1,20 @@
+﻿@page
+@model GetandTake.Pages.Users.UserModel
+
+@section Title
+    {
+    <h5 class="title">Users</h5>
+}
+
+<div class="col-md-3">
+    @foreach (var user in Model.Users)
+    {
+        <div>
+            <div class="card border-dark  text-white m-2">
+                <div class="card-body m-2">
+                    <h5 class="card-title text-dark">@user.Email</h5>
+                </div>
+            </div>
+        </div>
+    }
+</div>

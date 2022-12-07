@@ -5,6 +5,7 @@ using GetandTake.Core.CrossCuttingConcerns.Caching.Microsoft;
 using GetandTake.Core.CrossCuttingConcerns.Caching;
 using GetandTake.DataAccess.Repositories.Abstract;
 using GetandTake.DataAccess.Repositories.Concrete;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace GetandTake.Configuration.Extensions;
 
@@ -27,5 +28,7 @@ public static class ServiceExtensions
 
         services.AddMemoryCache();
         services.AddSingleton<ICacheService, MemoryCacheManager>();
+
+        services.AddScoped<IEmailSender, EmailSenderManager>();
     }
 }

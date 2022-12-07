@@ -9,6 +9,7 @@ using Autofac.Extras.DynamicProxy;
 using GetandTake.Business.Services.Concrete;
 using GetandTake.Business.Services.Abstract;
 using GetandTake.Core.Utilities.Interceptors;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace GetandTake.Business.DependencyResolvers.Autofac;
 
@@ -25,6 +26,8 @@ public class AutofacBusinessModule : Module
         builder.RegisterType<Mapper>().As<IMapper>().SingleInstance();
 
         builder.RegisterType<MemoryCacheManager>().As<ICacheService>().SingleInstance();
+
+        builder.RegisterType<EmailSenderManager>().As<IEmailSender>().SingleInstance();
 
         var assembly = Assembly.GetExecutingAssembly();
 
