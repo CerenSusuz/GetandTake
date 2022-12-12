@@ -1,11 +1,13 @@
 using GetandTake.Business.Services.Abstract;
 using GetandTake.Configuration.Settings;
 using GetandTake.Models.DTOs.ResponseDTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartBreadcrumbs.Attributes;
 
 namespace GetandTake.Pages.Products;
 
+[AllowAnonymous]
 [Breadcrumb("Products", FromPage = typeof(IndexModel))]
 public class ProductModel : PageModel
 {
