@@ -2,6 +2,7 @@
 using GetandTake.Configuration.Settings;
 using GetandTake.Core.DependencyResolvers;
 using GetandTake.Core.Extensions;
+using GetandTake.Core.Models.Account;
 using GetandTake.Core.Utilities.IoC;
 using GetandTake.DataAccess;
 using GetandTake.Startup.Configuration;
@@ -21,7 +22,7 @@ public static class ServicesConfigurationExtensions
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
-        services.AddIdentity<IdentityUser, IdentityRole>(options =>
+        services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
                 options.SignIn.RequireConfirmedAccount = true;
@@ -42,6 +43,7 @@ public static class ServicesConfigurationExtensions
                 options.Lockout.AllowedForNewUsers = true;
             })
             .AddEntityFrameworkStores<NorthwindDbContext>()
+            .AddDefaultUI()
             .AddDefaultTokenProviders()
             .AddRoles<IdentityRole>();
 
