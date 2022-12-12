@@ -12,13 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GetandTake.Migrations
 {
     [DbContext(typeof(NorthwindDbContext))]
-    [Migration("20221201120735_createdb")]
-    partial class createdb
+    [Migration("20221212194139_Renamed Identity Table Names")]
+    partial class RenamedIdentityTableNames
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Identity")
                 .HasAnnotation("ProductVersion", "6.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -47,7 +48,7 @@ namespace GetandTake.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories", "Identity");
                 });
 
             modelBuilder.Entity("GetandTake.Models.Product", b =>
@@ -94,7 +95,7 @@ namespace GetandTake.Migrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products", "Identity");
                 });
 
             modelBuilder.Entity("GetandTake.Models.Supplier", b =>
@@ -141,7 +142,7 @@ namespace GetandTake.Migrations
 
                     b.HasKey("SupplierID");
 
-                    b.ToTable("Suppliers", (string)null);
+                    b.ToTable("Suppliers", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -168,7 +169,7 @@ namespace GetandTake.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Role", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -193,7 +194,7 @@ namespace GetandTake.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -258,7 +259,7 @@ namespace GetandTake.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("User", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -283,7 +284,7 @@ namespace GetandTake.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -305,7 +306,7 @@ namespace GetandTake.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -320,7 +321,7 @@ namespace GetandTake.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -339,7 +340,7 @@ namespace GetandTake.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UserTokens", "Identity");
                 });
 
             modelBuilder.Entity("GetandTake.Models.Product", b =>
