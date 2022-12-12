@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
+using GetandTake.Core.Models.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -91,6 +93,7 @@ public class RegisterModel : PageModel
         _logger.LogInformation("User created a new account with password.");
 
         var userId = await _userManager.GetUserIdAsync(user);
+        await _userManager.AddToRoleAsync(user, Role.User.ToString());
         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         var callbackUrl = Url.Page(

@@ -6,7 +6,7 @@ using GetandTake.Core.Models.Account;
 
 namespace GetandTake.DataAccess;
 
-public class NorthwindDbContext : IdentityDbContext<ApplicationUser>
+public class NorthwindDbContext : IdentityDbContext<IdentityUser>
 {
     public NorthwindDbContext(DbContextOptions<NorthwindDbContext> options) : base(options)
     {
@@ -16,7 +16,6 @@ public class NorthwindDbContext : IdentityDbContext<ApplicationUser>
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.HasDefaultSchema("Identity");
         modelBuilder.Entity<IdentityUser>(entity =>
         {
             entity.ToTable(name: "User");

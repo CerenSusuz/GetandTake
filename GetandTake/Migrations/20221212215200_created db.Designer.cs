@@ -12,14 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GetandTake.Migrations
 {
     [DbContext(typeof(NorthwindDbContext))]
-    [Migration("20221212194139_Renamed Identity Table Names")]
-    partial class RenamedIdentityTableNames
+    [Migration("20221212215200_created db")]
+    partial class createddb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("Identity")
                 .HasAnnotation("ProductVersion", "6.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -48,7 +47,7 @@ namespace GetandTake.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories", "Identity");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("GetandTake.Models.Product", b =>
@@ -95,7 +94,7 @@ namespace GetandTake.Migrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("Products", "Identity");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("GetandTake.Models.Supplier", b =>
@@ -142,7 +141,7 @@ namespace GetandTake.Migrations
 
                     b.HasKey("SupplierID");
 
-                    b.ToTable("Suppliers", "Identity");
+                    b.ToTable("Suppliers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -169,7 +168,7 @@ namespace GetandTake.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Role", "Identity");
+                    b.ToTable("Role", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -194,7 +193,7 @@ namespace GetandTake.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims", "Identity");
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -259,7 +258,7 @@ namespace GetandTake.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("User", "Identity");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -284,7 +283,7 @@ namespace GetandTake.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims", "Identity");
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -306,7 +305,7 @@ namespace GetandTake.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins", "Identity");
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -321,7 +320,7 @@ namespace GetandTake.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", "Identity");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -340,7 +339,7 @@ namespace GetandTake.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("UserTokens", "Identity");
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("GetandTake.Models.Product", b =>

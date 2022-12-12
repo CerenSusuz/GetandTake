@@ -6,7 +6,7 @@ using SmartBreadcrumbs.Attributes;
 
 namespace GetandTake.Pages.Users;
 
-[Authorize(Roles = Role.Admin)]
+[Authorize(Roles = Role.User)]
 [Breadcrumb("Users", FromPage = typeof(IndexModel))]
 public class UserModel : PageModel
 {
@@ -21,6 +21,6 @@ public class UserModel : PageModel
 
     public void OnGet()
     {
-        Users = _userManager.Users.ToList();    
+        Users = _userManager.Users.ToList();
     }
 }

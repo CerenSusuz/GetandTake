@@ -30,9 +30,9 @@ public static class AppSettingsExtensions
             .GetSection(nameof(AppSettings.EmailSettings))
             .Get<EmailSettings>();
 
-         var azureAdSettings = configuration
-            .GetSection(nameof(AzureAdSettings))
-            .Get<AzureAdSettings>();
+        var azureAdSettings = configuration
+           .GetSection(nameof(AzureAdSettings))
+           .Get<AzureAdSettings>();
 
         var appSettings = new AppSettings
         {
@@ -42,7 +42,7 @@ public static class AppSettingsExtensions
             LoggingParameters = logFilterSettings,
             GithubSettings = githubSettings,
             EmailSettings = emailConfiguration,
-            AzureAdSettings= azureAdSettings,
+            AzureAdSettings = azureAdSettings,
         };
 
         return appSettings;

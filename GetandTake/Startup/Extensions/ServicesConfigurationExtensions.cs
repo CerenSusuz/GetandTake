@@ -2,12 +2,14 @@
 using GetandTake.Configuration.Settings;
 using GetandTake.Core.DependencyResolvers;
 using GetandTake.Core.Extensions;
-using GetandTake.Core.Models.Account;
 using GetandTake.Core.Utilities.IoC;
 using GetandTake.DataAccess;
+using GetandTake.DataAccess.Seed;
 using GetandTake.Startup.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace GetandTake.Startup.Extensions;
 
@@ -22,7 +24,7 @@ public static class ServicesConfigurationExtensions
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
-        services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+        services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
                 options.SignIn.RequireConfirmedAccount = true;
@@ -44,12 +46,11 @@ public static class ServicesConfigurationExtensions
             })
             .AddEntityFrameworkStores<NorthwindDbContext>()
             .AddDefaultUI()
-            .AddDefaultTokenProviders()
-            .AddRoles<IdentityRole>();
+        .AddDefaultTokenProviders();
 
         services.AddDependencyResolvers(new ICoreModule[]
         {
-            new CoreModule()
+        new CoreModule()
         });
 
         const int MaximumBodySizeValue = 1024;
