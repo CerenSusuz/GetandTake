@@ -89,18 +89,6 @@ public class RegisterModel : PageModel
             }
         }
 
-        if (!await _roleManager.RoleExistsAsync(Role.Admin))
-        {
-            await _roleManager.CreateAsync(new IdentityRole(Role.Admin));
-        }
-
-        if (!await _roleManager.RoleExistsAsync(Role.User))
-        {
-            await _roleManager.CreateAsync(new IdentityRole(Role.User));
-        }
-
-        await _userManager.AddToRoleAsync(user, Role.User);
-
         _logger.LogInformation("User created a new account with password.");
 
         var userId = await _userManager.GetUserIdAsync(user);
