@@ -14,12 +14,10 @@ public class UserModel : PageModel
 
     public IEnumerable<IdentityUser> Users { get; private set; }
 
-    public UserModel(UserManager<IdentityUser> userManager)
-    {
-        _userManager = userManager;
-    }
+    public UserModel(UserManager<IdentityUser> userManager)=> _userManager = userManager;
 
-    public void OnGet()
+
+    public async Task OnGet()
     {
         Users = _userManager.Users.ToList();
     }
