@@ -1,6 +1,7 @@
 ﻿using GetandTake.Configuration.Extensions;
 using GetandTake.Middlewares;
 using Microsoft.AspNetCore.HttpOverrides;
+using GetandTake.Startup.Configuration;
 
 namespace GetandTake.Startup.Extensions;
 
@@ -26,6 +27,8 @@ public static class AppConfigurationExtensions
             .AllowAnyMethod()
             .AllowCredentials()
         );
+
+        app.ConfigureSeedData();
 
         app.UseStaticFiles();
 
