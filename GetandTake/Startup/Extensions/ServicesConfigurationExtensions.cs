@@ -4,18 +4,17 @@ using GetandTake.Core.DependencyResolvers;
 using GetandTake.Core.Extensions;
 using GetandTake.Core.Utilities.IoC;
 using GetandTake.DataAccess;
-using GetandTake.DataAccess.Seed;
 using GetandTake.Startup.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace GetandTake.Startup.Extensions;
 
 public static class ServicesConfigurationExtensions
 {
-    public static void Configure(this IServiceCollection services, AppSettings appSettings)
+    public static void Configure(
+        this IServiceCollection services,
+        AppSettings appSettings)
     {
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
