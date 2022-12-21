@@ -14,7 +14,7 @@ public static class AzureAdExtensions
         services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
             .AddAzureAD(options =>
             {
-                configuration.Bind(nameof(appSettings.AzureAdSettings), options);
+                configuration.Bind(nameof(appSettings.AzureAd), options);
             });
     }
 }
