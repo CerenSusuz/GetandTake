@@ -8,7 +8,9 @@ using GetandTake.DataAccess.Seed;
 using GetandTake.Startup.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Logging;
+using System.IO.Compression;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace GetandTake.Startup.Extensions;
@@ -47,6 +49,20 @@ public static class ServicesConfigurationExtensions
             .AddEntityFrameworkStores<NorthwindDbContext>()
             .AddDefaultUI()
         .AddDefaultTokenProviders();
+
+        services.AddResponseCompression(options =>
+        {
+            options.EnableForHttps = true;
+            options.Providers.Add<GzipCompressionProvider>();
+            options.MimeTypes =
+            ResponseCompressionDefaults.MimeTypes.Concat(
+                new[] { "image/svg+xml" });
+        });
+
+        services.Configure<GzipCompressionProviderOptions>(options =>
+        {
+            options.Level = CompressionLevel.SmallestSize;
+        });
 
         services.AddDependencyResolvers(new ICoreModule[]
         {
